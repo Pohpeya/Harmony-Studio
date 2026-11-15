@@ -13,7 +13,7 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="is-home">
 
   <!-- Top Navigation / App Header -->
   <header class="app-header">
@@ -69,132 +69,65 @@
   <section id="view-home" class="view-section active">
     <div class="home-container">
       <div class="home-hero">
-        <h2>🎼 ยินดีต้อนรับสู่ Harmony Studio</h2>
-        <p>
-          เว็บแอพสำหรับเรียนรู้และฝึกทักษะทฤษฎีดนตรีสากลและการประสานเสียง 4 แนว ครบวงจรตั้งแต่พื้นฐานโครงสร้างคอร์ด 12 คีย์
-          การพลิกกลับของคอร์ด (Inversions) ไปจนถึงการเขียนและตรวจการบ้าน Root Position Part Writing พร้อมเสียง Grand Piano และ Electric Piano
-        </p>
+        <h2>🎼 เลือกหัวข้อบทเรียน</h2>
       </div>
 
       <div class="menu-cards-grid">
-        <!-- หน้า 2: โน้ตในคอร์ด 12 คีย์ -->
-        <div class="menu-card" onclick="window.switchAppView('chords')">
-          <div>
-            <span class="menu-card-badge" style="background: #dbeafe; color: #1d4ed8;">หน้า 2 • พื้นฐานคอร์ด</span>
-            <h3>🎹 โน้ตในคอร์ด 12 คีย์ (Triads &amp; 7th Chords)</h3>
-            <p>
-              เรียนรู้โครงสร้างและฝึกเขียนโน้ตในคอร์ดครบทั้ง 12 คีย์ ครอบคลุมคอร์ด 4 ชนิดทั้งแบบ Triad และ 7th Chord บนบรรทัด 5 เส้น
-            </p>
-            <ul>
-              <li>คอร์ด 4 ชนิด: <strong>Major, Minor, Diminished, Augmented</strong></li>
-              <li>มีบทเรียน + โน้ตตัวอย่างบนบรรทัด 5 เส้น พร้อมกดฟังเสียง</li>
-              <li>ตรวจทั้งระดับเสียง (MIDI) และการสะกดตัวโน้ต (Spelling)</li>
-            </ul>
+        <button type="button" class="menu-card" onclick="window.switchAppView('chords')">
+          <div class="menu-card-main">
+            <span class="menu-card-badge" style="background: #dbeafe; color: #1d4ed8;">หน้า 2</span>
+            <h3>🎹 โน้ตในคอร์ด 12 คีย์ (Triads &amp; 7th)</h3>
           </div>
-          <button class="btn btn-primary" style="width: 100%; justify-content: center;">เข้าสู่หน้า 2 • บทเรียน &amp; แบบฝึกหัด →</button>
-        </div>
+          <span class="menu-card-cta" style="background: #2563eb;">เลือก →</span>
+        </button>
 
-        <!-- หน้า 3: การพลิกกลับของคอร์ด -->
-        <div class="menu-card" onclick="window.switchAppView('inversions')">
-          <div>
-            <span class="menu-card-badge" style="background: #ede9fe; color: #6d28d9;">หน้า 3 • การพลิกกลับ</span>
-            <h3>🔄 การพลิกกลับของ Triad และ 7th Chord</h3>
-            <p>
-              ศึกษาและฝึกวางโน้ตคอร์ดพลิกกลับ (Inversions) ครบทุกตำแหน่ง ทั้ง Triad และ 7th Chord ใน 12 คีย์ และคอร์ด 4 ชนิด
-            </p>
-            <ul>
-              <li>Triads: <strong>Root, 1st Inv (⁶), 2nd Inv (⁶₄)</strong></li>
-              <li>7th Chords: <strong>⁷, ⁶₅, ⁴₃, ⁴₂</strong> พร้อมโน้ตตัวอย่าง</li>
-              <li>ตรวจความถูกต้องของโน้ตเบส (Bass) และการสะกดโน้ต</li>
-            </ul>
+        <button type="button" class="menu-card" onclick="window.switchAppView('inversions')">
+          <div class="menu-card-main">
+            <span class="menu-card-badge" style="background: #ede9fe; color: #6d28d9;">หน้า 3</span>
+            <h3>🔄 การพลิกกลับของคอร์ด (Inversions)</h3>
           </div>
-          <button class="btn btn-primary" style="width: 100%; justify-content: center; background: #7c3aed;">เข้าสู่หน้า 3 • บทเรียน &amp; แบบฝึกหัด →</button>
-        </div>
+          <span class="menu-card-cta" style="background: #7c3aed;">เลือก →</span>
+        </button>
 
-        <!-- หน้า 4: Major Mode & Tetrachord -->
-        <div class="menu-card" onclick="window.switchAppView('modes')">
-          <div>
-            <span class="menu-card-badge" style="background: #e0f2fe; color: #0369a1;">หน้า 4 • Modes &amp; Tetrachord</span>
+        <button type="button" class="menu-card" onclick="window.switchAppView('modes')">
+          <div class="menu-card-main">
+            <span class="menu-card-badge" style="background: #e0f2fe; color: #0369a1;">หน้า 4</span>
             <h3>🎭 Major Mode (7 Modes &amp; Tetrachord)</h3>
-            <p>
-              เข้าใจโครงสร้าง 4 Tetrachord (Major, Minor, Phrygian, Wholetone) และ Mode ทั้ง 7 ใน Major Scale พร้อม 3 วิธีคิดและ Chord Family
-            </p>
-            <ul>
-              <li>ฟังเสียง + ดูตำแหน่งครึ่งเสียง (<strong>^</strong>) ของทั้ง 7 Modes บนบรรทัด 5 เส้น</li>
-              <li>เปรียบเทียบ Major Chord Family (3 Modes) vs Minor Chord Family (4 Modes)</li>
-              <li>แบบฝึกหัดวิเคราะห์ Mode, Tetrachord และสูตรโครงสร้าง</li>
-            </ul>
           </div>
-          <button class="btn btn-primary" style="width: 100%; justify-content: center; background: #0284c7;">เข้าสู่หน้า 4 • บทเรียน &amp; แบบฝึกหัด →</button>
-        </div>
+          <span class="menu-card-cta" style="background: #0284c7;">เลือก →</span>
+        </button>
 
-        <!-- หน้า 5: Figured Bass -->
-        <div class="menu-card" onclick="window.switchAppView('figuredbass')">
-          <div>
-            <span class="menu-card-badge" style="background: #fce7f3; color: #be185d;">หน้า 5 • Basso Continuo</span>
-            <h3>🔢 Figured Bass (สัญลักษณ์ตัวเลขใต้นิ้วเบส)</h3>
-            <p>
-              เรียนรู้ระบบ Basso Continuo ยุคบาโรก ความหมายตัวเลขขั้นคู่เหนือเบส การย่อตัวเลข Triad/7th และกฎเครื่องหมายแปลงเสียง
-            </p>
-            <ul>
-              <li>ตัวเลขย่อ Triad (<strong>Blank, 6, 6/4</strong>) และ 7th (<strong>7, 6/5, 4/3, 4/2</strong>)</li>
-              <li>กฎ Orphaned Accidental และสัญลักษณ์ขีดทับ / เครื่องหมาย <strong>+</strong></li>
-              <li>ตัวอย่าง Bass Clef กดฟังเสียงได้จริง + แบบฝึกหัดวิเคราะห์</li>
-            </ul>
+        <button type="button" class="menu-card" onclick="window.switchAppView('figuredbass')">
+          <div class="menu-card-main">
+            <span class="menu-card-badge" style="background: #fce7f3; color: #be185d;">หน้า 5</span>
+            <h3>🔢 Figured Bass</h3>
           </div>
-          <button class="btn btn-primary" style="width: 100%; justify-content: center; background: #be185d;">เข้าสู่หน้า 5 • บทเรียน &amp; แบบฝึกหัด →</button>
-        </div>
+          <span class="menu-card-cta" style="background: #be185d;">เลือก →</span>
+        </button>
 
-        <!-- หน้า 6: Diatonic Sub & Chord Spelling -->
-        <div class="menu-card" onclick="window.switchAppView('diatonicsub')">
-          <div>
-            <span class="menu-card-badge" style="background: #ccfbf1; color: #0f766e;">หน้า 6 • การแทนคอร์ด</span>
-            <h3>🔁 Diatonic Substitution &amp; Chord Spelling</h3>
-            <p>
-              หลักการแทนคอร์ดในคีย์เดียวกันโดยใช้โน้ตร่วมตั้งแต่ 2 ตัวขึ้นไป และสูตรความสัมพันธ์จากการพลิกโน้ต 1 ตัว (Minor7 ↔ Major6, Halfdim7 ↔ Minor6)
-            </p>
-            <ul>
-              <li>การแทนคอร์ด Triad (คล้ายเดิม <strong>66.66%</strong>) และ 7th (<strong>50%</strong>)</li>
-              <li>คู่เทียบ <strong>I↔iii, ii↔IV, V↔vii</strong> และโน้ตตัวอย่างเทียบเสียง</li>
-              <li>แบบฝึกหัดวิเคราะห์คู่แทนคอร์ดและสูตร Chord Spelling</li>
-            </ul>
+        <button type="button" class="menu-card" onclick="window.switchAppView('diatonicsub')">
+          <div class="menu-card-main">
+            <span class="menu-card-badge" style="background: #ccfbf1; color: #0f766e;">หน้า 6</span>
+            <h3>🔁 Diatonic Sub &amp; Chord Spelling</h3>
           </div>
-          <button class="btn btn-primary" style="width: 100%; justify-content: center; background: #0f766e;">เข้าสู่หน้า 6 • บทเรียน &amp; แบบฝึกหัด →</button>
-        </div>
+          <span class="menu-card-cta" style="background: #0f766e;">เลือก →</span>
+        </button>
 
-        <!-- หน้า 7: Cadence -->
-        <div class="menu-card" onclick="window.switchAppView('cadence')">
-          <div>
-            <span class="menu-card-badge" style="background: #fef3c7; color: #b45309;">หน้า 7 • การจบประโยคเพลง</span>
-            <h3>🎯 Cadence (Authentic, Plagal, Half, Deceptive)</h3>
-            <p>
-              เรียนรู้รูปแบบการจบวลีดนตรีทั้ง 4 ชนิด พร้อมตารางเทียบชื่อระบบอเมริกัน–อังกฤษ ตัวอย่างโน้ต 4 แนวและแบบฝึกหัดวิเคราะห์เสียง
-            </p>
-            <ul>
-              <li>เปรียบเทียบ <strong>American vs British</strong> และระดับ PAC / IAC</li>
-              <li>ตัวอย่างโน้ต Grand Staff พร้อมกดฟังเสียงจริงทุกชนิด</li>
-              <li>แบบฝึกหัดวิเคราะห์ Cadence ทั้งภาพโน้ตและเสียง</li>
-            </ul>
+        <button type="button" class="menu-card" onclick="window.switchAppView('cadence')">
+          <div class="menu-card-main">
+            <span class="menu-card-badge" style="background: #fef3c7; color: #b45309;">หน้า 7</span>
+            <h3>🎯 Cadence</h3>
           </div>
-          <button class="btn btn-primary" style="width: 100%; justify-content: center; background: linear-gradient(135deg, #d97706 0%, #b45309 100%);">เข้าสู่หน้า 7 • บทเรียน &amp; แบบฝึกหัด →</button>
-        </div>
+          <span class="menu-card-cta" style="background: #d97706;">เลือก →</span>
+        </button>
 
-        <!-- หน้า 8: Root Position Part Writing -->
-        <div class="menu-card" onclick="window.switchAppView('partwriting')">
-          <div>
-            <span class="menu-card-badge" style="background: #dcfce7; color: #15803d;">หน้า 8 • การประสานเสียง 4 แนว</span>
+        <button type="button" class="menu-card" onclick="window.switchAppView('partwriting')">
+          <div class="menu-card-main">
+            <span class="menu-card-badge" style="background: #dcfce7; color: #15803d;">หน้า 8</span>
             <h3>🎼 Root Position Part Writing (SATB)</h3>
-            <p>
-              ระบบเขียนและตรวจการบ้านการประสานเสียง 4 แนว (Soprano, Alto, Tenor, Bass) อัตโนมัติ พร้อมแบบฝึกหัด 16 ข้อตามระยะเบส
-            </p>
-            <ul>
-              <li>ตรวจ Parallel 5ths/8ves, Spacing (S-A, A-T, T-B ≤ คู่ 12), Crossing</li>
-              <li>แสดง Common Tone Tie และตรวจการคลี่คลาย Leading Tone &amp; V7</li>
-              <li>รองรับพิมพ์รายงาน / Export PDF</li>
-            </ul>
           </div>
-          <button class="btn btn-success" style="width: 100%; justify-content: center;">เข้าสู่หน้า 8 • สตูดิโอ 4 แนว →</button>
-        </div>
+          <span class="menu-card-cta" style="background: #16a34a;">เลือก →</span>
+        </button>
       </div>
     </div>
   </section>
@@ -566,7 +499,7 @@
           <strong>Tetrachord</strong> คือ Scale 4 ตัวโน้ตที่ถูกแบ่งครึ่ง โดยจะมีชื่อเรียกแตกต่างกันไปตามตำแหน่งระยะห่าง <strong>"ครึ่งเสียง (Half Step, H)"</strong> ใน Major Scale จะพบ Tetrachord ทั้งหมด <strong>4 ชนิด</strong> และสามารถนำมาต่อกัน 2 ชุด (Scale degree 1–4 และ 5–7+1) เพื่อสร้างเป็น Mode ทั้ง 7 ชนิด (คลิกการ์ดตัวอย่างเพื่อฟังเสียงได้ทันที)
         </p>
 
-        <div id="mode-tetrachords-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: 18px;"></div>
+        <div id="mode-tetrachords-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-bottom: 18px;"></div>
 
         <h3 style="font-size: 1rem; color: #0f172a; margin-bottom: 8px;">🔍 ตารางสรุป 4 ชนิดของ Tetrachord และโครงสร้างระยะห่าง</h3>
         <div style="overflow-x: auto;">
@@ -626,7 +559,7 @@
         <div class="card-title">
           <span>🧭 วิธีคิดและจำ Mode (3 วิธีสำคัญ)</span>
         </div>
-        <div class="grid-3" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:14px;">
+        <div class="grid-3" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:14px;">
           <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px;">
             <div style="font-weight:700; color:#0369a1; margin-bottom:6px;">วิธีที่ 1: คิดจาก Key เดียวแล้วไล่ตาม Step</div>
             <p style="font-size:0.84rem; color:#475569; margin-bottom:8px;">
@@ -670,7 +603,7 @@
         <div class="card-title">
           <span>🧩 คอร์ดใน Major Scale และการจัดกลุ่ม Chord Family Comparison</span>
         </div>
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:16px; margin-bottom:14px;">
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap:16px; margin-bottom:14px;">
           <div style="overflow-x:auto;">
             <h4 style="font-size:0.95rem; color:#0f172a; margin-bottom:8px;">คอร์ดและความสัมพันธ์ตามลำดับขั้นใน Major Scale</h4>
             <table class="lesson-table" style="border: 1px solid #e2e8f0;">
@@ -739,7 +672,7 @@
 
         <div id="mode-quiz-staff" class="staff-embed-wrap" style="padding: 10px; margin-top: 12px;"></div>
         <div id="mode-quiz-prompt" style="font-size:1rem; font-weight:700; color:#0f172a; margin:14px 0;"></div>
-        <div id="mode-quiz-options" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:10px; margin-bottom:14px;"></div>
+        <div id="mode-quiz-options" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap:10px; margin-bottom:14px;"></div>
         <div id="mode-quiz-feedback"></div>
       </div>
     </div>
@@ -755,7 +688,7 @@
         <div class="card-title">
           <span>🔢 หน้า 5 • Figured Bass (Basso Continuo &amp; ตัวเลขใต้นิ้วเบส)</span>
         </div>
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px;">
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap:16px;">
           <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:14px;">
             <h3 style="font-size:0.98rem; color:#9d174d; margin-bottom:8px;">1. ข้อมูลทั่วไปและประวัติ (Basso Continuo)</h3>
             <ul style="font-size:0.86rem; color:#334155; padding-left:18px; line-height:1.7;">
@@ -789,7 +722,7 @@
 
         <div id="fb-lesson-staff" class="staff-embed-wrap" style="padding: 10px; margin-bottom: 16px;"></div>
 
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-bottom:16px;">
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:16px; margin-bottom:16px;">
           <div style="overflow-x:auto;">
             <h4 style="font-size:0.94rem; color:#1d4ed8; margin-bottom:8px;">คอร์ด Triad (คอร์ด 3 เสียง)</h4>
             <table class="lesson-table" style="border: 1px solid #e2e8f0;">
@@ -892,7 +825,7 @@
         </div>
 
         <div id="fb-quiz-prompt" style="font-size:1rem; font-weight:700; color:#0f172a; margin:14px 0;"></div>
-        <div id="fb-quiz-options" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:10px; margin-bottom:14px;"></div>
+        <div id="fb-quiz-options" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap:10px; margin-bottom:14px;"></div>
         <div id="fb-quiz-feedback"></div>
       </div>
     </div>
@@ -912,7 +845,7 @@
           <strong>Diatonic Substitution</strong> คือการนำคอร์ดที่อยู่ในคีย์เดียวกันมาใช้แทนกัน เพื่อเพิ่มสีสันให้กับบทเพลงโดยยังคงกลิ่นอายของคอร์ดเดิมไว้ หลักสำคัญคือคอร์ดที่นำมาแทนกันได้ควรมี <strong>โน้ตร่วมกันอย่างน้อย 2 โน้ต</strong> (หากซ้ำกันเพียง 1 โน้ตจะมีความเกี่ยวข้องน้อยเกินไปและเสียงต่างกันมาก)
         </p>
 
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:14px; margin-bottom:16px;">
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap:14px; margin-bottom:16px;">
           <div style="background:#ecfdf5; border:1px solid #a7f3d0; border-radius:10px; padding:14px;">
             <div style="font-size:0.85rem; color:#065f46; font-weight:700;">ความคล้ายคลึง: คอร์ด Triad (3 โน้ต)</div>
             <div style="font-size:1.5rem; font-weight:800; color:#047857; margin:4px 0;">66.66%</div>
@@ -926,7 +859,7 @@
           </div>
         </div>
 
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px; align-items:start;">
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap:16px; align-items:start;">
           <div style="overflow-x:auto;">
             <h4 style="font-size:0.95rem; color:#0f172a; margin-bottom:8px;">รูปแบบการแทนคอร์ด (อ้างอิงจากคีย์ C Major)</h4>
             <table class="lesson-table" style="border: 1px solid #e2e8f0;">
@@ -977,7 +910,7 @@
           💡 <strong>หัวใจสำคัญ: "พลิกโน้ตเพียง 1 ตัว ก็จะได้คอร์ดชื่อใหม่ที่นำมาแทนกันได้"</strong> — เมื่อนำคอร์ด 4 เสียงมาพลิกกลับ (Inversion) ด้วยชุดโน้ตเดิมแต่เปลี่ยน Bass โครงสร้างขั้นคู่จะเปลี่ยนมุมมองเป็นคอร์ดชื่อใหม่ที่โทนเสียงใกล้เคียงกันมาก
         </div>
 
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:16px;">
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap:16px;">
           <div style="border:1px solid #e2e8f0; border-radius:12px; padding:14px; background:#ffffff;">
             <h3 style="font-size:0.98rem; color:#0369a1; margin-bottom:6px;">1. ความสัมพันธ์ Minor7 ↔ Major6</h3>
             <p style="font-size:0.86rem; color:#334155; margin-bottom:10px;">
@@ -1035,7 +968,7 @@
 
         <div id="ds-quiz-staff" class="staff-embed-wrap" style="padding: 10px; margin-top: 12px;"></div>
         <div id="ds-quiz-prompt" style="font-size:1rem; font-weight:700; color:#0f172a; margin:14px 0;"></div>
-        <div id="ds-quiz-options" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:10px; margin-bottom:14px;"></div>
+        <div id="ds-quiz-options" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap:10px; margin-bottom:14px;"></div>
         <div id="ds-quiz-feedback"></div>
       </div>
     </div>
@@ -1121,7 +1054,7 @@
             </ul>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 14px;">
             <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:12px;">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
                 <strong style="font-size:0.86rem; color:#1d4ed8;">PAC (V⁷ → I • Soprano จบ Tonic)</strong>
@@ -1149,7 +1082,7 @@
         </div>
 
         <!-- 2), 3), 4) Grid Cards -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 16px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 16px;">
           <!-- 2) Plagal Cadence -->
           <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 16px;">
             <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px;">
@@ -1244,7 +1177,7 @@
       <div class="control-bar">
         <div class="control-item">
           <label for="preset-select">📂 เลือกแบบฝึกหัด / ตัวอย่าง:</label>
-          <select id="preset-select" style="min-width: 320px; font-weight: 600;">
+          <select id="preset-select" class="preset-select-control" style="font-weight: 600;">
             <optgroup label="1. เบสกระโดด 4 หรือ 5 (Roots a 4th or 5th Apart)">
               <option value="jump_45_1">1.1 I - IV (เบสกระโดดคู่ 4 - เก็บ Common Tone)</option>
               <option value="jump_45_2">1.2 I - V - I (Cadential 4th & 5th - เก็บ Common Tone)</option>
@@ -1429,7 +1362,7 @@
           </ul>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 0.86rem;">
+        <div class="pw-legend-grid">
           <div>
             <div class="rule-legend-item">
               <span class="rule-legend-badge" style="background: #fee2e2; color: #b91c1c;">ห้ามเด็ดขาด</span>
@@ -1505,6 +1438,9 @@
     </aside>
   </main>
   </section>
+
+  <!-- แถบเปลี่ยนบทเรียน / กลับหน้าแรก (แสดงในทุกหน้าบทเรียนทั้งบนคอมและมือถือ) -->
+  <nav id="topic-bottom-nav" class="topic-bottom-nav" aria-label="เปลี่ยนบทเรียน"></nav>
 
   <!-- Error Explanation Pop-up Modal (ใช้ร่วมกันทุกหน้า) -->
   <div id="feedback-modal-backdrop" class="feedback-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="feedback-modal-title" onclick="if (event.target === this) window.closeErrorPopup()">

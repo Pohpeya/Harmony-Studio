@@ -335,9 +335,9 @@ const TheoryPages = {
         }
         const badgeBg = m.family === 'major' ? '#fef3c7; color:#b45309' : '#ede9fe; color:#6d28d9';
         return `
-          <div style="display:grid; grid-template-columns: minmax(210px, 1fr) minmax(290px, 1.3fr) auto; gap:12px; align-items:center; padding:10px 12px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; margin-bottom:10px;">
-            <div>
-              <div style="display:flex; align-items:center; gap:8px; margin-bottom:3px;">
+          <div class="mode-row-card">
+            <div class="mode-row-info">
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:3px;">
                 <span class="slot-rank-badge" style="background:#2563eb;">${m.degree}</span>
                 <strong style="font-size:1rem; color:#0f172a;">${m.name}</strong>
                 <span style="font-size:0.74rem; padding:2px 8px; border-radius:999px; font-weight:700; background:${badgeBg};">${m.family === 'major' ? 'Major Family' : 'Minor Family'}</span>
@@ -345,10 +345,10 @@ const TheoryPages = {
               <div style="font-size:0.8rem; color:#475569;">${m.t1} + ${m.t2} Tetrachord</div>
               <div style="font-size:0.78rem; color:#1d4ed8; font-weight:700;">สูตร: ${m.formula}</div>
             </div>
-            <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:4px 8px; overflow-x:auto;">
+            <div class="mode-row-staff">
               ${this.renderScaleSvg(m.notes, halfIdx)}
             </div>
-            <button class="btn btn-success btn-sm" onclick="window.theoryPages.playMode(${idx})">🔊 ฟัง</button>
+            <button class="btn btn-success btn-sm mode-row-play-btn" onclick="window.theoryPages.playMode(${idx})">🔊 ฟัง</button>
           </div>
         `;
       }).join('');

@@ -1274,3 +1274,446 @@ select:focus, input:focus {
   from { opacity: 0; transform: translateY(12px) scale(0.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+/* =====================================================================
+ * Minimal Home Chooser, Cross-Topic Bottom Nav & Mobile Layout Fixes
+ * ===================================================================== */
+html, body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+section,
+.view-section,
+.card,
+.studio-workstation-card,
+.lab-container > *,
+.lab-exercise-grid > *,
+.main-layout > *,
+.lesson-section-grid > *,
+.notation-section > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* ซ่อน Top Pill Bar และ Bottom Nav เมื่ออยู่หน้าแรก */
+body.is-home .top-nav-bar,
+body.is-home .topic-bottom-nav {
+  display: none;
+}
+
+/* หน้าแรกแบบมินิมอล: เลือกหัวข้อบทเรียนอย่างเดียว */
+.home-hero {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.home-hero h2 {
+  margin: 0;
+  font-size: 1.55rem;
+  color: #0f172a;
+}
+
+.menu-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+  gap: 14px;
+}
+
+.menu-card {
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12);
+  border-color: #93c5fd;
+}
+
+.menu-card-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.menu-card h3 {
+  margin: 6px 0 0;
+  font-size: 1.04rem;
+  line-height: 1.35;
+  color: #0f172a;
+}
+
+.menu-card-cta {
+  flex-shrink: 0;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+/* Helpers สำหรับกริดที่เคยเขียน inline width */
+.preset-select-control {
+  width: 100%;
+  max-width: 440px;
+  min-width: 0;
+}
+
+.pw-legend-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  font-size: 0.86rem;
+}
+
+.mode-row-card {
+  display: grid;
+  grid-template-columns: minmax(210px, 1fr) minmax(290px, 1.3fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.mode-row-info {
+  min-width: 0;
+}
+
+.mode-row-staff {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 4px 8px;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* แถบเปลี่ยนบทเรียน + กลับหน้าแรก ท้ายทุกหน้าบทเรียน */
+.topic-bottom-nav {
+  max-width: 1320px;
+  margin: 8px auto 28px;
+  padding: 0 20px;
+}
+
+.topic-bottom-card {
+  background: #ffffff;
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  padding: 16px 18px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.topic-bottom-actions {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.topic-bottom-actions .tbn-prev {
+  justify-self: start;
+}
+
+.topic-bottom-actions .tbn-home {
+  justify-self: center;
+}
+
+.topic-bottom-actions .tbn-next {
+  justify-self: end;
+}
+
+.topic-bottom-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 10px;
+  border-top: 1px dashed #e2e8f0;
+  align-items: center;
+}
+
+.topic-bottom-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-right: 4px;
+}
+
+.tbn-pill {
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #334155;
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.tbn-pill:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+.tbn-pill.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+/* SVG scaling inside narrow containers */
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive Breakpoint สำหรับมือถือ (<= 768px) */
+@media (max-width: 768px) {
+  .app-header {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+  }
+
+  .header-container {
+    padding: 10px 12px;
+    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .app-title-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .app-title-group h1 {
+    font-size: 1.15rem;
+    margin: 0;
+  }
+
+  .app-title-group .subtitle {
+    display: none;
+  }
+
+  .header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  #partwriting-header-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  #partwriting-header-actions .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 7px 8px;
+    font-size: 0.78rem;
+  }
+
+  /* แถบปุ่มด้านบนบนมือถือ: เลื่อนแนวนอนได้ ไม่ซ้อนหลายบรรทัด */
+  .top-nav-bar {
+    padding: 6px 8px;
+  }
+
+  .top-nav-inner {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 2px 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .top-nav-inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-pill {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 0.8rem;
+    padding: 6px 11px;
+  }
+
+  .home-container,
+  .lab-container,
+  .main-layout {
+    padding: 12px 10px 18px;
+  }
+
+  .home-hero {
+    margin-bottom: 14px;
+  }
+
+  .home-hero h2 {
+    font-size: 1.25rem;
+  }
+
+  .menu-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .menu-card {
+    padding: 13px 14px;
+    gap: 10px;
+  }
+
+  .menu-card h3 {
+    font-size: 0.96rem;
+  }
+
+  .menu-card-cta {
+    padding: 7px 11px;
+    font-size: 0.8rem;
+  }
+
+  .card {
+    padding: 14px 12px;
+    border-radius: 12px;
+  }
+
+  .card-title {
+    font-size: 1.05rem;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .control-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .control-item {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 5px;
+  }
+
+  .control-item select,
+  .control-item input {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .lab-exercise-grid,
+  .lesson-section-grid,
+  .main-layout,
+  .pw-legend-grid,
+  .mode-row-card {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .mode-row-play-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .question-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .staff-embed-wrap,
+  .grand-staff-container,
+  .piano-keyboard {
+    overflow-x: auto;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .topic-bottom-nav {
+    padding: 0 10px;
+    margin-bottom: 24px;
+  }
+
+  .topic-bottom-card {
+    padding: 12px;
+  }
+
+  .topic-bottom-actions {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .topic-bottom-actions .tbn-home {
+    grid-column: 1 / -1;
+    order: -1;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .topic-bottom-actions .tbn-prev,
+  .topic-bottom-actions .tbn-next {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+
+  .topic-bottom-pills {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .topic-bottom-pills::-webkit-scrollbar {
+    display: none;
+  }
+
+  .topic-bottom-label {
+    display: none;
+  }
+
+  .tbn-pill {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}

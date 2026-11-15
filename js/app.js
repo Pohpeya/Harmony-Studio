@@ -639,8 +639,60 @@ class HarmonyApp {
   }
 }
 
-// ระบบสลับหน้า (Multi-View Router: home | chords | inversions | partwriting)
+// ระบบสลับหน้า (Multi-View Router: home | chords | inversions | modes | figuredbass | diatonicsub | cadence | partwriting)
+window.TOPIC_PAGES = [
+  { id: 'chords', label: '🎹 2. โน้ตในคอร์ด' },
+  { id: 'inversions', label: '🔄 3. การพลิกกลับ' },
+  { id: 'modes', label: '🎭 4. Major Mode' },
+  { id: 'figuredbass', label: '🔢 5. Figured Bass' },
+  { id: 'diatonicsub', label: '🔁 6. Diatonic Sub' },
+  { id: 'cadence', label: '🎯 7. Cadence' },
+  { id: 'partwriting', label: '🎼 8. Root Position' }
+];
+
+window.renderTopicBottomNav = function(viewName) {
+  const nav = document.getElementById('topic-bottom-nav');
+  if (!nav) return;
+  if (viewName === 'home') {
+    nav.innerHTML = '';
+    return;
+  }
+
+  const topics = window.TOPIC_PAGES;
+  const idx = topics.findIndex(t => t.id === viewName);
+  const prevTopic = idx > 0 ? topics[idx - 1] : null;
+  const nextTopic = (idx >= 0 && idx < topics.length - 1) ? topics[idx + 1] : null;
+
+  const prevBtn = prevTopic
+    ? `<button type="button" class="btn btn-outline tbn-prev" onclick="window.switchAppView('${prevTopic.id}')">← ${prevTopic.label}</button>`
+    : `<span></span>`;
+  const nextBtn = nextTopic
+    ? `<button type="button" class="btn btn-outline tbn-next" onclick="window.switchAppView('${nextTopic.id}')">${nextTopic.label} →</button>`
+    : `<span></span>`;
+  const homeBtn = `<button type="button" class="btn btn-primary tbn-home" onclick="window.switchAppView('home')">🏠 กลับหน้าแรก</button>`;
+
+  const pillsHtml = topics.map(t => `
+    <button type="button" class="tbn-pill ${t.id === viewName ? 'active' : ''}" onclick="window.switchAppView('${t.id}')">${t.label}</button>
+  `).join('');
+
+  nav.innerHTML = `
+    <div class="topic-bottom-card">
+      <div class="topic-bottom-actions">
+        ${prevBtn}
+        ${homeBtn}
+        ${nextBtn}
+      </div>
+      <div class="topic-bottom-pills">
+        <span class="topic-bottom-label">เลือกบทเรียนอื่น:</span>
+        ${pillsHtml}
+      </div>
+    </div>
+  `;
+};
+
 window.switchAppView = function(viewName) {
+  document.body.classList.toggle('is-home', viewName === 'home');
+
   document.querySelectorAll('.view-section').forEach(sec => {
     sec.classList.toggle('active', sec.id === `view-${viewName}`);
   });
@@ -653,8 +705,10 @@ window.switchAppView = function(viewName) {
     pwActions.style.display = (viewName === 'partwriting') ? 'flex' : 'none';
   }
 
+  window.renderTopicBottomNav(viewName);
+
   if (viewName === 'partwriting' && window.harmonyApp) {
-    window.harmonyApp.renderAll();
+    window.harmonyApp.checkHarmony(false);
   } else if (viewName === 'chords' && window.chordLabChords) {
     window.chordLabChords.renderAll();
   } else if (viewName === 'inversions' && window.chordLabInversions) {
