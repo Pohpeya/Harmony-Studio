@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harmony Studio (ระบบฝึกปฏิบัติทฤษฎีดนตรีสากลและการประสานเสียง 4 แนว)</title>
+  
+  <!-- Google Fonts: Sarabun, Prompt, Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Navigation / App Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="app-title-group">
+        <h1>🎼 Harmony Studio</h1>
+        <div class="subtitle">ระบบฝึกปฏิบัติทฤษฎีดนตรีสากล คอร์ด 12 คีย์ และการประสานเสียง 4 แนว (SATB Voice Leading)</div>
+      </div>
+      
+      <div class="header-actions">
+        <div style="display:flex; align-items:center; gap:6px; background: rgba(255,255,255,0.12); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.22);">
+          <label for="sound-preset-select" style="font-size: 0.82rem; color: #e2e8f0; font-weight: 600;">เสียง:</label>
+          <select id="sound-preset-select" style="background: #1e293b; color: #ffffff; border: 1px solid #475569; padding: 4px 8px; border-radius: 5px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
+            <option value="grand_piano">🎹 Grand Piano</option>
+            <option value="electric_piano">⚡ Electric Piano</option>
+          </select>
+        </div>
+        <div id="partwriting-header-actions" style="display: none; gap: 8px; flex-wrap: wrap;">
+          <button id="btn-play-all" class="btn btn-success">
+            ▶ เล่นทั้งหมด (Play All)
+          </button>
+          <button id="btn-stop-audio" class="btn btn-outline" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">
+            ⏹ หยุด (Stop)
+          </button>
+          <button id="btn-check-harmony" class="btn btn-primary" style="background: #3b82f6;">
+            🔍 ตรวจข้อผิดพลาดทันที
+          </button>
+          <button id="btn-print-report" class="btn btn-outline" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">
+            🖨️ พิมพ์รายงาน / PDF
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Multi-Page Menu Bar -->
+    <nav class="top-nav-bar" aria-label="เมนูหลัก">
+      <div class="top-nav-inner">
+        <button class="nav-pill active" data-view="home" onclick="window.switchAppView('home')">🏠 เมนูหลัก</button>
+        <button class="nav-pill" data-view="chords" onclick="window.switchAppView('chords')">🎹 2. โน้ตในคอร์ด (12 คีย์)</button>
+        <button class="nav-pill" data-view="inversions" onclick="window.switchAppView('inversions')">🔄 3. การพลิกกลับของคอร์ด</button>
+        <button class="nav-pill" data-view="modes" onclick="window.switchAppView('modes')">🎭 4. Major Mode</button>
+        <button class="nav-pill" data-view="figuredbass" onclick="window.switchAppView('figuredbass')">🔢 5. Figured Bass</button>
+        <button class="nav-pill" data-view="diatonicsub" onclick="window.switchAppView('diatonicsub')">🔁 6. Diatonic Sub</button>
+        <button class="nav-pill" data-view="cadence" onclick="window.switchAppView('cadence')">🎯 7. Cadence</button>
+        <button class="nav-pill" data-view="partwriting" onclick="window.switchAppView('partwriting')">🎼 8. Root Position</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 0: หน้าเมนูหลัก (HOME MENU)                                        -->
+  <!-- ===================================================================== -->
+  <section id="view-home" class="view-section active">
+    <div class="home-container">
+      <div class="home-hero">
+        <h2>🎼 ยินดีต้อนรับสู่ Harmony Studio</h2>
+        <p>
+          เว็บแอพสำหรับเรียนรู้และฝึกทักษะทฤษฎีดนตรีสากลและการประสานเสียง 4 แนว ครบวงจรตั้งแต่พื้นฐานโครงสร้างคอร์ด 12 คีย์
+          การพลิกกลับของคอร์ด (Inversions) ไปจนถึงการเขียนและตรวจการบ้าน Root Position Part Writing พร้อมเสียง Grand Piano และ Electric Piano
+        </p>
+      </div>
+
+      <div class="menu-cards-grid">
+        <!-- หน้า 2: โน้ตในคอร์ด 12 คีย์ -->
+        <div class="menu-card" onclick="window.switchAppView('chords')">
+          <div>
+            <span class="menu-card-badge" style="background: #dbeafe; color: #1d4ed8;">หน้า 2 • พื้นฐานคอร์ด</span>
+            <h3>🎹 โน้ตในคอร์ด 12 คีย์ (Triads &amp; 7th Chords)</h3>
+            <p>
+              เรียนรู้โครงสร้างและฝึกเขียนโน้ตในคอร์ดครบทั้ง 12 คีย์ ครอบคลุมคอร์ด 4 ชนิดทั้งแบบ Triad และ 7th Chord บนบรรทัด 5 เส้น
+            </p>
+            <ul>
+              <li>คอร์ด 4 ชนิด: <strong>Major, Minor, Diminished, Augmented</strong></li>
+              <li>มีบทเรียน + โน้ตตัวอย่างบนบรรทัด 5 เส้น พร้อมกดฟังเสียง</li>
+              <li>ตรวจทั้งระดับเสียง (MIDI) และการสะกดตัวโน้ต (Spelling)</li>
+            </ul>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; justify-content: center;">เข้าสู่หน้า 2 • บทเรียน &amp; แบบฝึกหัด →</button>
+        </div>
+
+        <!-- หน้า 3: การพลิกกลับของคอร์ด -->
+        <div class="menu-card" onclick="window.switchAppView('inversions')">
+          <div>
+            <span class="menu-card-badge" style="background: #ede9fe; color: #6d28d9;">หน้า 3 • การพลิกกลับ</span>
+            <h3>🔄 การพลิกกลับของ Triad และ 7th Chord</h3>
+            <p>
+              ศึกษาและฝึกวางโน้ตคอร์ดพลิกกลับ (Inversions) ครบทุกตำแหน่ง ทั้ง Triad และ 7th Chord ใน 12 คีย์ และคอร์ด 4 ชนิด
+            </p>
+            <ul>
+              <li>Triads: <strong>Root, 1st Inv (⁶), 2nd Inv (⁶₄)</strong></li>
+              <li>7th Chords: <strong>⁷, ⁶₅, ⁴₃, ⁴₂</strong> พร้อมโน้ตตัวอย่าง</li>
+              <li>ตรวจความถูกต้องของโน้ตเบส (Bass) และการสะกดโน้ต</li>
+            </ul>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; justify-content: center; background: #7c3aed;">เข้าสู่หน้า 3 • บทเรียน &amp; แบบฝึกหัด →</button>
+        </div>
+
+        <!-- หน้า 4: Major Mode & Tetrachord -->
+        <div class="menu-card" onclick="window.switchAppView('modes')">
+          <div>
+            <span class="menu-card-badge" style="background: #e0f2fe; color: #0369a1;">หน้า 4 • Modes &amp; Tetrachord</span>
+            <h3>🎭 Major Mode (7 Modes &amp; Tetrachord)</h3>
+            <p>
+              เข้าใจโครงสร้าง 4 Tetrachord (Major, Minor, Phrygian, Wholetone) และ Mode ทั้ง 7 ใน Major Scale พร้อม 3 วิธีคิดและ Chord Family
+            </p>
+            <ul>
+              <li>ฟังเสียง + ดูตำแหน่งครึ่งเสียง (<strong>^</strong>) ของทั้ง 7 Modes บนบรรทัด 5 เส้น</li>
+              <li>เปรียบเทียบ Major Chord Family (3 Modes) vs Minor Chord Family (4 Modes)</li>
+              <li>แบบฝึกหัดวิเคราะห์ Mode, Tetrachord และสูตรโครงสร้าง</li>
+            </ul>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; justify-content: center; background: #0284c7;">เข้าสู่หน้า 4 • บทเรียน &amp; แบบฝึกหัด →</button>
+        </div>
+
+        <!-- หน้า 5: Figured Bass -->
+        <div class="menu-card" onclick="window.switchAppView('figuredbass')">
+          <div>
+            <span class="menu-card-badge" style="background: #fce7f3; color: #be185d;">หน้า 5 • Basso Continuo</span>
+            <h3>🔢 Figured Bass (สัญลักษณ์ตัวเลขใต้นิ้วเบส)</h3>
+            <p>
+              เรียนรู้ระบบ Basso Continuo ยุคบาโรก ความหมายตัวเลขขั้นคู่เหนือเบส การย่อตัวเลข Triad/7th และกฎเครื่องหมายแปลงเสียง
+            </p>
+            <ul>
+              <li>ตัวเลขย่อ Triad (<strong>Blank, 6, 6/4</strong>) และ 7th (<strong>7, 6/5, 4/3, 4/2</strong>)</li>
+              <li>กฎ Orphaned Accidental และสัญลักษณ์ขีดทับ / เครื่องหมาย <strong>+</strong></li>
+              <li>ตัวอย่าง Bass Clef กดฟังเสียงได้จริง + แบบฝึกหัดวิเคราะห์</li>
+            </ul>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; justify-content: center; background: #be185d;">เข้าสู่หน้า 5 • บทเรียน &amp; แบบฝึกหัด →</button>
+        </div>
+
+        <!-- หน้า 6: Diatonic Sub & Chord Spelling -->
+        <div class="menu-card" onclick="window.switchAppView('diatonicsub')">
+          <div>
+            <span class="menu-card-badge" style="background: #ccfbf1; color: #0f766e;">หน้า 6 • การแทนคอร์ด</span>
+            <h3>🔁 Diatonic Substitution &amp; Chord Spelling</h3>
+            <p>
+              หลักการแทนคอร์ดในคีย์เดียวกันโดยใช้โน้ตร่วมตั้งแต่ 2 ตัวขึ้นไป และสูตรความสัมพันธ์จากการพลิกโน้ต 1 ตัว (Minor7 ↔ Major6, Halfdim7 ↔ Minor6)
+            </p>
+            <ul>
+              <li>การแทนคอร์ด Triad (คล้ายเดิม <strong>66.66%</strong>) และ 7th (<strong>50%</strong>)</li>
+              <li>คู่เทียบ <strong>I↔iii, ii↔IV, V↔vii</strong> และโน้ตตัวอย่างเทียบเสียง</li>
+              <li>แบบฝึกหัดวิเคราะห์คู่แทนคอร์ดและสูตร Chord Spelling</li>
+            </ul>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; justify-content: center; background: #0f766e;">เข้าสู่หน้า 6 • บทเรียน &amp; แบบฝึกหัด →</button>
+        </div>
+
+        <!-- หน้า 7: Cadence -->
+        <div class="menu-card" onclick="window.switchAppView('cadence')">
+          <div>
+            <span class="menu-card-badge" style="background: #fef3c7; color: #b45309;">หน้า 7 • การจบประโยคเพลง</span>
+            <h3>🎯 Cadence (Authentic, Plagal, Half, Deceptive)</h3>
+            <p>
+              เรียนรู้รูปแบบการจบวลีดนตรีทั้ง 4 ชนิด พร้อมตารางเทียบชื่อระบบอเมริกัน–อังกฤษ ตัวอย่างโน้ต 4 แนวและแบบฝึกหัดวิเคราะห์เสียง
+            </p>
+            <ul>
+              <li>เปรียบเทียบ <strong>American vs British</strong> และระดับ PAC / IAC</li>
+              <li>ตัวอย่างโน้ต Grand Staff พร้อมกดฟังเสียงจริงทุกชนิด</li>
+              <li>แบบฝึกหัดวิเคราะห์ Cadence ทั้งภาพโน้ตและเสียง</li>
+            </ul>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; justify-content: center; background: linear-gradient(135deg, #d97706 0%, #b45309 100%);">เข้าสู่หน้า 7 • บทเรียน &amp; แบบฝึกหัด →</button>
+        </div>
+
+        <!-- หน้า 8: Root Position Part Writing -->
+        <div class="menu-card" onclick="window.switchAppView('partwriting')">
+          <div>
+            <span class="menu-card-badge" style="background: #dcfce7; color: #15803d;">หน้า 8 • การประสานเสียง 4 แนว</span>
+            <h3>🎼 Root Position Part Writing (SATB)</h3>
+            <p>
+              ระบบเขียนและตรวจการบ้านการประสานเสียง 4 แนว (Soprano, Alto, Tenor, Bass) อัตโนมัติ พร้อมแบบฝึกหัด 16 ข้อตามระยะเบส
+            </p>
+            <ul>
+              <li>ตรวจ Parallel 5ths/8ves, Spacing (S-A, A-T, T-B ≤ คู่ 12), Crossing</li>
+              <li>แสดง Common Tone Tie และตรวจการคลี่คลาย Leading Tone &amp; V7</li>
+              <li>รองรับพิมพ์รายงาน / Export PDF</li>
+            </ul>
+          </div>
+          <button class="btn btn-success" style="width: 100%; justify-content: center;">เข้าสู่หน้า 8 • สตูดิโอ 4 แนว →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 1: โน้ตในคอร์ด 12 คีย์ (TRIADS & 7TH CHORDS)                       -->
+  <!-- ===================================================================== -->
+  <section id="view-chords" class="view-section">
+    <div class="lab-container">
+      <!-- ส่วนที่ 1: บทเรียนและโน้ตตัวอย่าง -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">
+          <span>📚 บทเรียน: โครงสร้างโน้ตในคอร์ด 12 คีย์ (Major, Minor, Diminished, Augmented)</span>
+        </div>
+        <p style="font-size: 0.9rem; color: #334155; margin-bottom: 14px;">
+          คอร์ดพื้นฐานเกิดจากการซ้อนโน้ตทีละขั้นคู่ 3 (Triad = 3 เสียง, 7th Chord = 4 เสียง) คลิกที่คอร์ดตัวอย่างบนบรรทัด 5 เส้นด้านล่างเพื่อฟังเสียงจริงได้เลยครับ
+        </p>
+
+        <div class="lesson-section-grid">
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px;">
+            <strong style="color: #0f172a;">1) Triads 4 ชนิด (ตัวอย่างบนโน้ต C)</strong>
+            <div id="cl-lesson-triads-staff" style="overflow-x: auto; margin: 10px 0;"></div>
+            <table class="lesson-table">
+              <thead><tr><th>ชนิด</th><th>โครงสร้าง</th><th>ระยะครึ่งเสียง</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Major (C)</strong></td><td>Root + M3 + P5</td><td>0 – 4 – 7 (M3 + m3)</td></tr>
+                <tr><td><strong>Minor (Cm)</strong></td><td>Root + m3 + P5</td><td>0 – 3 – 7 (m3 + M3)</td></tr>
+                <tr><td><strong>Diminished (C°)</strong></td><td>Root + m3 + d5</td><td>0 – 3 – 6 (m3 + m3)</td></tr>
+                <tr><td><strong>Augmented (C+)</strong></td><td>Root + M3 + A5</td><td>0 – 4 – 8 (M3 + M3)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px;">
+            <strong style="color: #0f172a;">2) 7th Chords 4 ชนิด (ตัวอย่างบนโน้ต C)</strong>
+            <div id="cl-lesson-sevenths-staff" style="overflow-x: auto; margin: 10px 0;"></div>
+            <table class="lesson-table">
+              <thead><tr><th>ชนิด</th><th>โครงสร้าง</th><th>ระยะครึ่งเสียง</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Major 7th (Cmaj7)</strong></td><td>Major Triad + M7</td><td>0 – 4 – 7 – 11</td></tr>
+                <tr><td><strong>Minor 7th (Cm7)</strong></td><td>Minor Triad + m7</td><td>0 – 3 – 7 – 10</td></tr>
+                <tr><td><strong>Diminished 7th (C°7)</strong></td><td>Dim Triad + d7</td><td>0 – 3 – 6 – 9</td></tr>
+                <tr><td><strong>Augmented 7th (C+7)</strong></td><td>Aug Triad + m7</td><td>0 – 4 – 8 – 10</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ส่วนที่ 2: แบบฝึกหัด Interactive -->
+      <div class="control-bar">
+        <div class="control-item">
+          <label for="cl-category-filter">ประเภทคอร์ด:</label>
+          <select id="cl-category-filter" onchange="window.chordLabChords.generateQuestion()">
+            <option value="all">Triad + 7th Chord</option>
+            <option value="triad">เฉพาะ Triad (3 โน้ต)</option>
+            <option value="seventh">เฉพาะ 7th Chord (4 โน้ต)</option>
+          </select>
+        </div>
+        <div class="control-item">
+          <label for="cl-root-filter">คีย์ (12 คีย์):</label>
+          <select id="cl-root-filter" onchange="window.chordLabChords.generateQuestion()"></select>
+        </div>
+        <div class="control-item">
+          <label for="cl-quality-filter">ชนิดคอร์ด:</label>
+          <select id="cl-quality-filter" onchange="window.chordLabChords.generateQuestion()">
+            <option value="all">ทั้ง 4 ชนิด</option>
+            <option value="maj">Major</option>
+            <option value="min">Minor</option>
+            <option value="dim">Diminished</option>
+            <option value="aug">Augmented</option>
+          </select>
+        </div>
+        <div class="control-item">
+          <label for="cl-clef-filter">กุญแจ (Clef):</label>
+          <select id="cl-clef-filter" onchange="window.chordLabChords.generateQuestion()">
+            <option value="random">🎲 สุ่มกุญแจ (Treble / Bass)</option>
+            <option value="treble">𝄞 Treble Clef (ซอล)</option>
+            <option value="bass">𝄢 Bass Clef (ฟา)</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="window.chordLabChords.generateQuestion()">🎲 สุ่มโจทย์ใหม่</button>
+      </div>
+
+      <div class="lab-exercise-grid">
+        <div class="studio-workstation-card">
+          <div class="studio-question-bar">
+            <div>
+              <div id="cl-question-title" class="question-banner-title">โจทย์...</div>
+              <div id="cl-question-subtitle" class="question-banner-subtitle"></div>
+            </div>
+            <span id="cl-stats-badge" style="background:#eff6ff; color:#1d4ed8; padding:5px 12px; border-radius:999px; font-weight:700; font-size:0.84rem; border:1px solid #bfdbfe;">คะแนนสะสม: 0 / 0 ข้อ</span>
+          </div>
+
+          <div class="studio-toolbar-top">
+            <div id="cl-note-tabs" class="voice-tabs-compact"></div>
+            <div class="studio-chord-controls">
+              <span id="cl-editing-badge" class="active-voice-badge">กำลังแก้ไข</span>
+              <button class="btn btn-outline btn-sm" onclick="window.chordLabChords.playUserChord()">🔊 ฟังคอร์ดที่วาง</button>
+              <button class="btn btn-outline btn-sm" onclick="window.chordLabChords.togglePiano()">🎹 เปียโน</button>
+            </div>
+          </div>
+
+          <div id="cl-editor-panel" class="studio-pitch-bar">
+            <div class="pitch-group">
+              <span class="group-label">ตัวโน้ต:</span>
+              <div class="pill-group">
+                <button class="pill-btn pitch-step-btn" data-step="C" onclick="window.chordLabChords.setStep('C')">C</button>
+                <button class="pill-btn pitch-step-btn" data-step="D" onclick="window.chordLabChords.setStep('D')">D</button>
+                <button class="pill-btn pitch-step-btn" data-step="E" onclick="window.chordLabChords.setStep('E')">E</button>
+                <button class="pill-btn pitch-step-btn" data-step="F" onclick="window.chordLabChords.setStep('F')">F</button>
+                <button class="pill-btn pitch-step-btn" data-step="G" onclick="window.chordLabChords.setStep('G')">G</button>
+                <button class="pill-btn pitch-step-btn" data-step="A" onclick="window.chordLabChords.setStep('A')">A</button>
+                <button class="pill-btn pitch-step-btn" data-step="B" onclick="window.chordLabChords.setStep('B')">B</button>
+              </div>
+            </div>
+            <div class="pitch-group">
+              <span class="group-label">เครื่องหมาย:</span>
+              <div class="pill-group">
+                <button class="pill-btn pitch-alter-btn" data-alter="-2" onclick="window.chordLabChords.setAlter(-2)">𝄫</button>
+                <button class="pill-btn pitch-alter-btn" data-alter="-1" onclick="window.chordLabChords.setAlter(-1)">♭</button>
+                <button class="pill-btn pitch-alter-btn" data-alter="0" onclick="window.chordLabChords.setAlter(0)">♮</button>
+                <button class="pill-btn pitch-alter-btn" data-alter="1" onclick="window.chordLabChords.setAlter(1)">♯</button>
+                <button class="pill-btn pitch-alter-btn" data-alter="2" onclick="window.chordLabChords.setAlter(2)">𝄪</button>
+              </div>
+            </div>
+            <div class="pitch-group">
+              <span class="group-label">Octave:</span>
+              <div class="pill-group">
+                <button class="pill-btn pitch-oct-btn" data-octave="2" onclick="window.chordLabChords.setOctave(2)">2</button>
+                <button class="pill-btn pitch-oct-btn" data-octave="3" onclick="window.chordLabChords.setOctave(3)">3</button>
+                <button class="pill-btn pitch-oct-btn" data-octave="4" onclick="window.chordLabChords.setOctave(4)">4</button>
+                <button class="pill-btn pitch-oct-btn" data-octave="5" onclick="window.chordLabChords.setOctave(5)">5</button>
+              </div>
+            </div>
+            <div class="pitch-group transpose-group">
+              <button class="btn btn-outline btn-xs" onclick="window.chordLabChords.shiftSemitone(1)">▲ +1</button>
+              <button class="btn btn-outline btn-xs" onclick="window.chordLabChords.shiftSemitone(-1)">▼ -1</button>
+            </div>
+          </div>
+
+          <div class="staff-embed-wrap" id="cl-staff-container"></div>
+
+          <div id="cl-piano-wrapper" class="studio-piano-bar">
+            <div class="piano-bar-title">🎹 คลิกเลือกระดับเสียงบนคีย์เปียโนโดยตรง (Range C2 ถึง G5):</div>
+            <div class="piano-keyboard-wrap" id="cl-piano-container"></div>
+          </div>
+        </div>
+
+        <aside class="card">
+          <div class="card-title"><span>📝 ตรวจคำตอบ &amp; เฉลย</span></div>
+          <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+            <button class="btn btn-primary" onclick="window.chordLabChords.checkAnswer()">🔍 ตรวจคำตอบ</button>
+            <button class="btn btn-success" onclick="window.chordLabChords.playTargetChord()">🔊 ฟังเสียงโจทย์ที่ถูกต้อง</button>
+            <button class="btn btn-outline" onclick="window.chordLabChords.showSolution()">💡 แสดงเฉลยบนบรรทัด 5 เส้น</button>
+          </div>
+          <div id="cl-feedback"></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 2: การพลิกกลับของคอร์ด (CHORD INVERSIONS)                         -->
+  <!-- ===================================================================== -->
+  <section id="view-inversions" class="view-section">
+    <div class="lab-container">
+      <!-- ส่วนที่ 1: บทเรียนและโน้ตตัวอย่างการพลิกกลับ -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">
+          <span>📚 บทเรียน: การพลิกกลับของ Triad และ 7th Chord (Chord Inversions)</span>
+        </div>
+        <p style="font-size: 0.9rem; color: #334155; margin-bottom: 14px;">
+          การพลิกกลับ (Inversion) คือการนำโน้ตตัวอื่นในคอร์ด (3rd, 5th หรือ 7th) มาวางเป็น <strong>โน้ตเบส (ต่ำสุด)</strong> แทน Root คลิกคอร์ดตัวอย่างบนบรรทัด 5 เส้นเพื่อฟังเสียงเปรียบเทียบได้ทันที
+        </p>
+
+        <div class="lesson-section-grid">
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px;">
+            <strong style="color: #0f172a;">1) การพลิกกลับของ Triad (3 ตำแหน่ง)</strong>
+            <div id="inv-lesson-triads-staff" style="overflow-x: auto; margin: 10px 0;"></div>
+            <table class="lesson-table">
+              <thead><tr><th>ตำแหน่ง</th><th>สัญลักษณ์ (Figured Bass)</th><th>โน้ตเบส (ต่ำสุด)</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><strong>Root Position</strong></td>
+                  <td><div class="fig-cell"><span class="fig-badge fig-muted">ไม่มีเลข</span> <span style="color:#64748b;">(เช่น C, I)</span></div></td>
+                  <td>Root (โน้ตที่ 1)</td>
+                </tr>
+                <tr>
+                  <td><strong>1st Inversion</strong></td>
+                  <td><div class="fig-cell"><span class="fig-badge">6</span> <span style="color:#475569;">(เช่น C/E หรือ <span class="fig-roman-inline">I<span class="fig-stack"><span>6</span></span></span>)</span></div></td>
+                  <td>3rd (โน้ตที่ 3)</td>
+                </tr>
+                <tr>
+                  <td><strong>2nd Inversion</strong></td>
+                  <td><div class="fig-cell"><span class="fig-badge"><span class="fig-stack"><span>6</span><span>4</span></span></span> <span style="color:#475569;">(เช่น C/G หรือ <span class="fig-roman-inline">I<span class="fig-stack"><span>6</span><span>4</span></span></span>)</span></div></td>
+                  <td>5th (โน้ตที่ 5)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px;">
+            <strong style="color: #0f172a;">2) การพลิกกลับของ 7th Chord (4 ตำแหน่ง)</strong>
+            <div id="inv-lesson-sevenths-staff" style="overflow-x: auto; margin: 10px 0;"></div>
+            <table class="lesson-table">
+              <thead><tr><th>ตำแหน่ง</th><th>สัญลักษณ์ (Figured Bass)</th><th>โน้ตเบส (ต่ำสุด)</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><strong>Root Position</strong></td>
+                  <td><div class="fig-cell"><span class="fig-badge">7</span> <span style="color:#475569;">(เช่น Cmaj7, <span class="fig-roman-inline">V<span class="fig-stack"><span>7</span></span></span>)</span></div></td>
+                  <td>Root (โน้ตที่ 1)</td>
+                </tr>
+                <tr>
+                  <td><strong>1st Inversion</strong></td>
+                  <td><div class="fig-cell"><span class="fig-badge"><span class="fig-stack"><span>6</span><span>5</span></span></span> <span style="color:#475569;">(เช่น Cmaj7/E, <span class="fig-roman-inline">V<span class="fig-stack"><span>6</span><span>5</span></span></span>)</span></div></td>
+                  <td>3rd (โน้ตที่ 3)</td>
+                </tr>
+                <tr>
+                  <td><strong>2nd Inversion</strong></td>
+                  <td><div class="fig-cell"><span class="fig-badge"><span class="fig-stack"><span>4</span><span>3</span></span></span> <span style="color:#475569;">(เช่น Cmaj7/G, <span class="fig-roman-inline">V<span class="fig-stack"><span>4</span><span>3</span></span></span>)</span></div></td>
+                  <td>5th (โน้ตที่ 5)</td>
+                </tr>
+                <tr>
+                  <td><strong>3rd Inversion</strong></td>
+                  <td><div class="fig-cell"><span class="fig-badge"><span class="fig-stack"><span>4</span><span>2</span></span></span> <span style="color:#475569;">(เช่น Cmaj7/B, <span class="fig-roman-inline">V<span class="fig-stack"><span>4</span><span>2</span></span></span>)</span></div></td>
+                  <td>7th (โน้ตที่ 7)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ส่วนที่ 2: แบบฝึกหัดการพลิกกลับ -->
+      <div class="control-bar">
+        <div class="control-item">
+          <label for="inv-category-filter">ประเภทคอร์ด:</label>
+          <select id="inv-category-filter" onchange="window.chordLabInversions.generateQuestion()">
+            <option value="all">Triad + 7th Chord</option>
+            <option value="triad">เฉพาะ Triad (3 โน้ต)</option>
+            <option value="seventh">เฉพาะ 7th Chord (4 โน้ต)</option>
+          </select>
+        </div>
+        <div class="control-item">
+          <label for="inv-root-filter">คีย์ (12 คีย์):</label>
+          <select id="inv-root-filter" onchange="window.chordLabInversions.generateQuestion()"></select>
+        </div>
+        <div class="control-item">
+          <label for="inv-quality-filter">ชนิดคอร์ด:</label>
+          <select id="inv-quality-filter" onchange="window.chordLabInversions.generateQuestion()">
+            <option value="all">ทั้ง 4 ชนิด</option>
+            <option value="maj">Major</option>
+            <option value="min">Minor</option>
+            <option value="dim">Diminished</option>
+            <option value="aug">Augmented</option>
+          </select>
+        </div>
+        <div class="control-item">
+          <label for="inv-inv-filter">ตำแหน่งพลิกกลับ:</label>
+          <select id="inv-inv-filter" onchange="window.chordLabInversions.generateQuestion()">
+            <option value="random">🎲 สุ่มทุกตำแหน่ง</option>
+            <option value="0">Root Position</option>
+            <option value="1">1st Inversion (6 / 6/5)</option>
+            <option value="2">2nd Inversion (6/4 / 4/3)</option>
+            <option value="3">3rd Inversion (4/2 - เฉพาะ 7th)</option>
+          </select>
+        </div>
+        <div class="control-item">
+          <label for="inv-clef-filter">กุญแจ (Clef):</label>
+          <select id="inv-clef-filter" onchange="window.chordLabInversions.generateQuestion()">
+            <option value="random">🎲 สุ่มกุญแจ (Treble / Bass)</option>
+            <option value="treble">𝄞 Treble Clef (ซอล)</option>
+            <option value="bass">𝄢 Bass Clef (ฟา)</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="window.chordLabInversions.generateQuestion()">🎲 สุ่มโจทย์ใหม่</button>
+      </div>
+
+      <div class="lab-exercise-grid">
+        <div class="studio-workstation-card">
+          <div class="studio-question-bar">
+            <div>
+              <div id="inv-question-title" class="question-banner-title">โจทย์...</div>
+              <div id="inv-question-subtitle" class="question-banner-subtitle"></div>
+            </div>
+            <span id="inv-stats-badge" style="background:#f3e8ff; color:#6d28d9; padding:5px 12px; border-radius:999px; font-weight:700; font-size:0.84rem; border:1px solid #ddd6fe;">คะแนนสะสม: 0 / 0 ข้อ</span>
+          </div>
+
+          <div class="studio-toolbar-top">
+            <div id="inv-note-tabs" class="voice-tabs-compact"></div>
+            <div class="studio-chord-controls">
+              <span id="inv-editing-badge" class="active-voice-badge">กำลังแก้ไข</span>
+              <button class="btn btn-outline btn-sm" onclick="window.chordLabInversions.playUserChord()">🔊 ฟังคอร์ดที่วาง</button>
+              <button class="btn btn-outline btn-sm" onclick="window.chordLabInversions.togglePiano()">🎹 เปียโน</button>
+            </div>
+          </div>
+
+          <div id="inv-editor-panel" class="studio-pitch-bar">
+            <div class="pitch-group">
+              <span class="group-label">ตัวโน้ต:</span>
+              <div class="pill-group">
+                <button class="pill-btn pitch-step-btn" data-step="C" onclick="window.chordLabInversions.setStep('C')">C</button>
+                <button class="pill-btn pitch-step-btn" data-step="D" onclick="window.chordLabInversions.setStep('D')">D</button>
+                <button class="pill-btn pitch-step-btn" data-step="E" onclick="window.chordLabInversions.setStep('E')">E</button>
+                <button class="pill-btn pitch-step-btn" data-step="F" onclick="window.chordLabInversions.setStep('F')">F</button>
+                <button class="pill-btn pitch-step-btn" data-step="G" onclick="window.chordLabInversions.setStep('G')">G</button>
+                <button class="pill-btn pitch-step-btn" data-step="A" onclick="window.chordLabInversions.setStep('A')">A</button>
+                <button class="pill-btn pitch-step-btn" data-step="B" onclick="window.chordLabInversions.setStep('B')">B</button>
+              </div>
+            </div>
+            <div class="pitch-group">
+              <span class="group-label">เครื่องหมาย:</span>
+              <div class="pill-group">
+                <button class="pill-btn pitch-alter-btn" data-alter="-2" onclick="window.chordLabInversions.setAlter(-2)">𝄫</button>
+                <button class="pill-btn pitch-alter-btn" data-alter="-1" onclick="window.chordLabInversions.setAlter(-1)">♭</button>
+                <button class="pill-btn pitch-alter-btn" data-alter="0" onclick="window.chordLabInversions.setAlter(0)">♮</button>
+                <button class="pill-btn pitch-alter-btn" data-alter="1" onclick="window.chordLabInversions.setAlter(1)">♯</button>
+                <button class="pill-btn pitch-alter-btn" data-alter="2" onclick="window.chordLabInversions.setAlter(2)">𝄪</button>
+              </div>
+            </div>
+            <div class="pitch-group">
+              <span class="group-label">Octave:</span>
+              <div class="pill-group">
+                <button class="pill-btn pitch-oct-btn" data-octave="2" onclick="window.chordLabInversions.setOctave(2)">2</button>
+                <button class="pill-btn pitch-oct-btn" data-octave="3" onclick="window.chordLabInversions.setOctave(3)">3</button>
+                <button class="pill-btn pitch-oct-btn" data-octave="4" onclick="window.chordLabInversions.setOctave(4)">4</button>
+                <button class="pill-btn pitch-oct-btn" data-octave="5" onclick="window.chordLabInversions.setOctave(5)">5</button>
+              </div>
+            </div>
+            <div class="pitch-group transpose-group">
+              <button class="btn btn-outline btn-xs" onclick="window.chordLabInversions.shiftSemitone(1)">▲ +1</button>
+              <button class="btn btn-outline btn-xs" onclick="window.chordLabInversions.shiftSemitone(-1)">▼ -1</button>
+            </div>
+          </div>
+
+          <div class="staff-embed-wrap" id="inv-staff-container"></div>
+
+          <div id="inv-piano-wrapper" class="studio-piano-bar">
+            <div class="piano-bar-title">🎹 คลิกเลือกระดับเสียงบนคีย์เปียโนโดยตรง (Range C2 ถึง G5):</div>
+            <div class="piano-keyboard-wrap" id="inv-piano-container"></div>
+          </div>
+        </div>
+
+        <aside class="card">
+          <div class="card-title"><span>📝 ตรวจคำตอบ &amp; เฉลย</span></div>
+          <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+            <button class="btn btn-primary" onclick="window.chordLabInversions.checkAnswer()">🔍 ตรวจคำตอบ</button>
+            <button class="btn btn-success" onclick="window.chordLabInversions.playTargetChord()">🔊 ฟังเสียงโจทย์ที่ถูกต้อง</button>
+            <button class="btn btn-outline" onclick="window.chordLabInversions.showSolution()">💡 แสดงเฉลยบนบรรทัด 5 เส้น</button>
+          </div>
+          <div id="inv-feedback"></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 4: MAJOR MODE & TETRACHORD                                       -->
+  <!-- ===================================================================== -->
+  <section id="view-modes" class="view-section">
+    <div class="lab-container">
+      <!-- ส่วนที่ 1: Tetrachord -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">
+          <span>🎹 หน้า 4 • Tetrachord: โครงสร้างและการแบ่งครึ่ง Scale</span>
+        </div>
+        <p style="font-size: 0.94rem; color: #334155; line-height: 1.7; margin-bottom: 14px;">
+          <strong>Tetrachord</strong> คือ Scale 4 ตัวโน้ตที่ถูกแบ่งครึ่ง โดยจะมีชื่อเรียกแตกต่างกันไปตามตำแหน่งระยะห่าง <strong>"ครึ่งเสียง (Half Step, H)"</strong> ใน Major Scale จะพบ Tetrachord ทั้งหมด <strong>4 ชนิด</strong> และสามารถนำมาต่อกัน 2 ชุด (Scale degree 1–4 และ 5–7+1) เพื่อสร้างเป็น Mode ทั้ง 7 ชนิด (คลิกการ์ดตัวอย่างเพื่อฟังเสียงได้ทันที)
+        </p>
+
+        <div id="mode-tetrachords-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: 18px;"></div>
+
+        <h3 style="font-size: 1rem; color: #0f172a; margin-bottom: 8px;">🔍 ตารางสรุป 4 ชนิดของ Tetrachord และโครงสร้างระยะห่าง</h3>
+        <div style="overflow-x: auto;">
+          <table class="lesson-table" style="border: 1px solid #e2e8f0;">
+            <thead>
+              <tr style="background:#f8fafc;">
+                <th>ชนิดของ Tetrachord</th>
+                <th>จุดเริ่มต้น (การแบ่งครึ่ง)</th>
+                <th>ตำแหน่งระยะห่าง "ครึ่งเสียง"</th>
+                <th>ระยะห่าง (ตัวอย่างจาก C / D / E / F)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Major Tetrachord</strong></td>
+                <td>1st scale degree</td>
+                <td>ลำดับที่ <strong>3 - 4</strong> ของ Tetrachord</td>
+                <td>W - W - <strong>H</strong> (C - D - E ^ F)</td>
+              </tr>
+              <tr>
+                <td><strong>Minor Tetrachord</strong></td>
+                <td>2nd scale degree</td>
+                <td>ลำดับที่ <strong>2 - 3</strong> ของ Tetrachord</td>
+                <td>W - <strong>H</strong> - W (D - E ^ F - G)</td>
+              </tr>
+              <tr>
+                <td><strong>Phrygian Tetrachord</strong></td>
+                <td>3rd scale degree</td>
+                <td>ลำดับที่ <strong>1 - 2</strong> ของ Tetrachord</td>
+                <td><strong>H</strong> - W - W (E ^ F - G - A)</td>
+              </tr>
+              <tr>
+                <td><strong>Wholetone Tetrachord</strong></td>
+                <td>4th scale degree</td>
+                <td><strong>ไม่มีระยะครึ่งเสียง</strong>ใน Tetrachord (เกิดครึ่งเสียงระหว่าง Tetrachord แทน)</td>
+                <td>W - W - W (F - G - A - B)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ส่วนที่ 2: Mode ทั้ง 7 ใน Major Scale (พร้อมบรรทัด 5 เส้นจริง + เสียง) -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">
+          <span>🎭 Mode in Major ทั้ง 7 ชนิด (ตัวอย่างอ้างอิงจากกลุ่มโน้ต C Major)</span>
+        </div>
+        <p style="font-size: 0.92rem; color: #334155; line-height: 1.65; margin-bottom: 12px;">
+          ทุกโหมดในกลุ่มนี้ใช้กลุ่มโน้ตชุดเดียวกัน (<strong>C - D - E - F - G - A - B</strong>) แต่เริ่มจากโน้ตคนละตัว ทำให้ตำแหน่งครึ่งเสียง (เครื่องหมาย <strong style="color:#dc2626;">^</strong> ระหว่าง E–F และ B–C) ย้ายตำแหน่งและเกิดสีสันเสียงต่างกัน กดปุ่ม <strong>🔊 ฟังเสียง</strong> เพื่อฟังเอกลักษณ์ของแต่ละ Mode
+        </p>
+
+        <div id="mode-seven-list" style="display:flex; flex-direction:column; gap:10px;"></div>
+      </div>
+
+      <!-- ส่วนที่ 3: วิธีคิดและจำ Mode 3 วิธี -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">
+          <span>🧭 วิธีคิดและจำ Mode (3 วิธีสำคัญ)</span>
+        </div>
+        <div class="grid-3" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:14px;">
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px;">
+            <div style="font-weight:700; color:#0369a1; margin-bottom:6px;">วิธีที่ 1: คิดจาก Key เดียวแล้วไล่ตาม Step</div>
+            <p style="font-size:0.84rem; color:#475569; margin-bottom:8px;">
+              เริ่มจาก <strong>C Major</strong> แล้วเลื่อนจุดเริ่มต้นไปตามลำดับ (Scale degree) ทุก Mode ใช้ Key Signature เดียวกับ C Major ทั้งหมด (0 # / 0 b)
+            </p>
+            <ul style="font-size:0.83rem; color:#334155; padding-left:18px; line-height:1.6;">
+              <li>1 = C Ionian • 2 = D Dorian</li>
+              <li>3 = E Phrygian • 4 = F Lydian</li>
+              <li>5 = G Mixolydian • 6 = A Aeolian • 7 = B Locrian</li>
+            </ul>
+          </div>
+
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px;">
+            <div style="font-weight:700; color:#6d28d9; margin-bottom:6px;">วิธีที่ 2: เทียบลำดับหา Major Scale ตั้งต้น (Parent Key)</div>
+            <p style="font-size:0.84rem; color:#475569; margin-bottom:8px;">
+              จำว่า Mode เป็นลำดับที่เท่าไรของ Major Scale แล้วเทียบกลับ เช่น <strong>C Dorian</strong> เป็นลำดับที่ 2 ของ <strong>B♭ Major</strong> จึงใช้ Key Signature แบบ B♭ Major (B♭, E♭)
+            </p>
+            <div style="font-size:0.8rem; color:#334155; line-height:1.55;">
+              C Ionian (1) → C Major | C Dorian (2) → B♭ Major<br>
+              C Phrygian (3) → A♭ Major | C Lydian (4) → G Major<br>
+              C Mixolydian (5) → F Major | C Aeolian (6) → E♭ Major | C Locrian (7) → D♭ Major
+            </div>
+          </div>
+
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px;">
+            <div style="font-weight:700; color:#b45309; margin-bottom:6px;">วิธีที่ 3: จำ Formula เทียบกับ Parallel Major</div>
+            <p style="font-size:0.84rem; color:#475569; margin-bottom:8px;">
+              จำสูตรของแต่ละ Mode แล้วนำ Root ไปเทียบกับ Major Key เดียวกัน เช่น C Dorian เทียบกับ C Major แล้วติด <strong>♭3, ♭7</strong>
+            </p>
+            <div style="font-size:0.8rem; color:#334155; line-height:1.55;">
+              Ionian: 1 2 3 4 5 6 7 | Lydian: <strong>#4</strong><br>
+              Mixolydian: <strong>♭7</strong> | Dorian: <strong>♭3, ♭7</strong><br>
+              Aeolian: <strong>♭3, ♭6, ♭7</strong> | Phrygian: <strong>♭2, ♭3, ♭6, ♭7</strong> | Locrian: <strong>♭2, ♭3, ♭5, ♭6, ♭7</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ส่วนที่ 4: คอร์ดประจำลำดับ & การจัดกลุ่ม Chord Family -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">
+          <span>🧩 คอร์ดใน Major Scale และการจัดกลุ่ม Chord Family Comparison</span>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:16px; margin-bottom:14px;">
+          <div style="overflow-x:auto;">
+            <h4 style="font-size:0.95rem; color:#0f172a; margin-bottom:8px;">คอร์ดและความสัมพันธ์ตามลำดับขั้นใน Major Scale</h4>
+            <table class="lesson-table" style="border: 1px solid #e2e8f0;">
+              <thead>
+                <tr style="background:#f8fafc;">
+                  <th>ลำดับ</th>
+                  <th>Mode</th>
+                  <th>Diatonic Triad</th>
+                  <th>7th Chord</th>
+                  <th>สัญลักษณ์</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>I (1)</strong></td><td>Ionian</td><td>Major</td><td>Major 7</td><td>Maj → Maj7</td></tr>
+                <tr><td><strong>ii (2)</strong></td><td>Dorian</td><td>minor</td><td>minor 7</td><td>m → m7</td></tr>
+                <tr><td><strong>iii (3)</strong></td><td>Phrygian</td><td>minor</td><td>minor 7</td><td>m → m7</td></tr>
+                <tr><td><strong>IV (4)</strong></td><td>Lydian</td><td>Major</td><td>Major 7</td><td>Maj → Maj7</td></tr>
+                <tr><td><strong>V (5)</strong></td><td>Mixolydian</td><td>Major</td><td>Dominant 7</td><td>Maj → 7</td></tr>
+                <tr><td><strong>vi (6)</strong></td><td>Aeolian</td><td>minor</td><td>minor 7</td><td>m → m7</td></tr>
+                <tr><td><strong>vii° (7)</strong></td><td>Locrian</td><td>diminished</td><td>half-diminished 7</td><td>dim → m7♭5</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:14px;">
+              <div style="font-weight:700; color:#b45309; margin-bottom:6px;">☀️ Major Chord Family (ประกอบด้วย 3 Modes)</div>
+              <p style="font-size:0.83rem; color:#78350f; margin-bottom:8px;">มีโครงสร้างโดยรวมเป็นคอร์ด <strong>Major</strong> ให้ความรู้สึกสว่าง มั่นคง และเปิดกว้าง:</p>
+              <ul style="font-size:0.85rem; color:#1e293b; padding-left:18px; line-height:1.65;">
+                <li><strong>Ionian (1):</strong> 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8</li>
+                <li><strong>Lydian (4):</strong> 1 - 2 - 3 - <strong>#4</strong> - 5 - 6 - 7 - 8</li>
+                <li><strong>Mixolydian (5):</strong> 1 - 2 - 3 - 4 - 5 - 6 - <strong>♭7</strong> - 8</li>
+              </ul>
+            </div>
+
+            <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:14px;">
+              <div style="font-weight:700; color:#1d4ed8; margin-bottom:6px;">🌙 Minor Chord Family (ประกอบด้วย 4 Modes)</div>
+              <p style="font-size:0.83rem; color:#1e3a8a; margin-bottom:8px;">มีโครงสร้างโดยรวมเป็นคอร์ด <strong>Minor</strong> (มี ♭3) ให้ความรู้สึกหม่น นุ่มนวล และลึกซึ้ง:</p>
+              <ul style="font-size:0.85rem; color:#1e293b; padding-left:18px; line-height:1.65;">
+                <li><strong>Dorian (2):</strong> 1 - 2 - <strong>♭3</strong> - 4 - 5 - 6 - <strong>♭7</strong> - 8</li>
+                <li><strong>Aeolian (6):</strong> 1 - 2 - <strong>♭3</strong> - 4 - 5 - <strong>♭6</strong> - <strong>♭7</strong> - 8</li>
+                <li><strong>Phrygian (3):</strong> 1 - <strong>♭2</strong> - <strong>♭3</strong> - 4 - 5 - <strong>♭6</strong> - <strong>♭7</strong> - 8</li>
+                <li><strong>Locrian (7):</strong> 1 - <strong>♭2</strong> - <strong>♭3</strong> - 4 - <strong>♭5</strong> - <strong>♭6</strong> - <strong>♭7</strong> - 8</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ส่วนที่ 5: แบบฝึกหัด Major Mode & Tetrachord -->
+      <div class="card">
+        <div class="question-banner" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-color: #bae6fd;">
+          <div>
+            <div class="question-banner-title">
+              <span>🎯 แบบฝึกหัด: วิเคราะห์ Major Mode, Tetrachord และสูตรโครงสร้าง</span>
+            </div>
+            <div class="question-banner-subtitle">กดฟังเสียงบันไดเสียงตัวอย่างแล้ววิเคราะห์ว่าเป็น Mode หรือโครงสร้างใด (สุ่มคำถามไม่ซ้ำ)</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <span id="mode-stats-badge" style="background:#e0f2fe; color:#0369a1; padding:5px 12px; border-radius:999px; font-weight:700; font-size:0.84rem; border:1px solid #bae6fd;">คะแนนสะสม: 0 / 0 ข้อ</span>
+            <button class="btn btn-success btn-sm" onclick="window.theoryPages.playCurrentModeQuiz()">🔊 ฟังเสียง Mode</button>
+            <button class="btn btn-primary btn-sm" onclick="window.theoryPages.nextModeQuiz()">🎲 ข้อถัดไป</button>
+          </div>
+        </div>
+
+        <div id="mode-quiz-prompt" style="font-size:1rem; font-weight:700; color:#0f172a; margin:14px 0;"></div>
+        <div id="mode-quiz-options" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:10px; margin-bottom:14px;"></div>
+        <div id="mode-quiz-feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 5: FIGURED BASS                                                  -->
+  <!-- ===================================================================== -->
+  <section id="view-figuredbass" class="view-section">
+    <div class="lab-container">
+      <!-- ส่วนที่ 1 & 2: ประวัติและหลักการเขียน -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">
+          <span>🔢 หน้า 5 • Figured Bass (Basso Continuo &amp; ตัวเลขใต้นิ้วเบส)</span>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px;">
+          <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:14px;">
+            <h3 style="font-size:0.98rem; color:#9d174d; margin-bottom:8px;">1. ข้อมูลทั่วไปและประวัติ (Basso Continuo)</h3>
+            <ul style="font-size:0.86rem; color:#334155; padding-left:18px; line-height:1.7;">
+              <li><strong>ยุคสมัยและการเกิด:</strong> พัฒนาและนิยมสูงสุดในยุค <strong>Baroque (ค.ศ. 1600–1750)</strong></li>
+              <li><strong>ความเชื่อมโยงกับ Basso Continuo:</strong> Figured bass เป็นระบบจดบันทึกย่อ (Shorthand) สำหรับแนวคลอ <em>Basso continuo (Thoroughbass)</em> ที่เป็นรากฐานสำคัญของยุคบาโรก</li>
+              <li><strong>หน้าที่ผู้ประพันธ์และผู้เล่น:</strong> ผู้ประพันธ์เขียนแนวเบสและตัวเลข (Figures) ส่วนนักดนตรี (Accompanist / Continuo players) จะทำหน้าที่ <strong>"Realize"</strong> เติมเต็มคอร์ดและ Improvise บนกรอบคอร์ดนั้น</li>
+              <li><strong>เครื่องดนตรีที่ใช้:</strong> เครื่องดนตรีเล่นคอร์ด เช่น Harpsichord, Organ, Piano, Clavichord, Lute, Theorbo ร่วมกับ Cello หรือ Double bass เล่นแนวเบส</li>
+            </ul>
+          </div>
+
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px;">
+            <h3 style="font-size:0.98rem; color:#0f172a; margin-bottom:8px;">2. หลักการและวิธีการเขียน</h3>
+            <ul style="font-size:0.86rem; color:#334155; padding-left:18px; line-height:1.7;">
+              <li><strong>องค์ประกอบหลัก:</strong> แนวโน้ตเบส (Bass line) + ตัวเลขอารบิก (Arabic numerals เช่น 1, 2, 3...)</li>
+              <li><strong>ความหมายของตัวเลข:</strong> บอกระยะขั้นคู่ (Intervals) ของโน้ตที่อยู่<strong>เหนือโน้ตเบส</strong> โดยนับตัวเบสเป็น 1 (เช่น เบส C มีเลข 6 กำกับ หมายถึงต้องมีโน้ตขั้นคู่ 6 เหนือ C คือ <strong>A</strong>)</li>
+              <li><strong>การจัดเรียงโน้ต (Voicing):</strong> ตัวเลขไม่ได้บังคับตายตัวว่าแนวบนต้องอยู่อ็อกเทฟไหน เปิดโอกาสให้ผู้เล่นจัดเสียงได้อย่างอิสระ</li>
+              <li><strong>ความคล้ายคลึงกับ Roman Numeral:</strong> ปัจจุบันใช้ร่วมกับเลขโรมันเพื่อระบุทั้งหน้าที่คอร์ด (Function) และการพลิกกลับ (Inversion)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ส่วนที่ 3: สัญลักษณ์ตัวเลขที่ใช้บ่อย + ตัวอย่าง Bass Clef -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">
+          <span>📏 3. สัญลักษณ์ตัวเลขที่ใช้บ่อย (Figured Bass Shortcuts) &amp; ตัวอย่างบน Bass Clef</span>
+        </div>
+        <p style="font-size:0.9rem; color:#334155; margin-bottom:12px;">
+          ตัวเลขที่มีค่ามากกว่าจะเขียนไว้ด้านบนเสมอ และมีการละตัวเลขที่พบบ่อยไว้ในฐานที่เข้าใจ (Shortcuts) — คลิกคอร์ดบนบรรทัด 5 เส้นด้านล่างเพื่อฟังเสียงได้เลยครับ
+        </p>
+
+        <div id="fb-lesson-staff" class="staff-embed-wrap" style="padding: 10px; margin-bottom: 16px;"></div>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-bottom:16px;">
+          <div style="overflow-x:auto;">
+            <h4 style="font-size:0.94rem; color:#1d4ed8; margin-bottom:8px;">คอร์ด Triad (คอร์ด 3 เสียง)</h4>
+            <table class="lesson-table" style="border: 1px solid #e2e8f0;">
+              <thead>
+                <tr style="background:#f8fafc;">
+                  <th>ตำแหน่ง</th>
+                  <th>ตัวย่อ (Shortcut)</th>
+                  <th>สัญลักษณ์เต็ม</th>
+                  <th>โน้ตในเบส</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Root Position</strong></td>
+                  <td><span class="fig-badge fig-blank">ว่าง (Blank)</span></td>
+                  <td><span class="fig-stack"><span class="fig-stack-chip">5</span><span class="fig-stack-chip">3</span></span></td>
+                  <td>Root (C ในคอร์ด C)</td>
+                </tr>
+                <tr>
+                  <td><strong>1st Inversion</strong></td>
+                  <td><span class="fig-badge">6</span></td>
+                  <td><span class="fig-stack"><span class="fig-stack-chip">6</span><span class="fig-stack-chip">3</span></span></td>
+                  <td>3rd (E ในคอร์ด C/E)</td>
+                </tr>
+                <tr>
+                  <td><strong>2nd Inversion</strong></td>
+                  <td><span class="fig-stack"><span class="fig-stack-chip">6</span><span class="fig-stack-chip">4</span></span></td>
+                  <td><span class="fig-stack"><span class="fig-stack-chip">6</span><span class="fig-stack-chip">4</span></span> (เขียนเต็มเสมอ)</td>
+                  <td>5th (G ในคอร์ด C/G)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="overflow-x:auto;">
+            <h4 style="font-size:0.94rem; color:#6d28d9; margin-bottom:8px;">คอร์ด 7th (คอร์ด 4 เสียง)</h4>
+            <table class="lesson-table" style="border: 1px solid #e2e8f0;">
+              <thead>
+                <tr style="background:#f8fafc;">
+                  <th>ตำแหน่ง</th>
+                  <th>ตัวย่อ (Shortcut)</th>
+                  <th>สัญลักษณ์เต็ม</th>
+                  <th>โน้ตในเบส</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Root Position</strong></td>
+                  <td><span class="fig-badge">7</span></td>
+                  <td>7 / 5 / 3</td>
+                  <td>Root (G ใน G7)</td>
+                </tr>
+                <tr>
+                  <td><strong>1st Inversion</strong></td>
+                  <td><span class="fig-stack"><span class="fig-stack-chip">6</span><span class="fig-stack-chip">5</span></span></td>
+                  <td>6 / 5 / 3</td>
+                  <td>3rd (B ใน G7/B)</td>
+                </tr>
+                <tr>
+                  <td><strong>2nd Inversion</strong></td>
+                  <td><span class="fig-stack"><span class="fig-stack-chip">4</span><span class="fig-stack-chip">3</span></span></td>
+                  <td>6 / 4 / 3</td>
+                  <td>5th (D ใน G7/D)</td>
+                </tr>
+                <tr>
+                  <td><strong>3rd Inversion</strong></td>
+                  <td><span class="fig-stack"><span class="fig-stack-chip">4</span><span class="fig-stack-chip">2</span></span> หรือ <span class="fig-badge">2</span></td>
+                  <td>6 / 4 / 2</td>
+                  <td>7th (F ใน G7/F)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div style="background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; padding:14px;">
+          <h4 style="font-size:0.95rem; color:#c2410c; margin-bottom:8px;">4. กฎเพิ่มเติมเกี่ยวกับการใช้เครื่องหมายแปลงเสียง (Accidentals)</h4>
+          <ul style="font-size:0.86rem; color:#334155; padding-left:18px; line-height:1.7;">
+            <li><strong>เครื่องหมายลอยๆ (Orphaned accidentals):</strong> หากมี #, ♭ หรือ ♮ อยู่เดี่ยวๆ โดยไม่มีตัวเลขกำกับ ให้ถือว่ากระทำกับ<strong>โน้ตขั้นคู่ที่ 3 (3rd) เหนือโน้ตเบสเสมอ</strong></li>
+            <li><strong>เครื่องหมายข้างตัวเลข:</strong> หากอยู่ข้างตัวเลขใด ให้เปลี่ยนเสียงโน้ตของขั้นคู่นั้นตามเครื่องหมาย (เช่น ♯6 หรือ ♭6)</li>
+            <li><strong>ขีดทับตัวเลข / เครื่องหมายบวก (Slashes / +):</strong> ตัวเลขที่มีขีดทับ (เช่น <span style="text-decoration:line-through;">6</span>) หรือมีเครื่องหมาย <strong>+</strong> กำกับ มีความหมายเท่ากับการ<strong>เพิ่มเสียงขึ้นครึ่งเสียง (Sharp)</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ส่วนที่ 4: แบบฝึกหัด Figured Bass -->
+      <div class="card">
+        <div class="question-banner" style="background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); border-color: #fbcfe8;">
+          <div>
+            <div class="question-banner-title">
+              <span>🎯 แบบฝึกหัด: ถอดความหมาย Figured Bass และ Accidentals</span>
+            </div>
+            <div class="question-banner-subtitle">วิเคราะห์ตัวเลข Shortcut, ขั้นคู่เหนือเบส และกฎเครื่องหมายแปลงเสียงจากโจทย์ด้านล่าง</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <span id="fb-stats-badge" style="background:#fce7f3; color:#be185d; padding:5px 12px; border-radius:999px; font-weight:700; font-size:0.84rem; border:1px solid #fbcfe8;">คะแนนสะสม: 0 / 0 ข้อ</span>
+            <button class="btn btn-success btn-sm" onclick="window.theoryPages.playCurrentFbQuiz()">🔊 ฟังเสียงคอร์ดตัวอย่าง</button>
+            <button class="btn btn-primary btn-sm" onclick="window.theoryPages.nextFiguredBassQuiz()">🎲 ข้อถัดไป</button>
+          </div>
+        </div>
+
+        <div id="fb-quiz-prompt" style="font-size:1rem; font-weight:700; color:#0f172a; margin:14px 0;"></div>
+        <div id="fb-quiz-options" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:10px; margin-bottom:14px;"></div>
+        <div id="fb-quiz-feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 6: DIATONIC SUBSTITUTION & CHORD SPELLING FORMULA                -->
+  <!-- ===================================================================== -->
+  <section id="view-diatonicsub" class="view-section">
+    <div class="lab-container">
+      <!-- ส่วนที่ 1: Diatonic Substitution -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">
+          <span>🔁 หน้า 6 • หลักการพื้นฐานของ Diatonic Substitution (การแทนคอร์ดในคีย์เดียวกัน)</span>
+        </div>
+        <p style="font-size:0.94rem; color:#334155; line-height:1.7; margin-bottom:14px;">
+          <strong>Diatonic Substitution</strong> คือการนำคอร์ดที่อยู่ในคีย์เดียวกันมาใช้แทนกัน เพื่อเพิ่มสีสันให้กับบทเพลงโดยยังคงกลิ่นอายของคอร์ดเดิมไว้ หลักสำคัญคือคอร์ดที่นำมาแทนกันได้ควรมี <strong>โน้ตร่วมกันอย่างน้อย 2 โน้ต</strong> (หากซ้ำกันเพียง 1 โน้ตจะมีความเกี่ยวข้องน้อยเกินไปและเสียงต่างกันมาก)
+        </p>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:14px; margin-bottom:16px;">
+          <div style="background:#ecfdf5; border:1px solid #a7f3d0; border-radius:10px; padding:14px;">
+            <div style="font-size:0.85rem; color:#065f46; font-weight:700;">ความคล้ายคลึง: คอร์ด Triad (3 โน้ต)</div>
+            <div style="font-size:1.5rem; font-weight:800; color:#047857; margin:4px 0;">66.66%</div>
+            <div style="font-size:0.84rem; color:#334155;">เมื่อมีโน้ตร่วมกัน 2 จาก 3 ตัว (เช่น C: <strong>C-E-G</strong> กับ Em: <strong>E-G-B</strong> มีโน้ตร่วม E, G)</div>
+          </div>
+
+          <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:14px;">
+            <div style="font-size:0.85rem; color:#1e40af; font-weight:700;">ความคล้ายคลึง: คอร์ด 7th Chord (4 โน้ต)</div>
+            <div style="font-size:1.5rem; font-weight:800; color:#1d4ed8; margin:4px 0;">50%</div>
+            <div style="font-size:0.84rem; color:#334155;">เมื่อมีโน้ตร่วมกัน 2 จาก 4 ตัว (หรือ 3 ตัวในระดับ 7th เช่น Cmaj7 กับ Em7 มี E, G, B ร่วมกัน)</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px; align-items:start;">
+          <div style="overflow-x:auto;">
+            <h4 style="font-size:0.95rem; color:#0f172a; margin-bottom:8px;">รูปแบบการแทนคอร์ด (อ้างอิงจากคีย์ C Major)</h4>
+            <table class="lesson-table" style="border: 1px solid #e2e8f0;">
+              <thead>
+                <tr style="background:#f8fafc;">
+                  <th>คอร์ดเดิม</th>
+                  <th>คอร์ดที่แทนได้</th>
+                  <th>ตัวอย่าง (C Major)</th>
+                  <th>ฟังเทียบเสียง</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>I</strong> (Tonic)</td>
+                  <td><strong>iii</strong> (Mediant)</td>
+                  <td>Cmaj7 → Em7 / C → Em</td>
+                  <td><button class="btn btn-outline btn-sm" onclick="window.theoryPages.playDsPairCompare('I_iii')">🔊 Cmaj7 → Em7</button></td>
+                </tr>
+                <tr>
+                  <td><strong>ii</strong> (Supertonic)</td>
+                  <td><strong>IV</strong> (Subdominant)</td>
+                  <td>Dm7 → Fmaj7</td>
+                  <td><button class="btn btn-outline btn-sm" onclick="window.theoryPages.playDsPairCompare('ii_IV')">🔊 Dm7 → Fmaj7</button></td>
+                </tr>
+                <tr>
+                  <td><strong>V</strong> (Dominant)</td>
+                  <td><strong>vii</strong> (Leading-tone)</td>
+                  <td>G7 → Bm7(♭5)</td>
+                  <td><button class="btn btn-outline btn-sm" onclick="window.theoryPages.playDsPairCompare('V_vii')">🔊 G7 → Bm7♭5</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <h4 style="font-size:0.95rem; color:#0f172a; margin-bottom:8px;">ตัวอย่างโน้ต Triad: C Major (C-E-G) vs E Minor (E-G-B)</h4>
+            <div id="ds-lesson-triad-staff" class="staff-embed-wrap" style="padding:10px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ส่วนที่ 2: Chord Spelling Formula -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">
+          <span>🧬 ความสัมพันธ์และสูตรโครงสร้างคอร์ด (Chord Spelling Formula)</span>
+        </div>
+        <div style="background:#fefce8; border:1px solid #fde047; border-radius:10px; padding:12px 14px; margin-bottom:14px; color:#854d0e; font-size:0.92rem;">
+          💡 <strong>หัวใจสำคัญ: "พลิกโน้ตเพียง 1 ตัว ก็จะได้คอร์ดชื่อใหม่ที่นำมาแทนกันได้"</strong> — เมื่อนำคอร์ด 4 เสียงมาพลิกกลับ (Inversion) ด้วยชุดโน้ตเดิมแต่เปลี่ยน Bass โครงสร้างขั้นคู่จะเปลี่ยนมุมมองเป็นคอร์ดชื่อใหม่ที่โทนเสียงใกล้เคียงกันมาก
+        </div>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:16px;">
+          <div style="border:1px solid #e2e8f0; border-radius:12px; padding:14px; background:#ffffff;">
+            <h3 style="font-size:0.98rem; color:#0369a1; margin-bottom:6px;">1. ความสัมพันธ์ Minor7 ↔ Major6</h3>
+            <p style="font-size:0.86rem; color:#334155; margin-bottom:10px;">
+              • สูตรคอร์ด <strong>Minor7</strong>: <strong>1, ♭3, 5, ♭7</strong><br>
+              • สูตรคอร์ด <strong>Major6</strong>: <strong>1, 3, 5, 6</strong>
+            </p>
+            <div id="ds-lesson-spell1-staff" class="staff-embed-wrap" style="padding:8px; margin-bottom:10px;"></div>
+            <div style="display:flex; flex-direction:column; gap:6px; font-size:0.84rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                <span><strong>Dm7</strong> (D-F-A-C) ↔ <strong>FMaj6</strong> (F-A-C-D)</span>
+                <button class="btn btn-outline btn-sm" onclick="window.theoryPages.playDsPairCompare('Dm7_Fmaj6')">🔊 ฟังคู่</button>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                <span><strong>Am7</strong> (A-C-E-G) ↔ <strong>CMaj6</strong> (C-E-G-A)</span>
+                <button class="btn btn-outline btn-sm" onclick="window.theoryPages.playDsPairCompare('Am7_Cmaj6')">🔊 ฟังคู่</button>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                <span><strong>Em7</strong> (E-G-B-D) ↔ <strong>GMaj6</strong> (G-B-D-E)</span>
+                <button class="btn btn-outline btn-sm" onclick="window.theoryPages.playDsPairCompare('Em7_Gmaj6')">🔊 ฟังคู่</button>
+              </div>
+            </div>
+          </div>
+
+          <div style="border:1px solid #e2e8f0; border-radius:12px; padding:14px; background:#ffffff;">
+            <h3 style="font-size:0.98rem; color:#0f766e; margin-bottom:6px;">2. ความสัมพันธ์ Halfdim7 ↔ Minor6</h3>
+            <p style="font-size:0.86rem; color:#334155; margin-bottom:10px;">
+              • สูตรคอร์ด <strong>Halfdim7 (m7♭5)</strong>: <strong>1, ♭3, ♭5, ♭7</strong><br>
+              • สูตรคอร์ด <strong>Minor6 (m6)</strong>: <strong>1, ♭3, 5, 6</strong>
+            </p>
+            <div id="ds-lesson-spell2-staff" class="staff-embed-wrap" style="padding:8px; margin-bottom:10px;"></div>
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:0.84rem;">
+              <span><strong>Bm7♭5 / Bdim7(half)</strong> (B-D-F-A) ↔ <strong>Dm6</strong> (D-F-A-B)</span>
+              <button class="btn btn-outline btn-sm" onclick="window.theoryPages.playDsPairCompare('Bm7b5_Dm6')">🔊 ฟังคู่</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ส่วนที่ 3: แบบฝึกหัด Diatonic Sub & Chord Spelling -->
+      <div class="card">
+        <div class="question-banner" style="background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%); border-color: #99f6e4;">
+          <div>
+            <div class="question-banner-title">
+              <span>🎯 แบบฝึกหัด: วิเคราะห์ Diatonic Substitution &amp; Chord Spelling</span>
+            </div>
+            <div class="question-banner-subtitle">กดฟังเสียงคู่คอร์ดเปรียบเทียบแล้วตอบคำถามเรื่องการแทนคอร์ดและความสัมพันธ์ Minor7/Major6, Halfdim7/Minor6</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <span id="ds-stats-badge" style="background:#ccfbf1; color:#0f766e; padding:5px 12px; border-radius:999px; font-weight:700; font-size:0.84rem; border:1px solid #99f6e4;">คะแนนสะสม: 0 / 0 ข้อ</span>
+            <button class="btn btn-success btn-sm" onclick="window.theoryPages.playCurrentDsQuiz()">🔊 ฟังเสียงเปรียบเทียบ</button>
+            <button class="btn btn-primary btn-sm" onclick="window.theoryPages.nextDiatonicSubQuiz()">🎲 ข้อถัดไป</button>
+          </div>
+        </div>
+
+        <div id="ds-quiz-prompt" style="font-size:1rem; font-weight:700; color:#0f172a; margin:14px 0;"></div>
+        <div id="ds-quiz-options" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:10px; margin-bottom:14px;"></div>
+        <div id="ds-quiz-feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 7: CADENCE (การจบประโยคเพลง)                                     -->
+  <!-- ===================================================================== -->
+  <section id="view-cadence" class="view-section">
+    <div class="lab-container">
+      <!-- ส่วนที่ 1: บทนำและตารางเปรียบเทียบชื่อเรียก Cadence -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">
+          <span>📚 Cadence (การจบประโยคเพลง)</span>
+        </div>
+        <p style="font-size: 0.94rem; color: #334155; line-height: 1.7; margin-bottom: 16px;">
+          <strong>Cadence (การจบประโยคเพลง)</strong> คือรูปแบบการเคลื่อนที่ของคอร์ดหรือแนวทำนองที่สร้างความรู้สึก <strong>"จบ"</strong> หรือ <strong>"พัก"</strong> ที่ปลายสุดของวลีดนตรี (Phrase) เปรียบเสมือนเครื่องหมายวรรคตอนในภาษาพูด ถือเป็นส่วนประกอบที่สำคัญทางดนตรี โดยเฉพาะการเขียน Four-part harmony และการวิเคราะห์บทเพลง
+        </p>
+
+        <h3 style="font-size: 1rem; color: #0f172a; margin-bottom: 8px;">1. ตารางเปรียบเทียบชื่อเรียก Cadence (ระบบอเมริกัน vs ระบบอังกฤษ)</h3>
+        <p style="font-size: 0.86rem; color: #475569; margin-bottom: 10px;">
+          การทำความเข้าใจทั้งสองระบบจะช่วยให้ศึกษาตำราทฤษฎีดนตรีสากลจากทั้งฝั่งอเมริกาและฝั่งอังกฤษได้ง่ายขึ้น
+        </p>
+        <div style="overflow-x: auto;">
+          <table class="lesson-table" style="border: 1px solid #e2e8f0;">
+            <thead>
+              <tr>
+                <th>การดำเนินคอร์ด (Progression)</th>
+                <th>ระบบอเมริกัน (American)</th>
+                <th>ระบบอังกฤษ (British)</th>
+                <th>ความรู้สึกทางการฟัง</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>V → I</strong> (หรือ V⁷ → I)</td>
+                <td><span class="fig-badge">Authentic Cadence</span></td>
+                <td><span class="fig-badge" style="background:#f5f3ff; color:#6d28d9; border-color:#ddd6fe;">Perfect Cadence</span></td>
+                <td>จบสมบูรณ์ เด็ดขาด มีแรงส่งจาก Leading Tone</td>
+              </tr>
+              <tr>
+                <td><strong>IV → I</strong></td>
+                <td><span class="fig-badge" style="background:#ecfdf5; color:#047857; border-color:#a7f3d0;">Plagal Cadence</span></td>
+                <td><span class="fig-badge" style="background:#ecfdf5; color:#047857; border-color:#a7f3d0;">Plagal Cadence</span></td>
+                <td>จบสมบูรณ์แบบนุ่มนวล สงบ ("Amen Cadence")</td>
+              </tr>
+              <tr>
+                <td><strong>จบที่คอร์ด V</strong> (เช่น I → V, ii → V, IV → V)</td>
+                <td><span class="fig-badge" style="background:#fffbeb; color:#b45309; border-color:#fde68a;">Half Cadence</span></td>
+                <td><span class="fig-badge" style="background:#fffbeb; color:#b45309; border-color:#fde68a;">Imperfect Cadence</span></td>
+                <td>ค้างคา ยังไม่จบ เหมือนเครื่องหมายจุลภาค (,)</td>
+              </tr>
+              <tr>
+                <td><strong>V → vi</strong> (หรือ V → VI ในไมเนอร์)</td>
+                <td><span class="fig-badge" style="background:#fef2f2; color:#b91c1c; border-color:#fecaca;">Deceptive Cadence</span></td>
+                <td><span class="fig-badge" style="background:#fef2f2; color:#b91c1c; border-color:#fecaca;">Interrupted Cadence</span></td>
+                <td>หลอก / หักมุมจาก I ไปคอร์ดอื่นเพื่อยืดประโยค</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ส่วนที่ 2: ลักษณะของ Cadence ทั้ง 4 ชนิด พร้อมโน้ตตัวอย่าง Voice Leading -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">
+          <span>🎼 2. ลักษณะของ Cadence ทั้ง 4 ชนิด พร้อมตัวอย่างการจัดเรียงเสียงประสาน (Voice Leading)</span>
+        </div>
+
+        <!-- 1) Authentic / Perfect Cadence -->
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 16px; margin-bottom: 18px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+            <h3 style="font-size:1.05rem; color:#1d4ed8;">1) Authentic Cadence / Perfect Cadence — การดำเนินคอร์ด V → I (หรือ V⁷ → I)</h3>
+          </div>
+          <p style="font-size: 0.9rem; color: #334155; line-height: 1.65; margin-bottom: 10px;">
+            ให้ความรู้สึกจบอย่าง <strong>"สมบูรณ์และเด็ดขาด"</strong> มักใช้เพื่อปิดประโยคจบเพลงหรือปิดท่อนสำคัญ เนื่องจากมีแรงส่งจาก Leading Tone ในคอร์ด V ที่วิ่งเข้าหา Tonic อย่างชัดเจน
+          </p>
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: 0.87rem; color: #334155;">
+            <strong>📌 ข้อควรรู้ (ระบบอเมริกัน)</strong> แบ่งความสมบูรณ์ของการจบออกเป็น 2 ระดับ:
+            <ul style="margin: 6px 0 0 20px; line-height: 1.65;">
+              <li><strong>Perfect Authentic Cadence (PAC):</strong> คอร์ด V และ I ต้องอยู่ใน <strong>Root Position</strong> ทั้งคู่ และแนวบนสุด (<strong>Soprano</strong>) ต้องจบที่โน้ต <strong>Tonic</strong></li>
+              <li><strong>Imperfect Authentic Cadence (IAC):</strong> หากคอร์ดใดคอร์ดหนึ่งเป็น <strong>รูปพลิกกลับ</strong> (เช่น V⁶₅ → I) หรือแนว Soprano จบที่ <strong>ตัวที่ 3 หรือ 5</strong> ของคอร์ด จะถือว่าจบแบบไม่สมบูรณ์ที่สุด</li>
+            </ul>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+            <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:12px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <strong style="font-size:0.86rem; color:#1d4ed8;">PAC (V⁷ → I • Soprano จบ Tonic)</strong>
+                <button class="btn btn-success btn-xs" onclick="window.cadenceLab.playExample('pac')">🔊 ฟัง</button>
+              </div>
+              <div id="cad-staff-pac" style="overflow-x:auto;"></div>
+            </div>
+
+            <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:12px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <strong style="font-size:0.86rem; color:#475569;">IAC (V⁶₅ → I • คอร์ดพลิกกลับ)</strong>
+                <button class="btn btn-success btn-xs" onclick="window.cadenceLab.playExample('iac-inv')">🔊 ฟัง</button>
+              </div>
+              <div id="cad-staff-iac-inv" style="overflow-x:auto;"></div>
+            </div>
+
+            <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:12px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <strong style="font-size:0.86rem; color:#475569;">IAC (V → I • Soprano จบตัวที่ 3)</strong>
+                <button class="btn btn-success btn-xs" onclick="window.cadenceLab.playExample('iac-mel')">🔊 ฟัง</button>
+              </div>
+              <div id="cad-staff-iac-mel" style="overflow-x:auto;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2), 3), 4) Grid Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 16px;">
+          <!-- 2) Plagal Cadence -->
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px;">
+              <h3 style="font-size:1rem; color:#047857;">2) Plagal Cadence (IV → I)</h3>
+              <button class="btn btn-success btn-xs" onclick="window.cadenceLab.playExample('plagal')">🔊 ฟังเสียง</button>
+            </div>
+            <p style="font-size: 0.86rem; color: #334155; line-height: 1.6; margin-bottom: 10px;">
+              ให้ความรู้สึกจบอย่าง <strong>"นุ่มนวลและสงบ"</strong> กว่าแบบ Authentic เพราะไม่มีแรงตึงเครียดจาก Leading Tone มักพบบ่อยในเพลงโบสถ์ จึงนิยมเรียกว่า <strong>"Amen Cadence"</strong>
+            </p>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center;">
+              <div id="cad-staff-plagal"></div>
+            </div>
+          </div>
+
+          <!-- 3) Half Cadence -->
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px;">
+              <h3 style="font-size:1rem; color:#b45309;">3) Half / Imperfect Cadence (จบที่ V)</h3>
+              <button class="btn btn-success btn-xs" onclick="window.cadenceLab.playExample('half')">🔊 ฟังเสียง</button>
+            </div>
+            <p style="font-size: 0.86rem; color: #334155; line-height: 1.6; margin-bottom: 10px;">
+              เคลื่อนจากคอร์ดใดๆ (เช่น I → V, ii → V, <strong>IV → V</strong>) มาหยุดพักที่คอร์ด V ให้ความรู้สึก <strong>"ค้างคา"</strong> เหมือนเครื่องหมายจุลภาค (Comma) เพื่อส่งต่อวลีถัดไป
+            </p>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center;">
+              <div id="cad-staff-half"></div>
+            </div>
+          </div>
+
+          <!-- 4) Deceptive Cadence -->
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px;">
+              <h3 style="font-size:1rem; color:#b91c1c;">4) Deceptive / Interrupted (V → vi)</h3>
+              <button class="btn btn-success btn-xs" onclick="window.cadenceLab.playExample('deceptive')">🔊 ฟังเสียง</button>
+            </div>
+            <p style="font-size: 0.86rem; color: #334155; line-height: 1.6; margin-bottom: 10px;">
+              <strong>V → vi</strong> (เมเจอร์) หรือ <strong>V → VI</strong> (ไมเนอร์) เป็นการ "หลอก" ผู้ฟังจากที่ปูทางมาลง I แต่หักมุมไปจบที่คอร์ด vi (มักซ้ำเสียงที่ 3 ใน vi) เพื่อยืดประโยคเพลง
+            </p>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center;">
+              <div id="cad-staff-deceptive"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ส่วนที่ 3: แบบฝึกหัดวิเคราะห์ Cadence -->
+      <div class="lab-exercise-grid">
+        <div class="studio-workstation-card">
+          <div class="studio-question-bar">
+            <div>
+              <div class="question-banner-title">
+                <span>🎯 แบบฝึกหัด: วิเคราะห์ชนิดของ Cadence</span>
+                <span id="cad-quiz-key" class="question-clef-chip">คีย์: C Major</span>
+              </div>
+              <div class="question-banner-subtitle">สังเกตการดำเนินคอร์ด Bass และ Soprano บนบรรทัด 5 เส้น พร้อมกดฟังเสียงแล้วเลือกชนิดของ Cadence ด้านขวา</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <span id="cad-stats-badge" style="background:#fef3c7; color:#b45309; padding:5px 12px; border-radius:999px; font-weight:700; font-size:0.84rem; border:1px solid #fde68a;">คะแนนสะสม: 0 / 0 ข้อ</span>
+              <button class="btn btn-success btn-sm" onclick="window.cadenceLab.playQuiz()">🔊 ฟังเสียง</button>
+              <button class="btn btn-primary btn-sm" onclick="window.cadenceLab.nextQuiz()">🎲 ข้อถัดไป</button>
+            </div>
+          </div>
+
+          <div id="cad-quiz-staff" class="staff-embed-wrap" style="padding: 12px;"></div>
+        </div>
+
+        <aside class="card">
+          <div class="card-title"><span>📝 เลือกคำตอบ (Cadence Type)</span></div>
+          <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+            <button class="btn btn-outline cad-choice-btn" data-choice="PAC" onclick="window.cadenceLab.submitQuizAnswer('PAC')">1. Perfect Authentic Cadence (PAC)</button>
+            <button class="btn btn-outline cad-choice-btn" data-choice="IAC" onclick="window.cadenceLab.submitQuizAnswer('IAC')">2. Imperfect Authentic Cadence (IAC)</button>
+            <button class="btn btn-outline cad-choice-btn" data-choice="PLAGAL" onclick="window.cadenceLab.submitQuizAnswer('PLAGAL')">3. Plagal Cadence ("Amen")</button>
+            <button class="btn btn-outline cad-choice-btn" data-choice="HALF" onclick="window.cadenceLab.submitQuizAnswer('HALF')">4. Half / Imperfect Cadence (จบที่ V)</button>
+            <button class="btn btn-outline cad-choice-btn" data-choice="DECEPTIVE" onclick="window.cadenceLab.submitQuizAnswer('DECEPTIVE')">5. Deceptive / Interrupted Cadence</button>
+          </div>
+          <div id="cad-quiz-feedback"></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 8: ROOT POSITION PART WRITING                                    -->
+  <!-- ===================================================================== -->
+  <section id="view-partwriting" class="view-section">
+    <!-- Main Application Body -->
+    <main class="main-layout">
+    <!-- Left Column: Notation Editor & Controls -->
+    <div class="notation-section">
+
+      <!-- Preset & Key Control Bar -->
+      <div class="control-bar">
+        <div class="control-item">
+          <label for="preset-select">📂 เลือกแบบฝึกหัด / ตัวอย่าง:</label>
+          <select id="preset-select" style="min-width: 320px; font-weight: 600;">
+            <optgroup label="1. เบสกระโดด 4 หรือ 5 (Roots a 4th or 5th Apart)">
+              <option value="jump_45_1">1.1 I - IV (เบสกระโดดคู่ 4 - เก็บ Common Tone)</option>
+              <option value="jump_45_2">1.2 I - V - I (Cadential 4th & 5th - เก็บ Common Tone)</option>
+              <option value="jump_45_3">1.3 ii - V - I (Circle of 5ths Cadence)</option>
+              <option value="jump_45_4">1.4 vi - ii - V - I (Falling 5ths Progression)</option>
+            </optgroup>
+            <optgroup label="2. เบสกระโดด 3 หรือ 6 (Roots a 3rd or 6th Apart)">
+              <option value="jump_36_1">2.1 I - vi (เบสลงคู่ 3 - เก็บ 2 Common Tones)</option>
+              <option value="jump_36_2">2.2 vi - IV (เบสลงคู่ 3 - เก็บ 2 Common Tones)</option>
+              <option value="jump_36_3">2.3 I - iii (เบสขึ้นคู่ 3 - เก็บ 2 Common Tones)</option>
+              <option value="jump_36_4">2.4 I - vi - IV - ii (เบสลงคู่ 3 ต่อเนื่องทุกคอร์ด)</option>
+            </optgroup>
+            <optgroup label="3. เบสกระโดด 2 หรือ 7 (Roots a 2nd or 7th Apart)">
+              <option value="jump_27_1">3.1 IV - V (เบสขึ้นคู่ 2 - 3 แนวบนสวนทางลง)</option>
+              <option value="jump_27_2">3.2 V - vi (Deceptive Cadence - ซ้ำเสียงที่ 3 ใน vi)</option>
+              <option value="jump_27_3">3.3 I - ii (เบสขึ้นคู่ 2 - 3 แนวบนสวนทางลง)</option>
+              <option value="jump_27_4">3.4 vi - V - IV (เบสลงคู่ 2 ต่อเนื่อง - 3 แนวบนสวนทางขึ้น)</option>
+            </optgroup>
+            <optgroup label="4. รวมการกระโดดทุกระดับในข้อเดียว (Combined Motions)">
+              <option value="combined_1">4.1 I - vi - IV - V (คู่ 3 + คู่ 3 + คู่ 2)</option>
+              <option value="combined_2">4.2 I - IV - V - I (คู่ 4 + คู่ 2 + คู่ 5)</option>
+              <option value="combined_3">4.3 I - ii - V - I (คู่ 2 + คู่ 4 + คู่ 5)</option>
+              <option value="combined_4">4.4 I - vi - ii - V (คู่ 3 + คู่ 4 + คู่ 4)</option>
+            </optgroup>
+            <optgroup label="🔍 ตัวอย่างวิเคราะห์ข้อผิดพลาด (Diagnostics)">
+              <option value="parallel_errors">❌ ตัวอย่าง: พบขนาน 5 และ ขนาน 8 (Parallel 5ths & 8ves)</option>
+              <option value="spacing_error">❌ ตัวอย่าง: Spacing กว้างเกิน 1 คู่แปด</option>
+              <option value="crossing_and_doubling">❌ ตัวอย่าง: Voice Crossing & ซ้ำ Leading Tone</option>
+              <option value="blank_4chords">📝 การบ้านใหม่ (หน้าว่าง 4 คอร์ด)</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="control-item">
+          <label for="key-select">🎵 บันไดเสียง (Key):</label>
+          <select id="key-select">
+            <option value="C_maj">C Major</option>
+            <option value="G_maj">G Major (1 ♯)</option>
+            <option value="D_maj">D Major (2 ♯)</option>
+            <option value="A_maj">A Major (3 ♯)</option>
+            <option value="F_maj">F Major (1 ♭)</option>
+            <option value="Bb_maj">B♭ Major (2 ♭)</option>
+            <option value="Eb_maj">E♭ Major (3 ♭)</option>
+            <option value="A_min">A Minor</option>
+            <option value="E_min">E Minor</option>
+            <option value="D_min">D Minor</option>
+          </select>
+        </div>
+
+        <div class="control-item" style="margin-left: auto;">
+          <button id="btn-add-chord" class="btn btn-outline btn-sm">➕ เพิ่มคอร์ด</button>
+          <button id="btn-duplicate-chord" class="btn btn-outline btn-sm">📋 ทำซ้ำคอร์ด</button>
+          <button id="btn-delete-chord" class="btn btn-danger btn-sm">🗑️ ลบคอร์ด</button>
+        </div>
+      </div>
+
+      <!-- Preset Description Info Banner -->
+      <div id="preset-description-banner" style="margin: -12px 0 18px 0; padding: 10px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; font-size: 0.86rem; color: #166534; display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 1.1rem;">💡</span>
+        <span id="preset-desc-text">คำอธิบายข้อสอบ</span>
+      </div>
+
+      <!-- Unified Grand Staff Studio Workstation Card -->
+      <div class="studio-workstation-card">
+        <!-- Top Toolbar: Voice Selector Tabs + Active Badge + Chord Selection -->
+        <div class="studio-toolbar-top">
+          <div class="voice-tabs-compact">
+            <button class="voice-tab-btn active" data-voice="soprano" title="Soprano (C4 - G5 | หางชี้ขึ้น)">
+              <span class="v-dot" style="background:#2563eb;"></span> S: โซปราโน
+            </button>
+            <button class="voice-tab-btn" data-voice="alto" title="Alto (G3 - D5 | หางชี้ลง)">
+              <span class="v-dot" style="background:#059669;"></span> A: อัลโต
+            </button>
+            <button class="voice-tab-btn" data-voice="tenor" title="Tenor (C3 - G4 | หางชี้ขึ้น)">
+              <span class="v-dot" style="background:#d97706;"></span> T: เทเนอร์
+            </button>
+            <button class="voice-tab-btn" data-voice="bass" title="Bass (E2 - C4 | หางชี้ลง)">
+              <span class="v-dot" style="background:#7c3aed;"></span> B: เบส
+            </button>
+          </div>
+
+          <div class="studio-chord-controls">
+            <span id="active-voice-label" class="active-voice-badge">กำลังแก้ไข: โซปราโน</span>
+            <div class="chord-select-group">
+              <label for="chord-numeral-select">คอร์ด:</label>
+              <select id="chord-numeral-select"></select>
+              <button id="btn-play-chord" class="btn btn-outline btn-xs" title="ฟังเฉพาะคอร์ดที่กำลังเลือก">🔊 ฟัง</button>
+            </div>
+            <button id="btn-toggle-piano" class="btn btn-outline btn-xs" title="เปิด/ปิดเปียโนคีย์บอร์ด">🎹 เปียโน</button>
+          </div>
+        </div>
+
+        <!-- Note Pitch Toolbar (Directly above the 5-line staff) -->
+        <div class="studio-pitch-bar">
+          <!-- Note Pitch Steps -->
+          <div class="pitch-group">
+            <span class="group-label">ตัวโน้ต:</span>
+            <div class="pill-group">
+              <button class="pill-btn pitch-step-btn" data-step="C">C</button>
+              <button class="pill-btn pitch-step-btn" data-step="D">D</button>
+              <button class="pill-btn pitch-step-btn" data-step="E">E</button>
+              <button class="pill-btn pitch-step-btn" data-step="F">F</button>
+              <button class="pill-btn pitch-step-btn" data-step="G">G</button>
+              <button class="pill-btn pitch-step-btn" data-step="A">A</button>
+              <button class="pill-btn pitch-step-btn" data-step="B">B</button>
+            </div>
+          </div>
+
+          <!-- Accidentals -->
+          <div class="pitch-group">
+            <span class="group-label">เครื่องหมาย:</span>
+            <div class="pill-group">
+              <button class="pill-btn accidental-btn" data-alter="-1">♭</button>
+              <button class="pill-btn accidental-btn active" data-alter="0">♮</button>
+              <button class="pill-btn accidental-btn" data-alter="1">♯</button>
+            </div>
+          </div>
+
+          <!-- Octave -->
+          <div class="pitch-group">
+            <span class="group-label">Octave:</span>
+            <div class="pill-group">
+              <button class="pill-btn octave-btn" data-octave="2">2</button>
+              <button class="pill-btn octave-btn" data-octave="3">3</button>
+              <button class="pill-btn octave-btn" data-octave="4">4</button>
+              <button class="pill-btn octave-btn" data-octave="5">5</button>
+            </div>
+          </div>
+
+          <!-- Transpose -->
+          <div class="pitch-group transpose-group">
+            <button id="btn-transpose-up" class="btn btn-outline btn-xs" title="เพิ่มระดับเสียงทีละ 1 ครึ่งเสียง">▲ +1</button>
+            <button id="btn-transpose-down" class="btn btn-outline btn-xs" title="ลดระดับเสียงทีละ 1 ครึ่งเสียง">▼ -1</button>
+          </div>
+        </div>
+
+        <!-- The 5-Line Grand Staff (Directly below the buttons) -->
+        <div id="staff-container" class="staff-embed-wrap"></div>
+
+        <!-- Interactive Piano Keyboard (Directly attached under the staff) -->
+        <div id="piano-wrapper" class="studio-piano-bar">
+          <div class="piano-bar-title">🎹 คลิกเลือกระดับเสียงบนคีย์เปียโนโดยตรง (Range C2 ถึง G5):</div>
+          <div id="piano-container" class="piano-keyboard-wrap"></div>
+        </div>
+
+        <!-- View Toggles Footer -->
+        <div class="studio-footer-toggles">
+          <div class="view-toggles">
+            <label>
+              <input type="checkbox" id="toggle-color-coded" checked>
+              <span>แยกสี SATB</span>
+            </label>
+            <label>
+              <input type="checkbox" id="toggle-parallel-lines" checked>
+              <span>ไฮไลต์ขนาน 5/8</span>
+            </label>
+            <label>
+              <input type="checkbox" id="toggle-spacing-badges" checked>
+              <span>เตือนระยะห่าง</span>
+            </label>
+            <label>
+              <input type="checkbox" id="toggle-common-ties" checked>
+              <span>แสดง Tie (Common Tone)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Theory Reference Card for Students -->
+      <div class="card">
+        <div class="card-title">
+          <span>📚 สรุปกฎการประสานเสียง 4 แนว (Four-Part Harmony Rules Quick Reference)</span>
+        </div>
+
+        <!-- Highlight: Root Position Part Writing Rules -->
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 14px; margin-bottom: 14px;">
+          <strong style="color: #1e293b; font-size: 0.9rem;">📌 กฎการเขียน Root Position ตามระยะการเคลื่อนที่ของเบส (Bass Motions):</strong>
+          <ul style="margin: 6px 0 0 20px; font-size: 0.84rem; color: #334155; line-height: 1.6;">
+            <li><strong>1. เบสกระโดดคู่ 4 หรือ 5 (เช่น I-IV, I-V, ii-V):</strong> มี 1 Common Tone ให้เก็บ Common Tone ไว้ในแนวเดิม (มี Tie) แล้วอีก 2 แนวเดินเป็นขั้นคู่ 2</li>
+            <li><strong>2. เบสกระโดดคู่ 3 หรือ 6 (เช่น I-vi, vi-IV, I-iii):</strong> มี 2 Common Tones ให้เก็บ Common Tones ทั้งสองไว้ในแนวเดิม (มี Tie) และแนวที่เหลือเดิน 1 ขั้น</li>
+            <li><strong>3. เบสกระโดดคู่ 2 หรือ 7 (เช่น IV-V, I-ii, vi-V):</strong> ไม่มี Common Tone ทั้ง 3 แนวบนต้องเคลื่อนที่<strong>สวนทาง (Contrary Motion)</strong> กับเบสเพื่อเลี่ยงขนาน 5 และ 8 (ยกเว้น V-vi ให้ซ้ำเสียงที่ 3 ใน vi)</li>
+          </ul>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 0.86rem;">
+          <div>
+            <div class="rule-legend-item">
+              <span class="rule-legend-badge" style="background: #fee2e2; color: #b91c1c;">ห้ามเด็ดขาด</span>
+              <div>
+                <strong>คู่ขนาน 5 และคู่ขนาน 8 (Parallel 5ths & 8ves):</strong>
+                แนวเสียง 2 แนวใดๆ เคลื่อนที่ไปในทิศทางเดียวกันจากคู่ 5 ไปคู่ 5 หรือจากคู่ 8 ไปคู่ 8
+              </div>
+            </div>
+            <div class="rule-legend-item">
+              <span class="rule-legend-badge" style="background: #fee2e2; color: #b91c1c;">ห้ามเด็ดขาด</span>
+              <div>
+                <strong>ระยะห่าง (Spacing):</strong>
+                ระยะระหว่าง S กับ A และระหว่าง A กับ T ต้อง<strong>ไม่เกิน 1 คู่แปด (Octave)</strong> สำหรับ Tenor กับ Bass ห่างเกินได้ แต่<strong>ไม่เกินคู่ 12</strong>
+              </div>
+            </div>
+            <div class="rule-legend-item">
+              <span class="rule-legend-badge" style="background: #fee2e2; color: #b91c1c;">ห้ามเด็ดขาด</span>
+              <div>
+                <strong>การข้ามแนวเสียง (Voice Crossing):</strong>
+                ห้ามแนวเสียงที่ต่ำกว่าขยับขึ้นสูงกว่าแนวเสียงที่สูงกว่าในคอร์ดเดียวกัน (S ≥ A ≥ T ≥ B)
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="rule-legend-item">
+              <span class="rule-legend-badge" style="background: #fef3c7; color: #b45309;">ข้อบังคับ</span>
+              <div>
+                <strong>โน้ตในคอร์ด (Chord Tones & Third):</strong>
+                โน้ตทั้ง 4 แนวต้องเป็น Root, 3rd, 5th, 7th ของคอร์ดนั้น และ<strong>ห้ามขาดโน้ตขั้นที่ 3</strong> สำหรับ Triad
+              </div>
+            </div>
+            <div class="rule-legend-item">
+              <span class="rule-legend-badge" style="background: #fee2e2; color: #b91c1c;">ห้ามเด็ดขาด</span>
+              <div>
+                <strong>การซ้ำเสียง (Doubling Rules):</strong>
+                <strong>ห้ามซ้ำ Leading Tone (ขั้นที่ 7)</strong> โดยเด็ดขาด สำหรับคอร์ด Root Position มักซ้ำ Root, คอร์ด 6/4 ให้ซ้ำโน้ตเบส (Fifth)
+              </div>
+            </div>
+            <div class="rule-legend-item">
+              <span class="rule-legend-badge" style="background: #e0f2fe; color: #0369a1;">แนะนำ</span>
+              <div>
+                <strong>การคลี่คลาย (Resolution):</strong>
+                ในคอร์ด V หรือ V7 หรือ vii° โน้ต Leading Tone ควรก้าวขึ้น (Stepwise) เข้าหา Tonic และ<strong>โน้ตที่ 7 ของคอร์ด V7 ควรเคลื่อนที่ลง (Stepwise) เข้าหาตัวที่ 3 ของคอร์ด I</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Instant Harmony Dashboard & Detailed Feedback -->
+    <aside class="sidebar-section">
+      <!-- Score & Summary Card -->
+      <div class="card" style="position: sticky; top: 96px;">
+        <div class="card-title">
+          <span>📊 ผลการประเมิน (Assessment)</span>
+          <span id="summary-badge" style="font-size: 0.8rem; padding: 3px 8px; border-radius: 4px;">-</span>
+        </div>
+
+        <!-- Score Banner Display -->
+        <div id="score-banner-container"></div>
+
+        <!-- Issue List Header -->
+        <div style="font-weight: 700; font-size: 0.92rem; margin: 14px 0 10px 0; color: #334155; display: flex; align-items: center; justify-content: space-between;">
+          <span>จุดที่ตรวจพบ (Feedback & Advice):</span>
+          <small style="color: #64748b; font-weight: normal;">(คลิกเพื่อดูจุดที่ผิด)</small>
+        </div>
+
+        <!-- Dynamic Issues List -->
+        <div id="issues-list-container" style="max-height: calc(100vh - 350px); overflow-y: auto; padding-right: 4px;"></div>
+      </div>
+    </aside>
+  </main>
+  </section>
+
+  <!-- Error Explanation Pop-up Modal (ใช้ร่วมกันทุกหน้า) -->
+  <div id="feedback-modal-backdrop" class="feedback-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="feedback-modal-title" onclick="if (event.target === this) window.closeErrorPopup()">
+    <div class="feedback-modal">
+      <div class="feedback-modal-header">
+        <div>
+          <h3 id="feedback-modal-title" class="feedback-modal-title">❌ ยังไม่ถูกต้อง</h3>
+          <div id="feedback-modal-subtitle" class="feedback-modal-subtitle"></div>
+        </div>
+        <button type="button" class="feedback-modal-close" aria-label="ปิดหน้าต่าง" onclick="window.closeErrorPopup()">✕</button>
+      </div>
+      <div class="feedback-modal-body">
+        <div id="feedback-modal-list" class="feedback-modal-list"></div>
+        <div id="feedback-modal-tip" class="feedback-modal-tip" style="display: none;"></div>
+      </div>
+      <div class="feedback-modal-footer">
+        <button type="button" class="btn btn-primary" onclick="window.closeErrorPopup()">เข้าใจแล้ว • กลับไปแก้ไข</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/theory.js"></script>
+  <script src="js/rules.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/presets.js"></script>
+  <script src="js/chords-lab.js"></script>
+  <script src="js/cadence-lab.js"></script>
+  <script src="js/theory-pages.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
