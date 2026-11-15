@@ -536,8 +536,8 @@ class ChordLabController {
         window.showErrorPopup({
           title: `ยังไม่ถูกต้อง (${this.currentQuestion.chordSymbol})`,
           subtitle: this.mode === 'inversions'
-            ? `หน้า 3 • แบบฝึกหัดการพลิกกลับ (${this.currentQuestion.invMeta.label})`
-            : `หน้า 2 • แบบฝึกหัดโน้ตในคอร์ด 12 คีย์ (${this.currentQuestion.typeDef.name})`,
+            ? `แบบฝึกหัดการพลิกกลับ (${this.currentQuestion.invMeta.label})`
+            : `แบบฝึกหัดโน้ตในคอร์ด 12 คีย์ (${this.currentQuestion.typeDef.name})`,
           reasons: issues,
           tip: `💡 ${chordRule}${posRule}`
         });

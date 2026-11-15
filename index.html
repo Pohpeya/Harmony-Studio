@@ -24,7 +24,7 @@
       </div>
       
       <div class="header-actions">
-        <div style="display:flex; align-items:center; gap:6px; background: rgba(255,255,255,0.12); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.22);">
+        <div class="header-sound-control" style="display:flex; align-items:center; gap:6px; background: rgba(255,255,255,0.12); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.22);">
           <label for="sound-preset-select" style="font-size: 0.82rem; color: #e2e8f0; font-weight: 600;">เสียง:</label>
           <select id="sound-preset-select" style="background: #1e293b; color: #ffffff; border: 1px solid #475569; padding: 4px 8px; border-radius: 5px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
             <option value="grand_piano">🎹 Grand Piano</option>
@@ -52,13 +52,13 @@
     <nav class="top-nav-bar" aria-label="เมนูหลัก">
       <div class="top-nav-inner">
         <button class="nav-pill active" data-view="home" onclick="window.switchAppView('home')">🏠 เมนูหลัก</button>
-        <button class="nav-pill" data-view="chords" onclick="window.switchAppView('chords')">🎹 2. โน้ตในคอร์ด (12 คีย์)</button>
-        <button class="nav-pill" data-view="inversions" onclick="window.switchAppView('inversions')">🔄 3. การพลิกกลับของคอร์ด</button>
-        <button class="nav-pill" data-view="modes" onclick="window.switchAppView('modes')">🎭 4. Major Mode</button>
-        <button class="nav-pill" data-view="figuredbass" onclick="window.switchAppView('figuredbass')">🔢 5. Figured Bass</button>
-        <button class="nav-pill" data-view="diatonicsub" onclick="window.switchAppView('diatonicsub')">🔁 6. Diatonic Sub</button>
-        <button class="nav-pill" data-view="cadence" onclick="window.switchAppView('cadence')">🎯 7. Cadence</button>
-        <button class="nav-pill" data-view="partwriting" onclick="window.switchAppView('partwriting')">🎼 8. Root Position</button>
+        <button class="nav-pill" data-view="chords" onclick="window.switchAppView('chords')">🎹 โน้ตในคอร์ด (12 คีย์)</button>
+        <button class="nav-pill" data-view="inversions" onclick="window.switchAppView('inversions')">🔄 การพลิกกลับของคอร์ด</button>
+        <button class="nav-pill" data-view="modes" onclick="window.switchAppView('modes')">🎭 Major Mode</button>
+        <button class="nav-pill" data-view="figuredbass" onclick="window.switchAppView('figuredbass')">🔢 Figured Bass</button>
+        <button class="nav-pill" data-view="diatonicsub" onclick="window.switchAppView('diatonicsub')">🔁 Diatonic Sub</button>
+        <button class="nav-pill" data-view="cadence" onclick="window.switchAppView('cadence')">🎯 Cadence</button>
+        <button class="nav-pill" data-view="partwriting" onclick="window.switchAppView('partwriting')">🎼 Root Position</button>
       </div>
     </nav>
   </header>
@@ -75,7 +75,6 @@
       <div class="menu-cards-grid">
         <button type="button" class="menu-card" onclick="window.switchAppView('chords')">
           <div class="menu-card-main">
-            <span class="menu-card-badge" style="background: #dbeafe; color: #1d4ed8;">หน้า 2</span>
             <h3>🎹 โน้ตในคอร์ด 12 คีย์ (Triads &amp; 7th)</h3>
           </div>
           <span class="menu-card-cta" style="background: #2563eb;">เลือก →</span>
@@ -83,7 +82,6 @@
 
         <button type="button" class="menu-card" onclick="window.switchAppView('inversions')">
           <div class="menu-card-main">
-            <span class="menu-card-badge" style="background: #ede9fe; color: #6d28d9;">หน้า 3</span>
             <h3>🔄 การพลิกกลับของคอร์ด (Inversions)</h3>
           </div>
           <span class="menu-card-cta" style="background: #7c3aed;">เลือก →</span>
@@ -91,7 +89,6 @@
 
         <button type="button" class="menu-card" onclick="window.switchAppView('modes')">
           <div class="menu-card-main">
-            <span class="menu-card-badge" style="background: #e0f2fe; color: #0369a1;">หน้า 4</span>
             <h3>🎭 Major Mode (7 Modes &amp; Tetrachord)</h3>
           </div>
           <span class="menu-card-cta" style="background: #0284c7;">เลือก →</span>
@@ -99,7 +96,6 @@
 
         <button type="button" class="menu-card" onclick="window.switchAppView('figuredbass')">
           <div class="menu-card-main">
-            <span class="menu-card-badge" style="background: #fce7f3; color: #be185d;">หน้า 5</span>
             <h3>🔢 Figured Bass</h3>
           </div>
           <span class="menu-card-cta" style="background: #be185d;">เลือก →</span>
@@ -107,7 +103,6 @@
 
         <button type="button" class="menu-card" onclick="window.switchAppView('diatonicsub')">
           <div class="menu-card-main">
-            <span class="menu-card-badge" style="background: #ccfbf1; color: #0f766e;">หน้า 6</span>
             <h3>🔁 Diatonic Sub &amp; Chord Spelling</h3>
           </div>
           <span class="menu-card-cta" style="background: #0f766e;">เลือก →</span>
@@ -115,7 +110,6 @@
 
         <button type="button" class="menu-card" onclick="window.switchAppView('cadence')">
           <div class="menu-card-main">
-            <span class="menu-card-badge" style="background: #fef3c7; color: #b45309;">หน้า 7</span>
             <h3>🎯 Cadence</h3>
           </div>
           <span class="menu-card-cta" style="background: #d97706;">เลือก →</span>
@@ -123,7 +117,6 @@
 
         <button type="button" class="menu-card" onclick="window.switchAppView('partwriting')">
           <div class="menu-card-main">
-            <span class="menu-card-badge" style="background: #dcfce7; color: #15803d;">หน้า 8</span>
             <h3>🎼 Root Position Part Writing (SATB)</h3>
           </div>
           <span class="menu-card-cta" style="background: #16a34a;">เลือก →</span>
@@ -493,7 +486,7 @@
       <!-- ส่วนที่ 1: Tetrachord -->
       <div class="card" style="margin-bottom: 20px;">
         <div class="card-title">
-          <span>🎹 หน้า 4 • Tetrachord: โครงสร้างและการแบ่งครึ่ง Scale</span>
+          <span>🎹 Tetrachord: โครงสร้างและการแบ่งครึ่ง Scale</span>
         </div>
         <p style="font-size: 0.94rem; color: #334155; line-height: 1.7; margin-bottom: 14px;">
           <strong>Tetrachord</strong> คือ Scale 4 ตัวโน้ตที่ถูกแบ่งครึ่ง โดยจะมีชื่อเรียกแตกต่างกันไปตามตำแหน่งระยะห่าง <strong>"ครึ่งเสียง (Half Step, H)"</strong> ใน Major Scale จะพบ Tetrachord ทั้งหมด <strong>4 ชนิด</strong> และสามารถนำมาต่อกัน 2 ชุด (Scale degree 1–4 และ 5–7+1) เพื่อสร้างเป็น Mode ทั้ง 7 ชนิด (คลิกการ์ดตัวอย่างเพื่อฟังเสียงได้ทันที)
@@ -686,7 +679,7 @@
       <!-- ส่วนที่ 1 & 2: ประวัติและหลักการเขียน -->
       <div class="card" style="margin-bottom: 20px;">
         <div class="card-title">
-          <span>🔢 หน้า 5 • Figured Bass (Basso Continuo &amp; ตัวเลขใต้นิ้วเบส)</span>
+          <span>🔢 Figured Bass (Basso Continuo &amp; ตัวเลขใต้นิ้วเบส)</span>
         </div>
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap:16px;">
           <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:14px;">
@@ -839,7 +832,7 @@
       <!-- ส่วนที่ 1: Diatonic Substitution -->
       <div class="card" style="margin-bottom: 20px;">
         <div class="card-title">
-          <span>🔁 หน้า 6 • หลักการพื้นฐานของ Diatonic Substitution (การแทนคอร์ดในคีย์เดียวกัน)</span>
+          <span>🔁 หลักการพื้นฐานของ Diatonic Substitution (การแทนคอร์ดในคีย์เดียวกัน)</span>
         </div>
         <p style="font-size:0.94rem; color:#334155; line-height:1.7; margin-bottom:14px;">
           <strong>Diatonic Substitution</strong> คือการนำคอร์ดที่อยู่ในคีย์เดียวกันมาใช้แทนกัน เพื่อเพิ่มสีสันให้กับบทเพลงโดยยังคงกลิ่นอายของคอร์ดเดิมไว้ หลักสำคัญคือคอร์ดที่นำมาแทนกันได้ควรมี <strong>โน้ตร่วมกันอย่างน้อย 2 โน้ต</strong> (หากซ้ำกันเพียง 1 โน้ตจะมีความเกี่ยวข้องน้อยเกินไปและเสียงต่างกันมาก)

@@ -510,7 +510,7 @@ class HarmonyApp {
       });
       window.showErrorPopup({
         title: `พบจุดที่ผิดหลักประสานเสียง ${this.analysisResult.errors.length} จุด`,
-        subtitle: `หน้า 8 • Root Position Part Writing (คะแนนปัจจุบัน ${this.analysisResult.totalScore}/100)`,
+        subtitle: `Root Position Part Writing (คะแนนปัจจุบัน ${this.analysisResult.totalScore}/100)`,
         reasons,
         tip: '<strong>คำแนะนำ:</strong> สามารถคลิกที่การ์ดข้อผิดพลาดทางขวาเพื่อกระโดดไปยังคอร์ดที่ต้องแก้ไข แล้วปรับโน้ตแต่ละแนวให้ถูกต้องตามกฎได้เลยครับ'
       });
@@ -641,13 +641,13 @@ class HarmonyApp {
 
 // ระบบสลับหน้า (Multi-View Router: home | chords | inversions | modes | figuredbass | diatonicsub | cadence | partwriting)
 window.TOPIC_PAGES = [
-  { id: 'chords', label: '🎹 2. โน้ตในคอร์ด' },
-  { id: 'inversions', label: '🔄 3. การพลิกกลับ' },
-  { id: 'modes', label: '🎭 4. Major Mode' },
-  { id: 'figuredbass', label: '🔢 5. Figured Bass' },
-  { id: 'diatonicsub', label: '🔁 6. Diatonic Sub' },
-  { id: 'cadence', label: '🎯 7. Cadence' },
-  { id: 'partwriting', label: '🎼 8. Root Position' }
+  { id: 'chords', label: '🎹 โน้ตในคอร์ด' },
+  { id: 'inversions', label: '🔄 การพลิกกลับ' },
+  { id: 'modes', label: '🎭 Major Mode' },
+  { id: 'figuredbass', label: '🔢 Figured Bass' },
+  { id: 'diatonicsub', label: '🔁 Diatonic Sub' },
+  { id: 'cadence', label: '🎯 Cadence' },
+  { id: 'partwriting', label: '🎼 Root Position' }
 ];
 
 window.renderTopicBottomNav = function(viewName) {

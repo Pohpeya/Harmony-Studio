@@ -509,7 +509,7 @@ const TheoryPages = {
         : `<div class="issue-card error"><div class="issue-title">❌ ยังไม่ถูกต้อง</div><div class="issue-detail">${this.currentModeQuiz.explain}</div></div>`;
     }
     if (!ok) {
-      this.showQuizErrorPopup('.mode-choice-btn', val, this.currentModeQuiz.answer, 'หน้า 4 • แบบฝึกหัด Major Mode & Tetrachord', this.currentModeQuiz.explain);
+      this.showQuizErrorPopup('.mode-choice-btn', val, this.currentModeQuiz.answer, 'แบบฝึกหัด Major Mode & Tetrachord', this.currentModeQuiz.explain);
     }
     this.playCurrentModeQuiz();
     this.updateBadge('mode-stats-badge', this.modeStats);
@@ -665,7 +665,7 @@ const TheoryPages = {
         : `<div class="issue-card error"><div class="issue-title">❌ ยังไม่ถูกต้อง</div><div class="issue-detail">${this.currentFbQuiz.explain}</div></div>`;
     }
     if (!ok) {
-      this.showQuizErrorPopup('.fb-choice-btn', val, this.currentFbQuiz.answer, 'หน้า 5 • แบบฝึกหัด Figured Bass & Accidentals', this.currentFbQuiz.explain);
+      this.showQuizErrorPopup('.fb-choice-btn', val, this.currentFbQuiz.answer, 'แบบฝึกหัด Figured Bass & Accidentals', this.currentFbQuiz.explain);
     }
     this.playCurrentFbQuiz();
     this.updateBadge('fb-stats-badge', this.fbStats);
@@ -1011,7 +1011,7 @@ const TheoryPages = {
         : `<div class="issue-card error"><div class="issue-title">❌ ยังไม่ถูกต้อง</div><div class="issue-detail">${this.currentDsQuiz.explain}</div></div>`;
     }
     if (!ok) {
-      this.showQuizErrorPopup('.ds-choice-btn', val, this.currentDsQuiz.answer, 'หน้า 6 • แบบฝึกหัด Diatonic Substitution & Chord Spelling', this.currentDsQuiz.explain);
+      this.showQuizErrorPopup('.ds-choice-btn', val, this.currentDsQuiz.answer, 'แบบฝึกหัด Diatonic Substitution & Chord Spelling', this.currentDsQuiz.explain);
     }
     this.playCurrentDsQuiz();
     this.updateBadge('ds-stats-badge', this.dsStats);

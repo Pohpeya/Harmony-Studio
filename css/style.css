@@ -1296,22 +1296,24 @@ section,
   max-width: 100%;
 }
 
-/* ซ่อน Top Pill Bar และ Bottom Nav เมื่ออยู่หน้าแรก */
+/* ซ่อน Top Pill Bar, ตัวเลือกเสียง และ Bottom Nav เมื่ออยู่หน้าแรก */
 body.is-home .top-nav-bar,
+body.is-home .header-sound-control,
 body.is-home .topic-bottom-nav {
-  display: none;
+  display: none !important;
 }
 
 /* หน้าแรกแบบมินิมอล: เลือกหัวข้อบทเรียนอย่างเดียว */
 .home-hero {
   text-align: center;
   margin-bottom: 20px;
+  padding: 20px 24px;
 }
 
 .home-hero h2 {
   margin: 0;
   font-size: 1.55rem;
-  color: #0f172a;
+  color: #ffffff;
 }
 
 .menu-cards-grid {
@@ -1350,7 +1352,7 @@ body.is-home .topic-bottom-nav {
 }
 
 .menu-card h3 {
-  margin: 6px 0 0;
+  margin: 0;
   font-size: 1.04rem;
   line-height: 1.35;
   color: #0f172a;

@@ -372,7 +372,7 @@ class CadenceLabController {
         if (typeof window.showErrorPopup === 'function') {
           window.showErrorPopup({
             title: 'ยังไม่ถูกต้อง — ลองเช็กเหตุผลกัน!',
-            subtitle: `หน้า 7 • แบบฝึกหัด Cadence (คีย์ ${this.currentQuiz.keyLabel})`,
+            subtitle: `แบบฝึกหัด Cadence (คีย์ ${this.currentQuiz.keyLabel})`,
             reasons: [
               `❌ <strong>คำตอบที่คุณเลือก:</strong> ${chosenLabel}`,
               `✅ <strong>คำตอบที่ถูกต้อง:</strong> ${this.currentQuiz.typeLabel}`
