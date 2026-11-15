@@ -1296,9 +1296,10 @@ section,
   max-width: 100%;
 }
 
-/* ซ่อน Top Pill Bar, ตัวเลือกเสียง และ Bottom Nav เมื่ออยู่หน้าแรก */
+/* ซ่อน Top Pill Bar, ตัวเลือกเสียง, Header Actions และ Bottom Nav เมื่ออยู่หน้าแรก */
 body.is-home .top-nav-bar,
 body.is-home .header-sound-control,
+body.is-home .header-actions,
 body.is-home .topic-bottom-nav {
   display: none !important;
 }
@@ -1494,9 +1495,7 @@ svg {
 /* Responsive Breakpoint สำหรับมือถือ (<= 768px) */
 @media (max-width: 768px) {
   .app-header {
-    position: sticky;
-    top: 0;
-    z-index: 90;
+    position: static;
   }
 
   .header-container {
@@ -1648,11 +1647,51 @@ svg {
     justify-content: center;
   }
 
-  .question-banner {
+  .question-banner,
+  .studio-question-bar,
+  .studio-toolbar-top {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 10px;
     padding: 12px;
+  }
+
+  .voice-tabs-compact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .voice-tabs-compact .voice-tab-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .studio-chord-controls,
+  .studio-pitch-bar,
+  .studio-footer-toggles {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .piano-keyboard-wrap {
+    overflow-x: auto;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+  }
+
+  #staff-container {
+    overflow-x: auto;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #staff-container .grand-staff-svg {
+    min-width: 580px;
+    max-width: none;
+    height: auto;
   }
 
   .staff-embed-wrap,
