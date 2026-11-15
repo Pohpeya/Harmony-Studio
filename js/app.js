@@ -503,18 +503,54 @@ class HarmonyApp {
     this.renderer.render(this.chords, this.currentKey, this.analysisResult);
     this.renderReport(this.analysisResult);
 
-    if (showPopup && this.analysisResult && this.analysisResult.allIssues.length > 0 && typeof window.showErrorPopup === 'function') {
-      const reasons = this.analysisResult.allIssues.map(issue => {
-        const badge = issue.severity === 'error' ? '❌ Error' : '⚠️ Warning';
-        return `<strong>[${badge}] ${issue.title}</strong><br>${issue.detail}<br><span style="color:#1d4ed8;">💡 วิธีแก้: ${issue.advice}</span>`;
-      });
-      window.showErrorPopup({
-        title: `พบจุดที่ผิดหลักประสานเสียง ${this.analysisResult.errors.length} จุด`,
-        subtitle: `Root Position Part Writing (คะแนนปัจจุบัน ${this.analysisResult.totalScore}/100)`,
-        reasons,
-        tip: '<strong>คำแนะนำ:</strong> สามารถคลิกที่การ์ดข้อผิดพลาดทางขวาเพื่อกระโดดไปยังคอร์ดที่ต้องแก้ไข แล้วปรับโน้ตแต่ละแนวให้ถูกต้องตามกฎได้เลยครับ'
-      });
+    if (showPopup && this.analysisResult) {
+      const isMobile = window.innerWidth <= 768;
+      if (isMobile || this.analysisResult.allIssues.length > 0) {
+        this.showAssessmentPopup();
+      }
     }
+  }
+
+  /**
+   * แสดง Pop-up ผลการประเมินแบบละเอียด (ใช้บนมือถือ หรือเมื่อกดตรวจแล้วพบข้อผิดพลาด)
+   */
+  showAssessmentPopup() {
+    if (!this.analysisResult || typeof window.showErrorPopup !== 'function') return;
+    const result = this.analysisResult;
+    const isPass = result.isValid && result.allIssues.length === 0;
+    const score = result.totalScore;
+    let grade = 'A';
+    if (score < 60) grade = 'F';
+    else if (score < 70) grade = 'D';
+    else if (score < 80) grade = 'C';
+    else if (score < 90) grade = 'B';
+
+    if (isPass) {
+      window.showErrorPopup({
+        isPass: true,
+        title: `ผ่านเกณฑ์! คะแนน ${score}/100 (เกรด ${grade})`,
+        subtitle: 'Root Position Part Writing • ถูกต้องตามหลักประสานเสียงครบถ้วน',
+        reasons: [
+          `<strong>สรุปผล:</strong> ${result.summary}`,
+          'ไม่มีคู่ขนาน 5/8, ระยะห่างแนวเสียง (Spacing) ถูกต้อง, ไม่มี Voice Crossing และคลี่คลายคอร์ดเรียบร้อย'
+        ],
+        tip: 'สามารถกดปุ่ม <strong>▶ เล่นทั้งหมด</strong> เพื่อฟังเสียงประสาน 4 แนว หรือลองเลือกข้อถัดไปเพื่อฝึกต่อได้เลยครับ'
+      });
+      return;
+    }
+
+    const reasons = result.allIssues.map(issue => {
+      const badge = issue.severity === 'error' ? '❌ Error' : '⚠️ Warning';
+      return `<strong>[${badge}] ${issue.title}</strong><br>${issue.detail}<br><span style="color:#1d4ed8;">💡 วิธีแก้: ${issue.advice}</span>`;
+    });
+
+    window.showErrorPopup({
+      isPass: false,
+      title: `ผลการประเมิน: ${score}/100 (เกรด ${grade}) • พบ ${result.errors.length} จุดผิด`,
+      subtitle: `Root Position Part Writing (ข้อพึงระวัง ${result.warnings.length} จุด)`,
+      reasons,
+      tip: '<strong>วิธีแก้ไข:</strong> แตะที่ตัวโน้ตบนบรรทัด 5 เส้น แล้วปรับระดับเสียงตามคำแนะนำด้านบน จากนั้นกดตรวจอีกครั้งครับ'
+    });
   }
 
   /**
@@ -558,6 +594,16 @@ class HarmonyApp {
       summaryBadge.textContent = isPass ? '✅ ถูกต้อง' : `❌ ผิด ${result.errors.length} จุด`;
       summaryBadge.style.backgroundColor = isPass ? '#10b981' : '#ef4444';
       summaryBadge.style.color = '#ffffff';
+    }
+
+    const mobileAssessBtn = document.getElementById('btn-mobile-assessment');
+    if (mobileAssessBtn) {
+      mobileAssessBtn.innerHTML = isPass
+        ? `📊 ผลการประเมิน (${score}/100 ✅)`
+        : `📊 ผลการประเมิน (${score}/100 • ผิด ${result.errors.length})`;
+      mobileAssessBtn.style.borderColor = isPass ? '#10b981' : '#ef4444';
+      mobileAssessBtn.style.color = isPass ? '#047857' : '#b91c1c';
+      mobileAssessBtn.style.backgroundColor = isPass ? '#ecfdf5' : '#fef2f2';
     }
 
     // 2. รายการข้อผิดพลาดและคำแนะนำ (Issues List)
@@ -700,11 +746,6 @@ window.switchAppView = function(viewName) {
     btn.classList.toggle('active', btn.dataset.view === viewName);
   });
 
-  const pwActions = document.getElementById('partwriting-header-actions');
-  if (pwActions) {
-    pwActions.style.display = (viewName === 'partwriting') ? 'flex' : 'none';
-  }
-
   window.renderTopicBottomNav(viewName);
 
   if (viewName === 'partwriting' && window.harmonyApp) {
@@ -726,20 +767,24 @@ window.switchAppView = function(viewName) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-// Pop-up อธิบายข้อผิดพลาด (ใช้ร่วมกันทุกหน้าเมื่อทำแบบฝึกหัดผิด)
-window.showErrorPopup = function({ title, subtitle, reasons, tip }) {
+// Pop-up อธิบายข้อผิดพลาด / ผลการประเมิน (ใช้ร่วมกันทุกหน้า)
+window.showErrorPopup = function({ title, subtitle, reasons, tip, isPass = false }) {
   const backdrop = document.getElementById('feedback-modal-backdrop');
+  const modalBox = backdrop ? backdrop.querySelector('.feedback-modal') : null;
   const titleEl = document.getElementById('feedback-modal-title');
   const subEl = document.getElementById('feedback-modal-subtitle');
   const listEl = document.getElementById('feedback-modal-list');
   const tipEl = document.getElementById('feedback-modal-tip');
   if (!backdrop) return;
 
-  if (titleEl) titleEl.innerHTML = `❌ ${title || 'คำตอบยังไม่ถูกต้อง'}`;
+  if (modalBox) {
+    modalBox.classList.toggle('is-pass', !!isPass);
+  }
+  if (titleEl) titleEl.innerHTML = `${isPass ? '✅' : '❌'} ${title || 'คำตอบยังไม่ถูกต้อง'}`;
   if (subEl) subEl.textContent = subtitle || '';
   if (listEl) {
     const items = Array.isArray(reasons) ? reasons : (reasons ? [reasons] : []);
-    listEl.innerHTML = items.map(r => `<div class="feedback-modal-item">${r}</div>`).join('');
+    listEl.innerHTML = items.map(r => `<div class="feedback-modal-item${isPass ? ' is-pass' : ''}">${r}</div>`).join('');
   }
   if (tipEl) {
     if (tip) {

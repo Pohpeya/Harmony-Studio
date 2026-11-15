@@ -1492,6 +1492,45 @@ svg {
   height: auto;
 }
 
+/* ปุ่มเล่นเสียง / ตรวจข้อผิดพลาด ของหน้า Root Position (อยู่ในส่วนแบบฝึกหัด) */
+.pw-exercise-action-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.pw-mobile-assess-btn {
+  display: none;
+}
+
+/* Modal theme สำหรับผลประเมินแบบผ่าน (สีเขียว) */
+.feedback-modal.is-pass .feedback-modal-header {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border-bottom-color: #a7f3d0;
+}
+
+.feedback-modal.is-pass .feedback-modal-title {
+  color: #047857;
+}
+
+.feedback-modal.is-pass .feedback-modal-subtitle,
+.feedback-modal.is-pass .feedback-modal-close {
+  color: #065f46;
+}
+
+.feedback-modal-item.is-pass {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  border-left-color: #10b981;
+}
+
 /* Responsive Breakpoint สำหรับมือถือ (<= 768px) */
 @media (max-width: 768px) {
   .app-header {
@@ -1528,18 +1567,33 @@ svg {
     gap: 6px;
   }
 
-  #partwriting-header-actions {
-    width: 100%;
+  .pw-exercise-action-bar {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 6px;
+    gap: 8px;
+    padding: 10px;
   }
 
-  #partwriting-header-actions .btn {
+  .pw-exercise-action-bar .btn {
     width: 100%;
     justify-content: center;
-    padding: 7px 8px;
-    font-size: 0.78rem;
+    padding: 8px 10px;
+    font-size: 0.82rem;
+  }
+
+  .pw-mobile-assess-btn {
+    display: inline-flex;
+    grid-column: 1 / -1;
+    font-weight: 700;
+  }
+
+  #btn-print-report {
+    grid-column: 1 / -1;
+  }
+
+  /* ในโทรศัพท์ซ่อนแถบผลการประเมินด้านข้าง แล้วแสดงเป็น Pop-up แทน */
+  #view-partwriting .sidebar-section {
+    display: none;
   }
 
   /* แถบปุ่มด้านบนบนมือถือ: เลื่อนแนวนอนได้ ไม่ซ้อนหลายบรรทัด */

@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=20261115e">
+  <link rel="stylesheet" href="css/style.css?v=20261115f">
 </head>
 <body class="is-home">
 
@@ -30,20 +30,6 @@
             <option value="grand_piano">🎹 Grand Piano</option>
             <option value="electric_piano">⚡ Electric Piano</option>
           </select>
-        </div>
-        <div id="partwriting-header-actions" style="display: none; gap: 8px; flex-wrap: wrap;">
-          <button id="btn-play-all" class="btn btn-success">
-            ▶ เล่นทั้งหมด (Play All)
-          </button>
-          <button id="btn-stop-audio" class="btn btn-outline" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">
-            ⏹ หยุด (Stop)
-          </button>
-          <button id="btn-check-harmony" class="btn btn-primary" style="background: #3b82f6;">
-            🔍 ตรวจข้อผิดพลาดทันที
-          </button>
-          <button id="btn-print-report" class="btn btn-outline" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">
-            🖨️ พิมพ์รายงาน / PDF
-          </button>
         </div>
       </div>
     </div>
@@ -1234,6 +1220,25 @@
     <!-- Left Column: Notation Editor & Controls -->
     <div class="notation-section">
 
+      <!-- ปุ่มควบคุมแบบฝึกหัด 4 แนว (อยู่ในส่วนแบบฝึกหัด) -->
+      <div id="partwriting-header-actions" class="pw-exercise-action-bar">
+        <button id="btn-play-all" class="btn btn-success">
+          ▶ เล่นทั้งหมด (Play All)
+        </button>
+        <button id="btn-stop-audio" class="btn btn-outline">
+          ⏹ หยุด (Stop)
+        </button>
+        <button id="btn-check-harmony" class="btn btn-primary">
+          🔍 ตรวจข้อผิดพลาดทันที
+        </button>
+        <button id="btn-mobile-assessment" type="button" class="btn btn-outline pw-mobile-assess-btn" onclick="window.harmonyApp && window.harmonyApp.showAssessmentPopup()">
+          📊 ดูผลการประเมิน
+        </button>
+        <button id="btn-print-report" class="btn btn-outline">
+          🖨️ พิมพ์รายงาน / PDF
+        </button>
+      </div>
+
       <!-- Preset & Key Control Bar -->
       <div class="control-bar">
         <div class="control-item">
@@ -1457,14 +1462,14 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/theory.js?v=20261115e"></script>
-  <script src="js/rules.js?v=20261115e"></script>
-  <script src="js/renderer.js?v=20261115e"></script>
-  <script src="js/audio.js?v=20261115e"></script>
-  <script src="js/presets.js?v=20261115e"></script>
-  <script src="js/chords-lab.js?v=20261115e"></script>
-  <script src="js/cadence-lab.js?v=20261115e"></script>
-  <script src="js/theory-pages.js?v=20261115e"></script>
-  <script src="js/app.js?v=20261115e"></script>
+  <script src="js/theory.js?v=20261115f"></script>
+  <script src="js/rules.js?v=20261115f"></script>
+  <script src="js/renderer.js?v=20261115f"></script>
+  <script src="js/audio.js?v=20261115f"></script>
+  <script src="js/presets.js?v=20261115f"></script>
+  <script src="js/chords-lab.js?v=20261115f"></script>
+  <script src="js/cadence-lab.js?v=20261115f"></script>
+  <script src="js/theory-pages.js?v=20261115f"></script>
+  <script src="js/app.js?v=20261115f"></script>
 </body>
 </html>

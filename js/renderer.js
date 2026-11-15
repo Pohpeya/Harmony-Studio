@@ -95,15 +95,9 @@ class StaffRenderer {
 
     let svg = `<svg width="${totalWidth}" height="${totalHeight}" viewBox="0 0 ${totalWidth} ${totalHeight}" xmlns="http://www.w3.org/2000/svg" class="grand-staff-svg" style="max-width:100%; width:100%; max-width:${totalWidth}px; height:auto; display:block; margin:0 auto;">`;
 
-    // 1. Defs สำหรับ Filter, Arrowheads และ Gradients
+    // 1. Defs สำหรับ Arrowheads
     svg += `
       <defs>
-        <filter id="glow-error" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#ef4444" flood-opacity="0.8"/>
-        </filter>
-        <filter id="glow-select" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#3b82f6" flood-opacity="0.9"/>
-        </filter>
         <marker id="arrow-error" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444"/>
         </marker>
@@ -372,12 +366,14 @@ class StaffRenderer {
       }
     }
 
-    // หัวโน้ต (Engraved Notehead)
-    const selectFilter = isSelected ? `filter="url(#glow-select)"` : '';
-    const strokeAttr = isSelected ? `stroke="#2563eb" stroke-width="1.8"` : `stroke="none"`;
+    // หัวโน้ต (Engraved Notehead) — วาดวงแหวน Vector แทน filter เพื่อไม่ให้หัวโน้ตหายบน Safari/มือถือ
+    if (isSelected) {
+      out += `<ellipse cx="${x}" cy="${y}" rx="${rx + 3.4}" ry="${ry + 2.8}" transform="rotate(${rot} ${x} ${y})" fill="#3b82f6" fill-opacity="0.22" stroke="#2563eb" stroke-width="1.8" />`;
+    }
+    const strokeAttr = isSelected ? `stroke="#1d4ed8" stroke-width="1.4"` : `stroke="none"`;
 
     out += `
-      <ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" transform="rotate(${rot} ${x} ${y})" fill="${voiceColor}" ${strokeAttr} ${selectFilter} />
+      <ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" transform="rotate(${rot} ${x} ${y})" fill="${voiceColor}" ${strokeAttr} />
     `;
 
     // หางโน้ต (Crisp Engraved Stem)
@@ -632,14 +628,6 @@ const ChordLabRenderer = {
     const topStep = bottomStep + 8;       // A3 (Bass) หรือ F5 (Treble)
 
     let svg = `<svg width="${svgWidth}" height="${totalHeight}" viewBox="0 0 ${svgWidth} ${totalHeight}" xmlns="http://www.w3.org/2000/svg" class="grand-staff-svg" style="max-width:100%; height:auto; display:block; margin:0 auto;">`;
-    svg += `
-      <defs>
-        <filter id="glow-select-lab" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="2.5" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-      </defs>
-    `;
 
     // เส้นปิดหัว-ท้ายบรรทัด 5 เส้นเดี่ยว
     svg += `<line x1="${startX}" y1="${staffTopY}" x2="${startX}" y2="${staffBottomY}" stroke="#1e293b" stroke-width="1.8" />`;
@@ -712,9 +700,11 @@ const ChordLabRenderer = {
         }
       }
 
-      const selectFilter = isSelected ? `filter="url(#glow-select-lab)"` : '';
+      if (isSelected) {
+        svg += `<ellipse cx="${x}" cy="${y}" rx="9.5" ry="6.8" transform="rotate(-18 ${x} ${y})" fill="#3b82f6" fill-opacity="0.22" stroke="#2563eb" stroke-width="1.8" />`;
+      }
       const strokeAttr = isSelected ? `stroke="#0f172a" stroke-width="2"` : `stroke="none"`;
-      svg += `<ellipse cx="${x}" cy="${y}" rx="6.3" ry="4.3" transform="rotate(-18 ${x} ${y})" fill="${color}" ${strokeAttr} ${selectFilter} />`;
+      svg += `<ellipse cx="${x}" cy="${y}" rx="6.3" ry="4.3" transform="rotate(-18 ${x} ${y})" fill="${color}" ${strokeAttr} />`;
 
       const accX = chordX - 15 + accXOffset;
       if (note.alter === 1) {
