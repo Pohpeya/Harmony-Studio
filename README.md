@@ -1,4 +1,4 @@
-# Four-Part Harmony Grader & Studio 🎼
+# Harmony Studio (Four-Part Harmony & Music Theory 101) 🎼
 
 **ระบบเขียนโน้ตและตรวจการบ้านวิชาการประสานเสียง 4 แนว (SATB Voice Leading Analyzer)**  
 พัฒนาขึ้นเป็นพิเศษสำหรับนักศึกษาและอาจารย์ในสาขาวิชาดนตรีสากล (Music Theory / Harmony)
@@ -61,7 +61,4 @@
 
 ไม่ต้องติดตั้ง Node.js หรือโปรแกรมเพิ่มเติมใดๆ ทั้งสิ้น!
 
-1. เข้าไปที่โฟลเดอร์:  
-   `C:\Users\kitsu\.gemini\antigravity\scratch\fourpart-harmony-grader`
-2. ดับเบิ้ลคลิกไฟล์ `index.html` เพื่อเปิดใช้งานบน Google Chrome, Microsoft Edge, Safari หรือ Firefox ได้ทันที
-3. หรือเปิดผ่านเว็บเซิร์ฟเวอร์ใดๆ (เช่น Live Server, GitHub Pages, Moodle, Google Drive)
+1. เปิดใช้งานออนไลน์ผ่าน GitHub Pages: `https://pohpeya.github.io/Harmony-Studio/` หรือเปิดไฟล์ `index.html` ในโฟลเดอร์ `fourpart-harmony` บน Google Chrome, Microsoft Edge, Safari หรือ Firefox ได้ทันที
