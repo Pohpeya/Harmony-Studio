@@ -136,7 +136,6 @@ class StaffRenderer {
       }
     }
     // เส้นปิดท้าย (Double bar line)
-    const endX = startX + chords.length * this.options.chordWidth - 10;
     svg += `
       <line x1="${endX - 5}" y1="${trebleTopY}" x2="${endX - 5}" y2="${bassBottomY}" stroke="#111827" stroke-width="1.2" />
       <line x1="${endX}" y1="${trebleTopY}" x2="${endX}" y2="${bassBottomY}" stroke="#111827" stroke-width="3.5" />
