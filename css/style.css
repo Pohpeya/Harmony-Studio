@@ -1492,18 +1492,18 @@ svg {
   height: auto;
 }
 
-/* ปุ่มเล่นเสียง / ตรวจข้อผิดพลาด ของหน้า Root Position (อยู่ในส่วนแบบฝึกหัด) */
+/* ปุ่มเล่นเสียง / ตรวจข้อผิดพลาด ของหน้า Root Position (อยู่ใต้ Piano Roll) */
 .pw-exercise-action-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 12px;
+  justify-content: center;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
   padding: 12px 14px;
-  margin-bottom: 14px;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  margin: 0;
 }
 
 .pw-mobile-assess-btn {

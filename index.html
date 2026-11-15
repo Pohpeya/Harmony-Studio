@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=20261115f">
+  <link rel="stylesheet" href="css/style.css?v=20261115g">
 </head>
 <body class="is-home">
 
@@ -1220,25 +1220,6 @@
     <!-- Left Column: Notation Editor & Controls -->
     <div class="notation-section">
 
-      <!-- ปุ่มควบคุมแบบฝึกหัด 4 แนว (อยู่ในส่วนแบบฝึกหัด) -->
-      <div id="partwriting-header-actions" class="pw-exercise-action-bar">
-        <button id="btn-play-all" class="btn btn-success">
-          ▶ เล่นทั้งหมด (Play All)
-        </button>
-        <button id="btn-stop-audio" class="btn btn-outline">
-          ⏹ หยุด (Stop)
-        </button>
-        <button id="btn-check-harmony" class="btn btn-primary">
-          🔍 ตรวจข้อผิดพลาดทันที
-        </button>
-        <button id="btn-mobile-assessment" type="button" class="btn btn-outline pw-mobile-assess-btn" onclick="window.harmonyApp && window.harmonyApp.showAssessmentPopup()">
-          📊 ดูผลการประเมิน
-        </button>
-        <button id="btn-print-report" class="btn btn-outline">
-          🖨️ พิมพ์รายงาน / PDF
-        </button>
-      </div>
-
       <!-- Preset & Key Control Bar -->
       <div class="control-bar">
         <div class="control-item">
@@ -1291,12 +1272,6 @@
             <option value="E_min">E Minor</option>
             <option value="D_min">D Minor</option>
           </select>
-        </div>
-
-        <div class="control-item" style="margin-left: auto;">
-          <button id="btn-add-chord" class="btn btn-outline btn-sm">➕ เพิ่มคอร์ด</button>
-          <button id="btn-duplicate-chord" class="btn btn-outline btn-sm">📋 ทำซ้ำคอร์ด</button>
-          <button id="btn-delete-chord" class="btn btn-danger btn-sm">🗑️ ลบคอร์ด</button>
         </div>
       </div>
 
@@ -1389,6 +1364,25 @@
           <div id="piano-container" class="piano-keyboard-wrap"></div>
         </div>
 
+        <!-- ปุ่มเล่นทั้งหมด / หยุด / ตรวจข้อผิดพลาดทันที (อยู่ใต้ Piano Roll) -->
+        <div id="partwriting-header-actions" class="pw-exercise-action-bar">
+          <button id="btn-play-all" class="btn btn-success">
+            ▶ เล่นทั้งหมด (Play All)
+          </button>
+          <button id="btn-stop-audio" class="btn btn-outline">
+            ⏹ หยุด (Stop)
+          </button>
+          <button id="btn-check-harmony" class="btn btn-primary">
+            🔍 ตรวจข้อผิดพลาดทันที
+          </button>
+          <button id="btn-mobile-assessment" type="button" class="btn btn-outline pw-mobile-assess-btn" onclick="window.harmonyApp && window.harmonyApp.showAssessmentPopup()">
+            📊 ดูผลการประเมิน
+          </button>
+          <button id="btn-print-report" class="btn btn-outline">
+            🖨️ พิมพ์รายงาน / PDF
+          </button>
+        </div>
+
         <!-- View Toggles Footer -->
         <div class="studio-footer-toggles">
           <div class="view-toggles">
@@ -1462,14 +1456,14 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/theory.js?v=20261115f"></script>
-  <script src="js/rules.js?v=20261115f"></script>
-  <script src="js/renderer.js?v=20261115f"></script>
-  <script src="js/audio.js?v=20261115f"></script>
-  <script src="js/presets.js?v=20261115f"></script>
-  <script src="js/chords-lab.js?v=20261115f"></script>
-  <script src="js/cadence-lab.js?v=20261115f"></script>
-  <script src="js/theory-pages.js?v=20261115f"></script>
-  <script src="js/app.js?v=20261115f"></script>
+  <script src="js/theory.js?v=20261115g"></script>
+  <script src="js/rules.js?v=20261115g"></script>
+  <script src="js/renderer.js?v=20261115g"></script>
+  <script src="js/audio.js?v=20261115g"></script>
+  <script src="js/presets.js?v=20261115g"></script>
+  <script src="js/chords-lab.js?v=20261115g"></script>
+  <script src="js/cadence-lab.js?v=20261115g"></script>
+  <script src="js/theory-pages.js?v=20261115g"></script>
+  <script src="js/app.js?v=20261115g"></script>
 </body>
 </html>
