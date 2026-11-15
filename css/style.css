@@ -1492,6 +1492,11 @@ svg {
   height: auto;
 }
 
+/* Toolbar ของ Root Position ที่ย้ายมาอยู่ใต้โน้ต เหนือ Piano Roll */
+#view-partwriting .studio-toolbar-top {
+  border-top: 1px solid var(--border-color);
+}
+
 /* ปุ่มเล่นเสียง / ตรวจข้อผิดพลาด ของหน้า Root Position (อยู่ใต้ Piano Roll) */
 .pw-exercise-action-bar {
   display: flex;
