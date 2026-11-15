@@ -729,13 +729,15 @@
             </div>
             <div class="question-banner-subtitle">กดฟังเสียงบันไดเสียงตัวอย่างแล้ววิเคราะห์ว่าเป็น Mode หรือโครงสร้างใด (สุ่มคำถามไม่ซ้ำ)</div>
           </div>
-          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <select id="mode-key-filter" onchange="window.theoryPages.nextModeQuiz()" style="padding:5px 10px; border-radius:8px; border:1px solid #bae6fd; background:#ffffff; font-size:0.84rem; font-weight:600; color:#0369a1; cursor:pointer;"></select>
             <span id="mode-stats-badge" style="background:#e0f2fe; color:#0369a1; padding:5px 12px; border-radius:999px; font-weight:700; font-size:0.84rem; border:1px solid #bae6fd;">คะแนนสะสม: 0 / 0 ข้อ</span>
             <button class="btn btn-success btn-sm" onclick="window.theoryPages.playCurrentModeQuiz()">🔊 ฟังเสียง Mode</button>
             <button class="btn btn-primary btn-sm" onclick="window.theoryPages.nextModeQuiz()">🎲 ข้อถัดไป</button>
           </div>
         </div>
 
+        <div id="mode-quiz-staff" class="staff-embed-wrap" style="padding: 10px; margin-top: 12px;"></div>
         <div id="mode-quiz-prompt" style="font-size:1rem; font-weight:700; color:#0f172a; margin:14px 0;"></div>
         <div id="mode-quiz-options" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:10px; margin-bottom:14px;"></div>
         <div id="mode-quiz-feedback"></div>
@@ -1024,12 +1026,14 @@
             <div class="question-banner-subtitle">กดฟังเสียงคู่คอร์ดเปรียบเทียบแล้วตอบคำถามเรื่องการแทนคอร์ดและความสัมพันธ์ Minor7/Major6, Halfdim7/Minor6</div>
           </div>
           <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <select id="ds-key-filter" onchange="window.theoryPages.nextDiatonicSubQuiz()" style="padding:5px 10px; border-radius:8px; border:1px solid #99f6e4; background:#ffffff; font-size:0.84rem; font-weight:600; color:#0f766e; cursor:pointer;"></select>
             <span id="ds-stats-badge" style="background:#ccfbf1; color:#0f766e; padding:5px 12px; border-radius:999px; font-weight:700; font-size:0.84rem; border:1px solid #99f6e4;">คะแนนสะสม: 0 / 0 ข้อ</span>
             <button class="btn btn-success btn-sm" onclick="window.theoryPages.playCurrentDsQuiz()">🔊 ฟังเสียงเปรียบเทียบ</button>
             <button class="btn btn-primary btn-sm" onclick="window.theoryPages.nextDiatonicSubQuiz()">🎲 ข้อถัดไป</button>
           </div>
         </div>
 
+        <div id="ds-quiz-staff" class="staff-embed-wrap" style="padding: 10px; margin-top: 12px;"></div>
         <div id="ds-quiz-prompt" style="font-size:1rem; font-weight:700; color:#0f172a; margin:14px 0;"></div>
         <div id="ds-quiz-options" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:10px; margin-bottom:14px;"></div>
         <div id="ds-quiz-feedback"></div>
@@ -1202,6 +1206,7 @@
               <div class="question-banner-subtitle">สังเกตการดำเนินคอร์ด Bass และ Soprano บนบรรทัด 5 เส้น พร้อมกดฟังเสียงแล้วเลือกชนิดของ Cadence ด้านขวา</div>
             </div>
             <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <select id="cad-key-filter" onchange="window.cadenceLab.nextQuiz()" style="padding:5px 10px; border-radius:8px; border:1px solid #fde68a; background:#ffffff; font-size:0.84rem; font-weight:600; color:#b45309; cursor:pointer;"></select>
               <span id="cad-stats-badge" style="background:#fef3c7; color:#b45309; padding:5px 12px; border-radius:999px; font-weight:700; font-size:0.84rem; border:1px solid #fde68a;">คะแนนสะสม: 0 / 0 ข้อ</span>
               <button class="btn btn-success btn-sm" onclick="window.cadenceLab.playQuiz()">🔊 ฟังเสียง</button>
               <button class="btn btn-primary btn-sm" onclick="window.cadenceLab.nextQuiz()">🎲 ข้อถัดไป</button>
