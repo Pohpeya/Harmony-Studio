@@ -1688,12 +1688,6 @@ svg {
     -webkit-overflow-scrolling: touch;
   }
 
-  #staff-container .grand-staff-svg {
-    min-width: 580px;
-    max-width: none;
-    height: auto;
-  }
-
   .staff-embed-wrap,
   .grand-staff-container,
   .piano-keyboard {

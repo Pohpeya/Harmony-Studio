@@ -223,7 +223,7 @@ const TheoryPages = {
     const labelY = Math.max(staffBottomY + 20, lowestNoteY + 18);
     const totalHeight = labelY + 12;
 
-    let svg = `<svg width="${svgWidth}" height="${totalHeight}" viewBox="0 0 ${svgWidth} ${totalHeight}" xmlns="http://www.w3.org/2000/svg" style="max-width:100%; display:block;">`;
+    let svg = `<svg width="${svgWidth}" height="${totalHeight}" viewBox="0 0 ${svgWidth} ${totalHeight}" xmlns="http://www.w3.org/2000/svg" style="max-width:100%; height:auto; display:block; margin:0 auto;">`;
     svg += `<line x1="${startX}" y1="${staffTopY}" x2="${startX}" y2="${staffBottomY}" stroke="#1e293b" stroke-width="1.4" />`;
     svg += proto.renderStaffLines(startX, endX, staffTopY, lineSpacing);
     svg += proto.renderTrebleClef(startX + 8, staffTopY - 2);

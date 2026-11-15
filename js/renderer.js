@@ -65,7 +65,8 @@ class StaffRenderer {
 
     const numChords = Math.max(chords.length, 1);
     const startX = 136 + accCount * 10; // ขยายพื้นที่อัตโนมัติตามจำนวน Key Signature
-    const totalWidth = Math.max(680, startX + numChords * this.options.chordWidth + 60);
+    const endX = startX + numChords * this.options.chordWidth - 10;
+    const totalWidth = endX + 24;
 
     // คำนวณระยะเผื่อด้านบนและด้านล่างแบบไดนามิกตามโน้ตสูงสุด/ต่ำสุด เพื่อไม่ให้หางโน้ตหรือ Ledger line ทับเลขโรมัน
     const stepE4 = 30;
@@ -92,7 +93,7 @@ class StaffRenderer {
     const romanSubY = romanLabelY + 18;
     const totalHeight = Math.max(270, romanSubY + 14);
 
-    let svg = `<svg width="100%" height="${totalHeight}" viewBox="0 0 ${totalWidth} ${totalHeight}" xmlns="http://www.w3.org/2000/svg" class="grand-staff-svg">`;
+    let svg = `<svg width="${totalWidth}" height="${totalHeight}" viewBox="0 0 ${totalWidth} ${totalHeight}" xmlns="http://www.w3.org/2000/svg" class="grand-staff-svg" style="max-width:100%; width:100%; max-width:${totalWidth}px; height:auto; display:block; margin:0 auto;">`;
 
     // 1. Defs สำหรับ Filter, Arrowheads และ Gradients
     svg += `
@@ -115,9 +116,9 @@ class StaffRenderer {
     // 3. ปีกกาเชื่อม Grand Staff (Brace & System Lines)
     svg += this.renderSystemBrace(20, trebleTopY, bassBottomY);
 
-    // 4. เส้นบรรทัด 5 เส้น (Treble & Bass)
-    svg += this.renderStaffLines(30, totalWidth - 25, trebleTopY, this.options.lineSpacing);
-    svg += this.renderStaffLines(30, totalWidth - 25, bassTopY, this.options.lineSpacing);
+    // 4. เส้นบรรทัด 5 เส้น (Treble & Bass) — จบพอดีที่ Double Barline ไม่มีห้องว่างเกิน
+    svg += this.renderStaffLines(30, endX, trebleTopY, this.options.lineSpacing);
+    svg += this.renderStaffLines(30, endX, bassTopY, this.options.lineSpacing);
 
     // 5. กุญแจซอล (Treble Clef) และกุญแจฟา (Bass Clef)
     svg += this.renderTrebleClef(42, trebleTopY);
@@ -622,16 +623,16 @@ const ChordLabRenderer = {
     const staffTopY = 62;
     const staffBottomY = staffTopY + 4 * lineSpacing;
     const totalHeight = 168;
-    const svgWidth = 360;
-    const startX = 24;
-    const endX = svgWidth - 24;
-    const chordX = 195;
+    const svgWidth = 260;
+    const startX = 20;
+    const endX = svgWidth - 20;
+    const chordX = 148;
 
     const isBass = clef === 'bass';
     const bottomStep = isBass ? 18 : 30; // G2 (Bass) หรือ E4 (Treble)
     const topStep = bottomStep + 8;       // A3 (Bass) หรือ F5 (Treble)
 
-    let svg = `<svg width="${svgWidth}" height="${totalHeight}" viewBox="0 0 ${svgWidth} ${totalHeight}" xmlns="http://www.w3.org/2000/svg" class="grand-staff-svg" style="max-width:100%;">`;
+    let svg = `<svg width="${svgWidth}" height="${totalHeight}" viewBox="0 0 ${svgWidth} ${totalHeight}" xmlns="http://www.w3.org/2000/svg" class="grand-staff-svg" style="max-width:100%; height:auto; display:block; margin:0 auto;">`;
     svg += `
       <defs>
         <filter id="glow-select-lab" x="-30%" y="-30%" width="160%" height="160%">
@@ -747,7 +748,7 @@ const ChordLabRenderer = {
     const colWidth = 114;
     const startX = 20;
     const firstChordX = 110;
-    const svgWidth = Math.max(460, firstChordX + examples.length * colWidth);
+    const svgWidth = firstChordX + Math.max(0, examples.length - 1) * colWidth + 72;
     const endX = svgWidth - 16;
 
     const isBass = clef === 'bass';
@@ -768,7 +769,7 @@ const ChordLabRenderer = {
     const sublabelY = labelY + 16;
     const totalHeight = sublabelY + 14;
 
-    let svg = `<svg width="${svgWidth}" height="${totalHeight}" viewBox="0 0 ${svgWidth} ${totalHeight}" xmlns="http://www.w3.org/2000/svg" class="grand-staff-svg" style="max-width:100%;">`;
+    let svg = `<svg width="${svgWidth}" height="${totalHeight}" viewBox="0 0 ${svgWidth} ${totalHeight}" xmlns="http://www.w3.org/2000/svg" class="grand-staff-svg" style="max-width:100%; height:auto; display:block; margin:0 auto;">`;
     svg += `<line x1="${startX}" y1="${staffTopY}" x2="${startX}" y2="${staffBottomY}" stroke="#1e293b" stroke-width="1.6" />`;
     svg += proto.renderStaffLines(startX, endX, staffTopY, lineSpacing);
     if (isBass) {
