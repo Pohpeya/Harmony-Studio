@@ -690,8 +690,12 @@ window.TOPIC_PAGES = [
   { id: 'chords', label: '🎹 โน้ตในคอร์ด' },
   { id: 'inversions', label: '🔄 การพลิกกลับ' },
   { id: 'modes', label: '🎭 Major Mode' },
+  { id: 'minorscale', label: '🌙 Minor Scale' },
+  { id: 'melodicmodes', label: '🎼 Melodic Minor Modes' },
   { id: 'figuredbass', label: '🔢 Figured Bass' },
   { id: 'diatonicsub', label: '🔁 Diatonic Sub' },
+  { id: 'secdom', label: '⚡ Secondary Dominant' },
+  { id: 'modulation', label: '🔀 Modulation' },
   { id: 'cadence', label: '🎯 Cadence' },
   { id: 'partwriting', label: '🎼 Root Position' }
 ];
@@ -762,6 +766,14 @@ window.switchAppView = function(viewName) {
     window.theoryPages.renderFiguredBassPage();
   } else if (viewName === 'diatonicsub' && window.theoryPages) {
     window.theoryPages.renderDiatonicSubPage();
+  } else if (viewName === 'minorscale' && window.advancedTheoryPages) {
+    window.advancedTheoryPages.renderMinorScalePage();
+  } else if (viewName === 'melodicmodes' && window.advancedTheoryPages) {
+    window.advancedTheoryPages.renderMelodicModesPage();
+  } else if (viewName === 'secdom' && window.advancedTheoryPages) {
+    window.advancedTheoryPages.renderSecDomPage();
+  } else if (viewName === 'modulation' && window.advancedTheoryPages) {
+    window.advancedTheoryPages.renderModulationPage();
   }
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -828,6 +840,11 @@ window.addEventListener('DOMContentLoaded', () => {
   if (typeof TheoryPages !== 'undefined') {
     window.theoryPages = window.TheoryPages;
     window.theoryPages.init();
+  }
+
+  if (typeof AdvancedTheoryPages !== 'undefined') {
+    window.advancedTheoryPages = window.AdvancedTheoryPages;
+    window.advancedTheoryPages.init();
   }
 
   window.switchAppView('home');

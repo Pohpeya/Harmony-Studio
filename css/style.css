@@ -1509,6 +1509,7 @@ svg {
 }
 
 .control-item select,
+.quiz-filter-select,
 #mode-key-filter,
 #ds-key-filter,
 #cad-key-filter {
@@ -1525,11 +1526,13 @@ svg {
   color: #0f172a;
   font-weight: 700;
   cursor: pointer;
+  max-width: 100%;
   box-shadow: 0 2px 6px rgba(37, 99, 235, 0.12);
   transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
 }
 
 .control-item select:hover,
+.quiz-filter-select:hover,
 #mode-key-filter:hover,
 #ds-key-filter:hover,
 #cad-key-filter:hover {
@@ -1538,6 +1541,7 @@ svg {
 }
 
 .control-item select:focus,
+.quiz-filter-select:focus,
 #mode-key-filter:focus,
 #ds-key-filter:focus,
 #cad-key-filter:focus {
@@ -1740,7 +1744,11 @@ svg {
   }
 
   .control-item select,
-  .control-item input {
+  .control-item input,
+  .quiz-filter-select,
+  #mode-key-filter,
+  #ds-key-filter,
+  #cad-key-filter {
     width: 100%;
     max-width: 100%;
     min-width: 0;
