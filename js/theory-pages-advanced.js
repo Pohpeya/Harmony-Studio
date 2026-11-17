@@ -319,11 +319,13 @@ const AdvancedTheoryPages = {
           cols.map(c => `<td style="text-align:center; font-size:0.82rem; font-weight:700; color:${accent}; ${c.highlighted ? 'background:#dcfce7;' : ''}">↓<br>${c.ch.symbol}</td>`).join('') + `</tr>`;
 
         return `
-          <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:10px; padding:12px; margin-bottom:12px;">
+          <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:10px; padding:12px;">
             <strong style="color:${accent}; font-size:0.9rem;">📐 ตารางซ้อนคู่ 3 (Chord Stacking): ${title} ในคีย์ ${keyBase.name}</strong>
-            <table class="theory-table" style="margin-top:8px;">
-              <tbody>${rowsHtml}${footRow}</tbody>
-            </table>
+            <div class="theory-table-wrap" style="margin-top:8px;">
+              <table class="theory-table stack-table">
+                <tbody>${rowsHtml}${footRow}</tbody>
+              </table>
+            </div>
           </div>
         `;
       };
@@ -346,7 +348,7 @@ const AdvancedTheoryPages = {
 
       const romanTriad = ['i', 'ii°', 'III / III+', 'iv', 'v / V', 'VI / vi°', 'VII / vii°'];
       diaWrap.innerHTML = `
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap:12px; margin-bottom:12px;">
+        <div class="stack-matrix-grid">
           ${renderStackMatrix('Natural Minor (Triad)', natScale, false, '#0369a1')}
           ${renderStackMatrix('Harmonic Minor (Triad)', harScale, false, '#7c3aed')}
           ${renderStackMatrix('Harmonic Minor (7th Chord)', harScale, true, '#be185d')}
@@ -355,14 +357,16 @@ const AdvancedTheoryPages = {
 
         <div style="margin-bottom:14px;">
           <strong style="font-size:0.9rem; color:#1e293b;">เทียบ Diatonic Triad &amp; Rare Chords ใน ${keyBase.name}:</strong>
-          <table class="theory-table" style="margin-top:6px;">
-            <thead><tr><th>Scale</th>${romanTriad.map(r => `<th style="text-align:center;">${r}</th>`).join('')}</tr></thead>
-            <tbody>
-              ${buildRow('Natural', natScale, false, [4, 6], '#0369a1')}
-              ${buildRow('Harmonic', harScale, false, [2], '#7c3aed')}
-              ${buildRow('Melodic', melScale, false, [1, 2, 3, 5], '#0f766e')}
-            </tbody>
-          </table>
+          <div class="theory-table-wrap" style="margin-top:6px;">
+            <table class="theory-table">
+              <thead><tr><th>Scale</th>${romanTriad.map(r => `<th style="text-align:center;">${r}</th>`).join('')}</tr></thead>
+              <tbody>
+                ${buildRow('Natural', natScale, false, [4, 6], '#0369a1')}
+                ${buildRow('Harmonic', harScale, false, [2], '#7c3aed')}
+                ${buildRow('Melodic', melScale, false, [1, 2, 3, 5], '#0f766e')}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:14px; margin-bottom:14px;">
@@ -392,14 +396,16 @@ const AdvancedTheoryPages = {
 
         <div>
           <strong style="font-size:0.9rem; color:#1e293b;">ตาราง Diatonic 7th Chord ในคีย์ ${keyBase.name}:</strong>
-          <table class="theory-table" style="margin-top:6px;">
-            <thead><tr><th>Scale</th>${['1', '2', '3', '4', '5', '6', '7'].map(r => `<th style="text-align:center;">ขั้นที่ ${r}</th>`).join('')}</tr></thead>
-            <tbody>
-              ${buildRow('Natural (7th)', natScale, true, [], '#0369a1')}
-              ${buildRow('Harmonic (7th)', harScale, true, [], '#7c3aed')}
-              ${buildRow('Melodic (7th)', melScale, true, [], '#0f766e')}
-            </tbody>
-          </table>
+          <div class="theory-table-wrap" style="margin-top:6px;">
+            <table class="theory-table">
+              <thead><tr><th>Scale</th>${['1', '2', '3', '4', '5', '6', '7'].map(r => `<th style="text-align:center;">ขั้นที่ ${r}</th>`).join('')}</tr></thead>
+              <tbody>
+                ${buildRow('Natural (7th)', natScale, true, [], '#0369a1')}
+                ${buildRow('Harmonic (7th)', harScale, true, [], '#7c3aed')}
+                ${buildRow('Melodic (7th)', melScale, true, [], '#0f766e')}
+              </tbody>
+            </table>
+          </div>
         </div>
       `;
     }
@@ -633,7 +639,8 @@ const AdvancedTheoryPages = {
     const summaryEl = document.getElementById('mm-summary-table');
     if (summaryEl) {
       summaryEl.innerHTML = `
-        <table class="theory-table" style="margin-bottom:14px;">
+        <div class="theory-table-wrap" style="margin-bottom:14px;">
+          <table class="theory-table">
           <thead>
             <tr>
               <th>ขั้นที่</th>
@@ -665,6 +672,7 @@ const AdvancedTheoryPages = {
             }).join('')}
           </tbody>
         </table>
+        </div>
 
         <div class="diagram-flow-grid" style="margin-bottom:16px;">
           <div class="flow-card" style="border-color:#c4b5fd; background:#f5f3ff;">
@@ -947,14 +955,16 @@ const AdvancedTheoryPages = {
           <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:12px; padding:14px;">
             <strong style="color:#9d174d; font-size:0.9rem;">🔗 ตารางสายโซ่ Secondary Dominant ในคีย์ ${keyName}</strong>
             <p style="font-size:0.83rem; color:#475569; margin:4px 0 8px;">คอร์ดนอกคีย์ที่สร้างจากหลัก <code>V → I</code> ไล่ตามลำดับขั้น 7–3–6–2–5–1:</p>
-            <table class="theory-table" style="font-size:0.82rem;">
-              <tbody>
-                <tr><th>ลำดับ Root</th>${chainRoots.map(r => `<td style="text-align:center; font-weight:800;">${r}</td>`).join('')}</tr>
-                <tr><th>Diatonic</th>${chainDia.map(d => `<td style="text-align:center;">${d}</td>`).join('')}</tr>
-                <tr><th>Secondary</th>${chainSec.map(s => `<td style="text-align:center; color:#be185d; font-weight:800;">${s}</td>`).join('')}</tr>
-                <tr><th>วิเคราะห์</th>${chainRom.map(rm => `<td style="text-align:center; background:#fce7f3;"><code>${rm}</code></td>`).join('')}</tr>
-              </tbody>
-            </table>
+            <div class="theory-table-wrap">
+              <table class="theory-table" style="font-size:0.82rem;">
+                <tbody>
+                  <tr><th>ลำดับ Root</th>${chainRoots.map(r => `<td style="text-align:center; font-weight:800;">${r}</td>`).join('')}</tr>
+                  <tr><th>Diatonic</th>${chainDia.map(d => `<td style="text-align:center;">${d}</td>`).join('')}</tr>
+                  <tr><th>Secondary</th>${chainSec.map(s => `<td style="text-align:center; color:#be185d; font-weight:800;">${s}</td>`).join('')}</tr>
+                  <tr><th>วิเคราะห์</th>${chainRom.map(rm => `<td style="text-align:center; background:#fce7f3;"><code>${rm}</code></td>`).join('')}</tr>
+                </tbody>
+              </table>
+            </div>
             <div style="margin-top:10px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
               <span style="font-size:0.78rem; color:#64748b;">เกิดได้ทั้ง Triad และ 7th (ยกเว้น vii°)</span>
               <button class="btn btn-success btn-xs" onclick="window.advancedTheoryPages.playCircleChain()">🔊 ฟังสายโซ่ V7 ต่อเนื่อง</button>
@@ -1368,26 +1378,30 @@ const AdvancedTheoryPages = {
 
           <div style="margin-bottom:12px;">
             <div style="font-size:0.84rem; font-weight:700; color:#166534; margin-bottom:4px;">1) Major → Major (${rel.homeName} → ${rel.domName}): มีคอร์ดร่วม 4 คอร์ด (กรอบเขียว)</div>
-            <table class="theory-table">
-              <tbody>
-                <tr><th>คีย์แรก (${rel.homeName})</th>${homeRomMaj.map((r, i) => `<td style="text-align:center; ${[0,2,4,5].includes(i)?'background:#dcfce7; font-weight:800;':''}">${r}</td>`).join('')}</tr>
-                <tr><th>Triads ใน ${rel.homeName}</th>${homeTriads.map((t, i) => `<td style="text-align:center; ${[0,2,4,5].includes(i)?'background:#dcfce7; font-weight:800;':''}">${t}</td>`).join('')}</tr>
-                <tr><th>Triads ใน ${rel.domName}</th>${[3,4,5,6,0,1,2].map((di, i) => `<td style="text-align:center; ${[0,2,4,5].includes(i)?'background:#dcfce7; font-weight:800;':''}">${domTriads[di]}</td>`).join('')}</tr>
-                <tr><th>คีย์ใหม่ (${rel.domName})</th>${domRomMaj.map((r, i) => `<td style="text-align:center; ${[0,2,4,5].includes(i)?'background:#dcfce7; font-weight:800;':''}">${r}</td>`).join('')}</tr>
-              </tbody>
-            </table>
+            <div class="theory-table-wrap">
+              <table class="theory-table">
+                <tbody>
+                  <tr><th>คีย์แรก (${rel.homeName})</th>${homeRomMaj.map((r, i) => `<td style="text-align:center; ${[0,2,4,5].includes(i)?'background:#dcfce7; font-weight:800;':''}">${r}</td>`).join('')}</tr>
+                  <tr><th>Triads ใน ${rel.homeName}</th>${homeTriads.map((t, i) => `<td style="text-align:center; ${[0,2,4,5].includes(i)?'background:#dcfce7; font-weight:800;':''}">${t}</td>`).join('')}</tr>
+                  <tr><th>Triads ใน ${rel.domName}</th>${[3,4,5,6,0,1,2].map((di, i) => `<td style="text-align:center; ${[0,2,4,5].includes(i)?'background:#dcfce7; font-weight:800;':''}">${domTriads[di]}</td>`).join('')}</tr>
+                  <tr><th>คีย์ใหม่ (${rel.domName})</th>${domRomMaj.map((r, i) => `<td style="text-align:center; ${[0,2,4,5].includes(i)?'background:#dcfce7; font-weight:800;':''}">${r}</td>`).join('')}</tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div>
             <div style="font-size:0.84rem; font-weight:700; color:#166534; margin-bottom:4px;">2) Major → Minor (${rel.homeName} → ${iiMinName}): มีคอร์ดร่วม 2 คอร์ด (กรอบเขียว)</div>
-            <table class="theory-table">
-              <tbody>
-                <tr><th>คีย์แรก (${rel.homeName})</th>${homeRomMaj.map((r, i) => `<td style="text-align:center; ${[1,3].includes(i)?'background:#dcfce7; font-weight:800;':''}">${r}</td>`).join('')}</tr>
-                <tr><th>Triads ใน ${rel.homeName}</th>${homeTriads.map((t, i) => `<td style="text-align:center; ${[1,3].includes(i)?'background:#dcfce7; font-weight:800;':''}">${t}</td>`).join('')}</tr>
-                <tr><th>Triads ใน ${iiMinName}</th>${[6,0,1,2,3,4,5].map((mi, i) => `<td style="text-align:center; ${[1,3].includes(i)?'background:#dcfce7; font-weight:800;':''}">${iiMinTriads[mi]}</td>`).join('')}</tr>
-                <tr><th>คีย์ใหม่ (${iiMinName})</th>${minRomAligned.map((r, i) => `<td style="text-align:center; ${[1,3].includes(i)?'background:#dcfce7; font-weight:800;':''}">${r}</td>`).join('')}</tr>
-              </tbody>
-            </table>
+            <div class="theory-table-wrap">
+              <table class="theory-table">
+                <tbody>
+                  <tr><th>คีย์แรก (${rel.homeName})</th>${homeRomMaj.map((r, i) => `<td style="text-align:center; ${[1,3].includes(i)?'background:#dcfce7; font-weight:800;':''}">${r}</td>`).join('')}</tr>
+                  <tr><th>Triads ใน ${rel.homeName}</th>${homeTriads.map((t, i) => `<td style="text-align:center; ${[1,3].includes(i)?'background:#dcfce7; font-weight:800;':''}">${t}</td>`).join('')}</tr>
+                  <tr><th>Triads ใน ${iiMinName}</th>${[6,0,1,2,3,4,5].map((mi, i) => `<td style="text-align:center; ${[1,3].includes(i)?'background:#dcfce7; font-weight:800;':''}">${iiMinTriads[mi]}</td>`).join('')}</tr>
+                  <tr><th>คีย์ใหม่ (${iiMinName})</th>${minRomAligned.map((r, i) => `<td style="text-align:center; ${[1,3].includes(i)?'background:#dcfce7; font-weight:800;':''}">${r}</td>`).join('')}</tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       `;
@@ -1426,7 +1440,8 @@ const AdvancedTheoryPages = {
             </div>
           </div>
 
-          <table class="theory-table" style="margin-top:12px;">
+          <div class="theory-table-wrap" style="margin-top:12px;">
+            <table class="theory-table">
             <thead><tr><th>รูปแบบ Modulation</th><th>กลไกหลัก</th><th>ตัวอย่างเด่น</th></tr></thead>
             <tbody>
               <tr><td><strong>Common-Chord (Diatonic)</strong></td><td>คอร์ดเดียวเป็น Diatonic ทั้ง 2 คีย์ (Pivot)</td><td>B♭ → F ผ่านคอร์ด F (V ใน B♭ = I ใน F)</td></tr>
@@ -1436,7 +1451,8 @@ const AdvancedTheoryPages = {
               <tr><td><strong>Monophonic Modulation</strong></td><td>โน้ตเอกลักษณ์ของคีย์ใหม่ในแนวเดี่ยว</td><td>ทำนอง C Maj อยู่ดีๆ ร้อง F♯ พาเข้า G</td></tr>
               <tr><td><strong>Direct / Phrase Modulation</strong></td><td>จบประโยคแล้วขึ้นคีย์ใหม่ทันทีตรงรอยต่อวลี</td><td>Bach Chorale: จบ g minor → ขึ้น B♭ Major</td></tr>
             </tbody>
-          </table>
+            </table>
+          </div>
         </div>
       `;
     }
@@ -1444,30 +1460,32 @@ const AdvancedTheoryPages = {
     const cmTableEl = document.getElementById('mod-cm-table');
     if (cmTableEl) {
       cmTableEl.innerHTML = `
-        <table class="theory-table">
-          <thead>
-            <tr>
-              <th>คีย์ตั้งต้น</th>
-              <th>คีย์ปลายทาง</th>
-              <th>ระยะห่างของ Root</th>
-              <th>ประเภท</th>
-              <th>โน้ตร่วม (Common Tone)</th>
-              <th>ฟังเสียงเชื่อม</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${cms.map((cm, idx) => `
+        <div class="theory-table-wrap">
+          <table class="theory-table">
+            <thead>
               <tr>
-                <td><strong>${cm.homeName}</strong></td>
-                <td><strong style="color:#be185d;">${cm.targetName}</strong></td>
-                <td>${cm.intervalLabel}</td>
-                <td>Major → Major</td>
-                <td><strong>โน้ต ${cm.commonTone}</strong> (${cm.roleDesc})</td>
-                <td><button class="btn btn-success btn-xs" onclick="window.advancedTheoryPages.playModCmPair(${idx})">🔊 ฟังคู่คอร์ด</button></td>
+                <th>คีย์ตั้งต้น</th>
+                <th>คีย์ปลายทาง</th>
+                <th>ระยะห่างของ Root</th>
+                <th>ประเภท</th>
+                <th>โน้ตร่วม (Common Tone)</th>
+                <th>ฟังเสียงเชื่อม</th>
               </tr>
-            `).join('')}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              ${cms.map((cm, idx) => `
+                <tr>
+                  <td><strong>${cm.homeName}</strong></td>
+                  <td><strong style="color:#be185d;">${cm.targetName}</strong></td>
+                  <td>${cm.intervalLabel}</td>
+                  <td>Major → Major</td>
+                  <td><strong>โน้ต ${cm.commonTone}</strong> (${cm.roleDesc})</td>
+                  <td><button class="btn btn-success btn-xs" onclick="window.advancedTheoryPages.playModCmPair(${idx})">🔊 ฟังคู่คอร์ด</button></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
       `;
     }
 

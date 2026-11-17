@@ -1573,6 +1573,50 @@ svg {
   display: none;
 }
 
+/* ตารางทฤษฎีดนตรีและกริดซ้อนคู่ 3 (ขยายเต็มความกว้างการ์ด ไม่มีช่องว่างด้านขวา) */
+.stack-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.theory-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.theory-table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+
+.theory-table th,
+.theory-table td {
+  padding: 8px 6px;
+  border: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+
+.theory-table th {
+  background: #f1f5f9;
+  color: #1e293b;
+  font-weight: 700;
+  text-align: center;
+}
+
+.theory-table.stack-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
 /* Flowcharts & Visual Diagrams สำหรับหน้าบทเรียน */
 .diagram-flow-grid {
   display: grid;
@@ -1581,12 +1625,23 @@ svg {
 }
 
 .flow-card {
+  min-width: 0;
+  max-width: 100%;
   border: 1.5px solid #cbd5e1;
   border-radius: 12px;
   padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+#sd-triads-staff,
+#sd-sevenths-staff,
+#sd-sub-staff,
+#mod-cm-staff {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .flow-title {
@@ -1803,9 +1858,16 @@ svg {
   .lesson-section-grid,
   .main-layout,
   .pw-legend-grid,
-  .mode-row-card {
+  .mode-row-card,
+  .stack-matrix-grid {
     grid-template-columns: 1fr !important;
     gap: 12px;
+  }
+
+  .theory-table.stack-table th,
+  .theory-table.stack-table td {
+    padding: 5px 2px;
+    font-size: 0.72rem;
   }
 
   .mode-row-play-btn {
@@ -1862,11 +1924,17 @@ svg {
     -webkit-overflow-scrolling: touch;
   }
 
-  table {
+  table:not(.theory-table) {
     display: block;
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+  }
+
+  .theory-table {
+    display: table;
+    width: 100%;
+    font-size: 0.78rem;
   }
 
   .topic-bottom-nav {
