@@ -722,6 +722,7 @@ const AdvancedTheoryPages = {
             <div style="font-size:0.78rem; color:#475569;">Tetrachord: <strong>${m.tetrachord}</strong> | Tensions: <code>${m.tensions}</code></div>
           </div>
           <div class="mode-row-staff">
+            <img src="assets/pdf-examples/melodic-mode-${idx + 1}.png" alt="${m.name} notation from slides" class="pdf-score-img" loading="lazy" style="margin-bottom:6px; border:1px solid #e2e8f0; border-radius:6px;">
             ${TheoryPages.renderScaleSvg(notes, m.halfIdx)}
           </div>
           <button class="btn btn-success btn-sm mode-row-play-btn" onclick="window.advancedTheoryPages.playMelodicMode(${idx})">🔊 ฟัง</button>

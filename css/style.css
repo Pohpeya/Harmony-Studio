@@ -1673,6 +1673,38 @@ svg {
   margin-top: 2px;
 }
 
+/* แกลเลอรีรูปโน้ตจริงจากเอกสาร PDF ต้นฉบับ */
+.pdf-score-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 12px;
+}
+
+.pdf-score-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.pdf-score-caption {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.pdf-score-img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
 /* Modal theme สำหรับผลประเมินแบบผ่าน (สีเขียว) */
 .feedback-modal.is-pass .feedback-modal-header {
   background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
