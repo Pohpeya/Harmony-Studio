@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=20261118b">
+  <link rel="stylesheet" href="css/style.css?v=20261118c">
 </head>
 <body class="is-home">
 
@@ -570,42 +570,33 @@
         <div class="card-title">
           <span>🧭 วิธีคิดและจำ Mode (3 วิธีสำคัญ)</span>
         </div>
-        <div class="grid-3" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:14px;">
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px;">
-            <div style="font-weight:700; color:#0369a1; margin-bottom:6px;">วิธีที่ 1: คิดจาก Key เดียวแล้วไล่ตาม Step</div>
-            <p style="font-size:0.84rem; color:#475569; margin-bottom:8px;">
-              เริ่มจาก <strong>C Major</strong> แล้วเลื่อนจุดเริ่มต้นไปตามลำดับ (Scale degree) ทุก Mode ใช้ Key Signature เดียวกับ C Major ทั้งหมด (0 # / 0 b)
-            </p>
-            <ul style="font-size:0.83rem; color:#334155; padding-left:18px; line-height:1.6;">
-              <li>1 = C Ionian • 2 = D Dorian</li>
-              <li>3 = E Phrygian • 4 = F Lydian</li>
-              <li>5 = G Mixolydian • 6 = A Aeolian • 7 = B Locrian</li>
-            </ul>
-          </div>
-
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px;">
-            <div style="font-weight:700; color:#6d28d9; margin-bottom:6px;">วิธีที่ 2: เทียบลำดับหา Major Scale ตั้งต้น (Parent Key)</div>
-            <p style="font-size:0.84rem; color:#475569; margin-bottom:8px;">
-              จำว่า Mode เป็นลำดับที่เท่าไรของ Major Scale แล้วเทียบกลับ เช่น <strong>C Dorian</strong> เป็นลำดับที่ 2 ของ <strong>B♭ Major</strong> จึงใช้ Key Signature แบบ B♭ Major (B♭, E♭)
-            </p>
-            <div style="font-size:0.8rem; color:#334155; line-height:1.55;">
-              C Ionian (1) → C Major | C Dorian (2) → B♭ Major<br>
-              C Phrygian (3) → A♭ Major | C Lydian (4) → G Major<br>
-              C Mixolydian (5) → F Major | C Aeolian (6) → E♭ Major | C Locrian (7) → D♭ Major
-            </div>
-          </div>
-
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px;">
-            <div style="font-weight:700; color:#b45309; margin-bottom:6px;">วิธีที่ 3: จำ Formula เทียบกับ Parallel Major</div>
-            <p style="font-size:0.84rem; color:#475569; margin-bottom:8px;">
-              จำสูตรของแต่ละ Mode แล้วนำ Root ไปเทียบกับ Major Key เดียวกัน เช่น C Dorian เทียบกับ C Major แล้วติด <strong>♭3, ♭7</strong>
-            </p>
-            <div style="font-size:0.8rem; color:#334155; line-height:1.55;">
-              Ionian: 1 2 3 4 5 6 7 | Lydian: <strong>#4</strong><br>
-              Mixolydian: <strong>♭7</strong> | Dorian: <strong>♭3, ♭7</strong><br>
-              Aeolian: <strong>♭3, ♭6, ♭7</strong> | Phrygian: <strong>♭2, ♭3, ♭6, ♭7</strong> | Locrian: <strong>♭2, ♭3, ♭5, ♭6, ♭7</strong>
-            </div>
-          </div>
+        <div class="theory-table-wrap">
+          <table class="theory-table">
+            <thead>
+              <tr>
+                <th>วิธีคิด</th>
+                <th>หลักการจำ / เปรียบเทียบ</th>
+                <th>ตัวอย่างเปรียบเทียบทั้ง 7 Modes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong style="color:#0369a1;">วิธีที่ 1: คิดจาก Key เดียวแล้วไล่ Step</strong></td>
+                <td>เริ่มจาก C Major แล้วเลื่อนจุดเริ่มต้นตาม Scale degree (ใช้ Key Sig เดียวกันคือ 0♯/0♭)</td>
+                <td>1=C Ionian • 2=D Dorian • 3=E Phrygian • 4=F Lydian • 5=G Mixolydian • 6=A Aeolian • 7=B Locrian</td>
+              </tr>
+              <tr>
+                <td><strong style="color:#6d28d9;">วิธีที่ 2: เทียบ Parent Major Key</strong></td>
+                <td>จำลำดับที่แล้วเทียบย้อนหา Major ต้นทาง เช่น C Dorian = ขั้น 2 ของ B♭ Major (ติด B♭, E♭)</td>
+                <td>C Ionian→C | C Dorian→B♭ | C Phrygian→A♭ | C Lydian→G | C Mixolydian→F | C Aeolian→E♭ | C Locrian→D♭</td>
+              </tr>
+              <tr>
+                <td><strong style="color:#b45309;">วิธีที่ 3: จำ Formula เทียบ Major</strong></td>
+                <td>นำ Root เทียบกับ Parallel Major ตัวเอง เช่น C Dorian เทียบ C Major แล้วติด <strong>♭3, ♭7</strong></td>
+                <td>Lydian: <strong>#4</strong> | Mixolydian: <strong>♭7</strong> | Dorian: <strong>♭3, ♭7</strong> | Aeolian: <strong>♭3, ♭6, ♭7</strong> | Phrygian: <strong>♭2, ♭3, ♭6, ♭7</strong> | Locrian: <strong>♭2, ♭3, ♭5, ♭6, ♭7</strong></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -639,27 +630,27 @@
             </table>
           </div>
 
-          <div style="display:flex; flex-direction:column; gap:12px;">
-            <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:14px;">
-              <div style="font-weight:700; color:#b45309; margin-bottom:6px;">☀️ Major Chord Family (ประกอบด้วย 3 Modes)</div>
-              <p style="font-size:0.83rem; color:#78350f; margin-bottom:8px;">มีโครงสร้างโดยรวมเป็นคอร์ด <strong>Major</strong> ให้ความรู้สึกสว่าง มั่นคง และเปิดกว้าง:</p>
-              <ul style="font-size:0.85rem; color:#1e293b; padding-left:18px; line-height:1.65;">
-                <li><strong>Ionian (1):</strong> 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8</li>
-                <li><strong>Lydian (4):</strong> 1 - 2 - 3 - <strong>#4</strong> - 5 - 6 - 7 - 8</li>
-                <li><strong>Mixolydian (5):</strong> 1 - 2 - 3 - 4 - 5 - 6 - <strong>♭7</strong> - 8</li>
-              </ul>
-            </div>
-
-            <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:14px;">
-              <div style="font-weight:700; color:#1d4ed8; margin-bottom:6px;">🌙 Minor Chord Family (ประกอบด้วย 4 Modes)</div>
-              <p style="font-size:0.83rem; color:#1e3a8a; margin-bottom:8px;">มีโครงสร้างโดยรวมเป็นคอร์ด <strong>Minor</strong> (มี ♭3) ให้ความรู้สึกหม่น นุ่มนวล และลึกซึ้ง:</p>
-              <ul style="font-size:0.85rem; color:#1e293b; padding-left:18px; line-height:1.65;">
-                <li><strong>Dorian (2):</strong> 1 - 2 - <strong>♭3</strong> - 4 - 5 - 6 - <strong>♭7</strong> - 8</li>
-                <li><strong>Aeolian (6):</strong> 1 - 2 - <strong>♭3</strong> - 4 - 5 - <strong>♭6</strong> - <strong>♭7</strong> - 8</li>
-                <li><strong>Phrygian (3):</strong> 1 - <strong>♭2</strong> - <strong>♭3</strong> - 4 - 5 - <strong>♭6</strong> - <strong>♭7</strong> - 8</li>
-                <li><strong>Locrian (7):</strong> 1 - <strong>♭2</strong> - <strong>♭3</strong> - 4 - <strong>♭5</strong> - <strong>♭6</strong> - <strong>♭7</strong> - 8</li>
-              </ul>
-            </div>
+          <div class="theory-table-wrap">
+            <h4 style="font-size:0.95rem; color:#0f172a; margin-bottom:8px;">การแบ่งกลุ่ม Chord Family (Major 3 Modes vs Minor 4 Modes)</h4>
+            <table class="theory-table">
+              <thead>
+                <tr>
+                  <th>Chord Family</th>
+                  <th>Mode (ลำดับ)</th>
+                  <th>สูตรโครงสร้าง</th>
+                  <th>ลักษณะเสียง / จุดเด่น</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background:#fffbeb;"><td><strong style="color:#b45309;">☀️ Major Family</strong></td><td><strong>Ionian (1)</strong></td><td>1 - 2 - 3 - 4 - 5 - 6 - 7</td><td>Major Scale ปกติ สว่าง มั่นคง</td></tr>
+                <tr style="background:#fffbeb;"><td><strong style="color:#b45309;">☀️ Major Family</strong></td><td><strong>Lydian (4)</strong></td><td>1 - 2 - 3 - <strong>#4</strong> - 5 - 6 - 7</td><td>มี #4 ให้ความรู้สึกเปิดกว้าง ล่องลอย</td></tr>
+                <tr style="background:#fffbeb;"><td><strong style="color:#b45309;">☀️ Major Family</strong></td><td><strong>Mixolydian (5)</strong></td><td>1 - 2 - 3 - 4 - 5 - 6 - <strong>♭7</strong></td><td>มี ♭7 เหมาะกับคอร์ด Dominant 7</td></tr>
+                <tr style="background:#eff6ff;"><td><strong style="color:#1d4ed8;">🌙 Minor Family</strong></td><td><strong>Dorian (2)</strong></td><td>1 - 2 - <strong>♭3</strong> - 4 - 5 - 6 - <strong>♭7</strong></td><td>ไมเนอร์ติด natural 6 นุ่มนวล</td></tr>
+                <tr style="background:#eff6ff;"><td><strong style="color:#1d4ed8;">🌙 Minor Family</strong></td><td><strong>Aeolian (6)</strong></td><td>1 - 2 - <strong>♭3</strong> - 4 - 5 - <strong>♭6 - ♭7</strong></td><td>Natural Minor พื้นฐาน</td></tr>
+                <tr style="background:#eff6ff;"><td><strong style="color:#1d4ed8;">🌙 Minor Family</strong></td><td><strong>Phrygian (3)</strong></td><td>1 - <strong>♭2 - ♭3</strong> - 4 - 5 - <strong>♭6 - ♭7</strong></td><td>มี ♭2 กลิ่นอายสเปน/ตึงเครียด</td></tr>
+                <tr style="background:#eff6ff;"><td><strong style="color:#1d4ed8;">🌙 Minor Family</strong></td><td><strong>Locrian (7)</strong></td><td>1 - <strong>♭2 - ♭3</strong> - 4 - <strong>♭5 - ♭6 - ♭7</strong></td><td>มี ♭5 เข้ากับคอร์ด half-dim (m7♭5)</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -700,24 +691,30 @@
           <span>🔢 Figured Bass (Basso Continuo &amp; ตัวเลขใต้นิ้วเบส)</span>
         </div>
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap:16px;">
-          <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:14px;">
-            <h3 style="font-size:0.98rem; color:#9d174d; margin-bottom:8px;">1. ข้อมูลทั่วไปและประวัติ (Basso Continuo)</h3>
-            <ul style="font-size:0.86rem; color:#334155; padding-left:18px; line-height:1.7;">
-              <li><strong>ยุคสมัยและการเกิด:</strong> พัฒนาและนิยมสูงสุดในยุค <strong>Baroque (ค.ศ. 1600–1750)</strong></li>
-              <li><strong>ความเชื่อมโยงกับ Basso Continuo:</strong> Figured bass เป็นระบบจดบันทึกย่อ (Shorthand) สำหรับแนวคลอ <em>Basso continuo (Thoroughbass)</em> ที่เป็นรากฐานสำคัญของยุคบาโรก</li>
-              <li><strong>หน้าที่ผู้ประพันธ์และผู้เล่น:</strong> ผู้ประพันธ์เขียนแนวเบสและตัวเลข (Figures) ส่วนนักดนตรี (Accompanist / Continuo players) จะทำหน้าที่ <strong>"Realize"</strong> เติมเต็มคอร์ดและ Improvise บนกรอบคอร์ดนั้น</li>
-              <li><strong>เครื่องดนตรีที่ใช้:</strong> เครื่องดนตรีเล่นคอร์ด เช่น Harpsichord, Organ, Piano, Clavichord, Lute, Theorbo ร่วมกับ Cello หรือ Double bass เล่นแนวเบส</li>
-            </ul>
+          <div class="theory-table-wrap">
+            <h3 style="font-size:0.95rem; color:#9d174d; margin-bottom:8px;">1. ข้อมูลทั่วไปและประวัติ (Basso Continuo)</h3>
+            <table class="theory-table">
+              <thead><tr><th>หัวข้อ</th><th>รายละเอียด</th></tr></thead>
+              <tbody>
+                <tr><td><strong>ยุคสมัย</strong></td><td>พัฒนาและนิยมสูงสุดในยุค <strong>Baroque (ค.ศ. 1600–1750)</strong></td></tr>
+                <tr><td><strong>ความเชื่อมโยง</strong></td><td>ระบบจดบันทึกย่อ (Shorthand) สำหรับแนวคลอ <em>Basso continuo (Thoroughbass)</em></td></tr>
+                <tr><td><strong>หน้าที่ผู้เล่น</strong></td><td>ผู้ประพันธ์เขียนแนวเบส+ตัวเลข ผู้เล่นทำหน้าที่ <strong>Realize</strong> เติมเต็มคอร์ดและ Improvise</td></tr>
+                <tr><td><strong>เครื่องดนตรี</strong></td><td>Harpsichord, Organ, Piano, Clavichord, Lute, Theorbo ร่วมกับ Cello / Double bass</td></tr>
+              </tbody>
+            </table>
           </div>
 
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px;">
-            <h3 style="font-size:0.98rem; color:#0f172a; margin-bottom:8px;">2. หลักการและวิธีการเขียน</h3>
-            <ul style="font-size:0.86rem; color:#334155; padding-left:18px; line-height:1.7;">
-              <li><strong>องค์ประกอบหลัก:</strong> แนวโน้ตเบส (Bass line) + ตัวเลขอารบิก (Arabic numerals เช่น 1, 2, 3...)</li>
-              <li><strong>ความหมายของตัวเลข:</strong> บอกระยะขั้นคู่ (Intervals) ของโน้ตที่อยู่<strong>เหนือโน้ตเบส</strong> โดยนับตัวเบสเป็น 1 (เช่น เบส C มีเลข 6 กำกับ หมายถึงต้องมีโน้ตขั้นคู่ 6 เหนือ C คือ <strong>A</strong>)</li>
-              <li><strong>การจัดเรียงโน้ต (Voicing):</strong> ตัวเลขไม่ได้บังคับตายตัวว่าแนวบนต้องอยู่อ็อกเทฟไหน เปิดโอกาสให้ผู้เล่นจัดเสียงได้อย่างอิสระ</li>
-              <li><strong>ความคล้ายคลึงกับ Roman Numeral:</strong> ปัจจุบันใช้ร่วมกับเลขโรมันเพื่อระบุทั้งหน้าที่คอร์ด (Function) และการพลิกกลับ (Inversion)</li>
-            </ul>
+          <div class="theory-table-wrap">
+            <h3 style="font-size:0.95rem; color:#0f172a; margin-bottom:8px;">2. หลักการและวิธีการเขียนตัวเลข</h3>
+            <table class="theory-table">
+              <thead><tr><th>องค์ประกอบ</th><th>หลักการอ่านและเขียน</th></tr></thead>
+              <tbody>
+                <tr><td><strong>องค์ประกอบหลัก</strong></td><td>แนวโน้ตเบส (Bass line) + ตัวเลขอารบิก (1, 2, 3...)</td></tr>
+                <tr><td><strong>ความหมายตัวเลข</strong></td><td>บอกขั้นคู่เหนือเบสโดยนับเบสเป็น 1 (เช่น เบส C มีเลข 6 → มีโน้ต <strong>A</strong>)</td></tr>
+                <tr><td><strong>การจัดเสียง (Voicing)</strong></td><td>ไม่บังคับอ็อกเทฟของแนวบน ผู้เล่นสามารถจัดเสียงประสานได้อย่างอิสระ</td></tr>
+                <tr><td><strong>การใช้ปัจจุบัน</strong></td><td>ใช้ควบคู่กับเลขโรมันเพื่อบอกทั้งหน้าที่คอร์ด (Function) และการพลิกกลับ</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -809,13 +806,16 @@
           </div>
         </div>
 
-        <div style="background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; padding:14px;">
+        <div class="theory-table-wrap">
           <h4 style="font-size:0.95rem; color:#c2410c; margin-bottom:8px;">4. กฎเพิ่มเติมเกี่ยวกับการใช้เครื่องหมายแปลงเสียง (Accidentals)</h4>
-          <ul style="font-size:0.86rem; color:#334155; padding-left:18px; line-height:1.7;">
-            <li><strong>เครื่องหมายลอยๆ (Orphaned accidentals):</strong> หากมี #, ♭ หรือ ♮ อยู่เดี่ยวๆ โดยไม่มีตัวเลขกำกับ ให้ถือว่ากระทำกับ<strong>โน้ตขั้นคู่ที่ 3 (3rd) เหนือโน้ตเบสเสมอ</strong></li>
-            <li><strong>เครื่องหมายข้างตัวเลข:</strong> หากอยู่ข้างตัวเลขใด ให้เปลี่ยนเสียงโน้ตของขั้นคู่นั้นตามเครื่องหมาย (เช่น ♯6 หรือ ♭6)</li>
-            <li><strong>ขีดทับตัวเลข / เครื่องหมายบวก (Slashes / +):</strong> ตัวเลขที่มีขีดทับ (เช่น <span style="text-decoration:line-through;">6</span>) หรือมีเครื่องหมาย <strong>+</strong> กำกับ มีความหมายเท่ากับการ<strong>เพิ่มเสียงขึ้นครึ่งเสียง (Sharp)</strong></li>
-          </ul>
+          <table class="theory-table">
+            <thead><tr><th>รูปแบบสัญลักษณ์</th><th>ตำแหน่ง / ตัวอย่าง</th><th>ความหมายและวิธีปฏิบัติ</th></tr></thead>
+            <tbody>
+              <tr><td><strong>เครื่องหมายลอยๆ (Orphaned)</strong></td><td>♯, ♭, ♮ เดี่ยวๆ ไม่มีตัวเลข</td><td>บังคับให้ปรับเสียง<strong>โน้ตขั้นคู่ที่ 3 (3rd) เหนือเบสเสมอ</strong></td></tr>
+              <tr><td><strong>เครื่องหมายข้างตัวเลข</strong></td><td>เช่น <code>♯6</code>, <code>♭6</code>, <code>♮7</code></td><td>ปรับเสียงเฉพาะโน้ตของขั้นคู่ตัวเลขนั้นๆ ตามเครื่องหมาย</td></tr>
+              <tr><td><strong>ขีดทับตัวเลข / เครื่องหมาย +</strong></td><td><span style="text-decoration:line-through;">6</span>, <code>6+</code></td><td>มีความหมายเท่ากับการ<strong>ปรับเสียงขั้นคู่นั้นขึ้นครึ่งเสียง (Sharp / ♯)</strong></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -1057,12 +1057,14 @@
           <p style="font-size: 0.9rem; color: #334155; line-height: 1.65; margin-bottom: 10px;">
             ให้ความรู้สึกจบอย่าง <strong>"สมบูรณ์และเด็ดขาด"</strong> มักใช้เพื่อปิดประโยคจบเพลงหรือปิดท่อนสำคัญ เนื่องจากมีแรงส่งจาก Leading Tone ในคอร์ด V ที่วิ่งเข้าหา Tonic อย่างชัดเจน
           </p>
-          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: 0.87rem; color: #334155;">
-            <strong>📌 ข้อควรรู้ (ระบบอเมริกัน)</strong> แบ่งความสมบูรณ์ของการจบออกเป็น 2 ระดับ:
-            <ul style="margin: 6px 0 0 20px; line-height: 1.65;">
-              <li><strong>Perfect Authentic Cadence (PAC):</strong> คอร์ด V และ I ต้องอยู่ใน <strong>Root Position</strong> ทั้งคู่ และแนวบนสุด (<strong>Soprano</strong>) ต้องจบที่โน้ต <strong>Tonic</strong></li>
-              <li><strong>Imperfect Authentic Cadence (IAC):</strong> หากคอร์ดใดคอร์ดหนึ่งเป็น <strong>รูปพลิกกลับ</strong> (เช่น V⁶₅ → I) หรือแนว Soprano จบที่ <strong>ตัวที่ 3 หรือ 5</strong> ของคอร์ด จะถือว่าจบแบบไม่สมบูรณ์ที่สุด</li>
-            </ul>
+          <div class="theory-table-wrap" style="margin-bottom: 12px;">
+            <table class="theory-table">
+              <thead><tr><th>ระดับความสมบูรณ์ (ระบบอเมริกัน)</th><th>ตำแหน่งคอร์ด V – I</th><th>แนวบนสุด (Soprano) ตอนจบ</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Perfect Authentic Cadence (PAC)</strong></td><td>V และ I อยู่ใน <strong>Root Position</strong> ทั้งคู่</td><td>ต้องจบที่โน้ต <strong>Tonic</strong> (ตัวที่ 1)</td></tr>
+                <tr><td><strong>Imperfect Authentic Cadence (IAC)</strong></td><td>คอร์ดใดคอร์ดหนึ่งเป็น<strong>รูปพลิกกลับ</strong> (เช่น V⁶₅ → I)</td><td>หรือ Soprano จบที่ <strong>ตัวที่ 3 หรือ 5</strong> ของคอร์ด</td></tr>
+              </tbody>
+            </table>
           </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 14px;">
@@ -1205,9 +1207,9 @@
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; margin-bottom: 16px;">
-          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:12px;">
-            <strong style="color:#1e293b;">📊 เปรียบเทียบ ii – V ระหว่าง Major และ Minor</strong>
-            <table class="theory-table" style="margin-top:8px;">
+          <div class="theory-table-wrap">
+            <strong style="color:#1e293b; display:block; margin-bottom:6px;">📊 เปรียบเทียบ ii – V ระหว่าง Major และ Minor</strong>
+            <table class="theory-table">
               <thead><tr><th>Key</th><th>Triad</th><th>7th Chord</th></tr></thead>
               <tbody>
                 <tr><td><strong>Major</strong></td><td>ii – V</td><td>ii⁷ – V⁷</td></tr>
@@ -1215,13 +1217,16 @@
               </tbody>
             </table>
           </div>
-          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:12px;">
-            <strong style="color:#1e293b;">🔺 สรุปโครงสร้าง Diminished ทั้ง 3 รูปแบบ</strong>
-            <ul style="margin:8px 0 0 18px; font-size:0.86rem; color:#334155; line-height:1.7;">
-              <li><strong>Diminished Triad:</strong> <code>1 – ♭3 – ♭5</code></li>
-              <li><strong>Half Diminished (ø7 / m7♭5):</strong> <code>1 – ♭3 – ♭5 – <u>♭7</u></code></li>
-              <li><strong>Full Diminished (°7):</strong> <code>1 – ♭3 – ♭5 – <u>♭♭7</u></code></li>
-            </ul>
+          <div class="theory-table-wrap">
+            <strong style="color:#1e293b; display:block; margin-bottom:6px;">🔺 ตารางสรุปโครงสร้าง Diminished ทั้ง 3 รูปแบบ</strong>
+            <table class="theory-table">
+              <thead><tr><th>ชนิดคอร์ด</th><th>สัญลักษณ์</th><th>สูตรโครงสร้าง</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Diminished Triad</strong></td><td>° / dim</td><td><code>1 – ♭3 – ♭5</code></td></tr>
+                <tr><td><strong>Half Diminished</strong></td><td>ø7 / m7♭5</td><td><code>1 – ♭3 – ♭5 – <u>♭7</u></code></td></tr>
+                <tr><td><strong>Full Diminished</strong></td><td>°7 / dim7</td><td><code>1 – ♭3 – ♭5 – <u>♭♭7</u></code></td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -1429,63 +1434,34 @@
           <span>📚 สรุปกฎการประสานเสียง 4 แนว (Root Position Part Writing Rules)</span>
         </div>
 
-        <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 14px; margin-bottom: 14px;">
-          <strong style="color: #1e293b; font-size: 0.9rem;">📌 กฎการเขียน Root Position ตามระยะการเคลื่อนที่ของเบส (Bass Motions):</strong>
-          <ul style="margin: 6px 0 0 20px; font-size: 0.84rem; color: #334155; line-height: 1.6;">
-            <li><strong>1. เบสกระโดดคู่ 4 หรือ 5 (เช่น I-IV, I-V, ii-V):</strong> มี 1 Common Tone ให้เก็บ Common Tone ไว้ในแนวเดิม (มี Tie) แล้วอีก 2 แนวเดินเป็นขั้นคู่ 2</li>
-            <li><strong>2. เบสกระโดดคู่ 3 หรือ 6 (เช่น I-vi, vi-IV, I-iii):</strong> มี 2 Common Tones ให้เก็บ Common Tones ทั้งสองไว้ในแนวเดิม (มี Tie) และแนวที่เหลือเดิน 1 ขั้น</li>
-            <li><strong>3. เบสกระโดดคู่ 2 หรือ 7 (เช่น IV-V, I-ii, vi-V):</strong> ไม่มี Common Tone ทั้ง 3 แนวบนต้องเคลื่อนที่<strong>สวนทาง (Contrary Motion)</strong> กับเบสเพื่อเลี่ยงขนาน 5 และ 8 (ยกเว้น V-vi ให้ซ้ำเสียงที่ 3 ใน vi)</li>
-          </ul>
+        <div class="theory-table-wrap" style="margin-bottom: 14px;">
+          <strong style="color: #1e293b; font-size: 0.9rem; display: block; margin-bottom: 6px;">📌 ตารางกฎการเขียน Root Position ตามระยะการเคลื่อนที่ของเบส (Bass Motions)</strong>
+          <table class="theory-table">
+            <thead>
+              <tr><th>ระยะการเคลื่อนที่ของเบส</th><th>จำนวน Common Tone</th><th>แนวการเคลื่อนที่ 3 แนวบน &amp; ข้อยกเว้น</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>1. เบสกระโดดคู่ 4 หรือ 5</strong> (I–IV, I–V, ii–V)</td><td><strong>1 ตัว</strong></td><td>เก็บ Common Tone ไว้ในแนวเดิม (มี Tie) อีก 2 แนวเดินเป็นขั้นคู่ 2</td></tr>
+              <tr><td><strong>2. เบสกระโดดคู่ 3 หรือ 6</strong> (I–vi, vi–IV, I–iii)</td><td><strong>2 ตัว</strong></td><td>เก็บ Common Tones ทั้ง 2 ไว้ในแนวเดิม (มี Tie) แนวที่เหลือเดิน 1 ขั้น</td></tr>
+              <tr><td><strong>3. เบสกระโดดคู่ 2 หรือ 7</strong> (IV–V, I–ii, vi–V)</td><td><strong>0 ตัว (ไม่มี)</strong></td><td>ทั้ง 3 แนวบน<strong>สวนทาง (Contrary Motion)</strong> กับเบส (ยกเว้น V–vi ซ้ำตัวที่ 3 ใน vi)</td></tr>
+            </tbody>
+          </table>
         </div>
 
-        <div class="pw-legend-grid">
-          <div>
-            <div class="rule-legend-item">
-              <span class="rule-legend-badge" style="background: #fee2e2; color: #b91c1c;">ห้ามเด็ดขาด</span>
-              <div>
-                <strong>คู่ขนาน 5 และคู่ขนาน 8 (Parallel 5ths & 8ves):</strong>
-                แนวเสียง 2 แนวใดๆ เคลื่อนที่ไปในทิศทางเดียวกันจากคู่ 5 ไปคู่ 5 หรือจากคู่ 8 ไปคู่ 8
-              </div>
-            </div>
-            <div class="rule-legend-item">
-              <span class="rule-legend-badge" style="background: #fee2e2; color: #b91c1c;">ห้ามเด็ดขาด</span>
-              <div>
-                <strong>ระยะห่าง (Spacing):</strong>
-                ระยะระหว่าง S กับ A และระหว่าง A กับ T ต้อง<strong>ไม่เกิน 1 คู่แปด (Octave)</strong> สำหรับ Tenor กับ Bass ห่างเกินได้ แต่<strong>ไม่เกินคู่ 12</strong>
-              </div>
-            </div>
-            <div class="rule-legend-item">
-              <span class="rule-legend-badge" style="background: #fee2e2; color: #b91c1c;">ห้ามเด็ดขาด</span>
-              <div>
-                <strong>การข้ามแนวเสียง (Voice Crossing):</strong>
-                ห้ามแนวเสียงที่ต่ำกว่าขยับขึ้นสูงกว่าแนวเสียงที่สูงกว่าในคอร์ดเดียวกัน (S ≥ A ≥ T ≥ B)
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div class="rule-legend-item">
-              <span class="rule-legend-badge" style="background: #fef3c7; color: #b45309;">ข้อบังคับ</span>
-              <div>
-                <strong>โน้ตในคอร์ด (Chord Tones & Third):</strong>
-                โน้ตทั้ง 4 แนวต้องเป็น Root, 3rd, 5th, 7th ของคอร์ดนั้น และ<strong>ห้ามขาดโน้ตขั้นที่ 3</strong> สำหรับ Triad
-              </div>
-            </div>
-            <div class="rule-legend-item">
-              <span class="rule-legend-badge" style="background: #fee2e2; color: #b91c1c;">ห้ามเด็ดขาด</span>
-              <div>
-                <strong>การซ้ำเสียง (Doubling Rules):</strong>
-                <strong>ห้ามซ้ำ Leading Tone (ขั้นที่ 7)</strong> โดยเด็ดขาด สำหรับคอร์ด Root Position มักซ้ำ Root, คอร์ด 6/4 ให้ซ้ำโน้ตเบส (Fifth)
-              </div>
-            </div>
-            <div class="rule-legend-item">
-              <span class="rule-legend-badge" style="background: #e0f2fe; color: #0369a1;">แนะนำ</span>
-              <div>
-                <strong>การคลี่คลาย (Resolution):</strong>
-                ในคอร์ด V หรือ V7 หรือ vii° โน้ต Leading Tone ควรก้าวขึ้น (Stepwise) เข้าหา Tonic และ<strong>โน้ตที่ 7 ของคอร์ด V7 ควรเคลื่อนที่ลง (Stepwise) เข้าหาตัวที่ 3 ของคอร์ด I</strong>
-              </div>
-            </div>
-          </div>
+        <div class="theory-table-wrap">
+          <table class="theory-table">
+            <thead>
+              <tr><th>ระดับ</th><th>หัวข้อกฎ 4 แนว (SATB)</th><th>รายละเอียดและเกณฑ์การตรวจสอบ</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="rule-legend-badge" style="background: #fee2e2; color: #b91c1c;">ห้ามเด็ดขาด</span></td><td><strong>Parallel 5ths &amp; 8ves</strong></td><td>แนวเสียง 2 แนวเคลื่อนไปในทิศทางเดียวกันจากคู่ 5 ไปคู่ 5 หรือคู่ 8 ไปคู่ 8</td></tr>
+              <tr><td><span class="rule-legend-badge" style="background: #fee2e2; color: #b91c1c;">ห้ามเด็ดขาด</span></td><td><strong>ระยะห่าง (Spacing)</strong></td><td>S–A และ A–T ห่าง<strong>ไม่เกิน 1 คู่แปด</strong> ส่วน T–B ห่างได้แต่<strong>ไม่เกินคู่ 12</strong></td></tr>
+              <tr><td><span class="rule-legend-badge" style="background: #fee2e2; color: #b91c1c;">ห้ามเด็ดขาด</span></td><td><strong>การข้ามแนว (Voice Crossing)</strong></td><td>ห้ามแนวเสียงต่ำกว่าขึ้นสูงกว่าแนวเสียงสูงกว่าในคอร์ดเดียวกัน (S ≥ A ≥ T ≥ B)</td></tr>
+              <tr><td><span class="rule-legend-badge" style="background: #fef3c7; color: #b45309;">ข้อบังคับ</span></td><td><strong>โน้ตในคอร์ด (Chord Tones)</strong></td><td>โน้ต 4 แนวต้องเป็น Root, 3rd, 5th, 7th ของคอร์ด และ<strong>ห้ามขาดตัวที่ 3</strong> สำหรับ Triad</td></tr>
+              <tr><td><span class="rule-legend-badge" style="background: #fee2e2; color: #b91c1c;">ห้ามเด็ดขาด</span></td><td><strong>การซ้ำเสียง (Doubling)</strong></td><td><strong>ห้ามซ้ำ Leading Tone (ขั้นที่ 7)</strong> • Root Position มักซ้ำ Root / คอร์ด 6/4 ซ้ำเบส</td></tr>
+              <tr><td><span class="rule-legend-badge" style="background: #e0f2fe; color: #0369a1;">แนะนำ</span></td><td><strong>การคลี่คลาย (Resolution)</strong></td><td>Leading Tone ก้าวขึ้นหา Tonic และโน้ตที่ 7 ของ V7 เคลื่อนลงหาตัวที่ 3 ของคอร์ด I</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -1731,15 +1707,15 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/theory.js?v=20261118b"></script>
-  <script src="js/rules.js?v=20261118b"></script>
-  <script src="js/renderer.js?v=20261118b"></script>
-  <script src="js/audio.js?v=20261118b"></script>
-  <script src="js/presets.js?v=20261118b"></script>
-  <script src="js/chords-lab.js?v=20261118b"></script>
-  <script src="js/cadence-lab.js?v=20261118b"></script>
-  <script src="js/theory-pages.js?v=20261118b"></script>
-  <script src="js/theory-pages-advanced.js?v=20261118b"></script>
-  <script src="js/app.js?v=20261118b"></script>
+  <script src="js/theory.js?v=20261118c"></script>
+  <script src="js/rules.js?v=20261118c"></script>
+  <script src="js/renderer.js?v=20261118c"></script>
+  <script src="js/audio.js?v=20261118c"></script>
+  <script src="js/presets.js?v=20261118c"></script>
+  <script src="js/chords-lab.js?v=20261118c"></script>
+  <script src="js/cadence-lab.js?v=20261118c"></script>
+  <script src="js/theory-pages.js?v=20261118c"></script>
+  <script src="js/theory-pages-advanced.js?v=20261118c"></script>
+  <script src="js/app.js?v=20261118c"></script>
 </body>
 </html>
