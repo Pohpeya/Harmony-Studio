@@ -295,6 +295,39 @@ const AdvancedTheoryPages = {
       const harScale = this.getMinorScaleDegrees(keyBase, 'harmonic');
       const melScale = this.getMinorScaleDegrees(keyBase, 'melodic');
 
+      const renderStackMatrix = (title, scale, is7th, accent) => {
+        const heads = [0, 1, 2, 3, 4, 5, 6, 7];
+        const cols = heads.map(d => {
+          const ch = this.getDiatonicChordFromScale(scale, d, is7th);
+          const highlighted = [0, 2, 4, 6].includes(d % 7);
+          return { ch, highlighted, isOct: d === 7 };
+        });
+        const rowsCount = is7th ? 4 : 3;
+        const rowLabels = is7th ? ['1', '3', '5', '7'] : ['1', '3', '5'];
+        let rowsHtml = '';
+        for (let r = 0; r < rowsCount; r++) {
+          rowsHtml += `<tr><td style="font-weight:700; color:#64748b; text-align:center;">${rowLabels[r]}</td>` +
+            cols.map(c => {
+              const note = c.ch.notes[r];
+              const name = Theory.formatPitchClass(note);
+              const isRaised = name.includes('♯') && !keyBase.name.includes('♯');
+              const boxBg = c.highlighted ? 'background:#f0fdf4;' : '';
+              return `<td style="text-align:center; font-weight:700; font-size:0.95rem; ${boxBg} color:${isRaised ? '#dc2626' : '#0f172a'};">${name}</td>`;
+            }).join('') + `</tr>`;
+        }
+        const footRow = `<tr><td style="font-size:0.75rem; color:#64748b; text-align:center;">คอร์ด</td>` +
+          cols.map(c => `<td style="text-align:center; font-size:0.82rem; font-weight:700; color:${accent}; ${c.highlighted ? 'background:#dcfce7;' : ''}">↓<br>${c.ch.symbol}</td>`).join('') + `</tr>`;
+
+        return `
+          <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:10px; padding:12px; margin-bottom:12px;">
+            <strong style="color:${accent}; font-size:0.9rem;">📐 ตารางซ้อนคู่ 3 (Chord Stacking): ${title} ในคีย์ ${keyBase.name}</strong>
+            <table class="theory-table" style="margin-top:8px;">
+              <tbody>${rowsHtml}${footRow}</tbody>
+            </table>
+          </div>
+        `;
+      };
+
       const buildRow = (title, scale, is7th, rareSet, accent) => {
         const cols = [0, 1, 2, 3, 4, 5, 6].map(d => {
           const ch = this.getDiatonicChordFromScale(scale, d, is7th);
@@ -307,10 +340,21 @@ const AdvancedTheoryPages = {
         return `<tr><td style="font-weight:700; color:${accent}; white-space:nowrap;">${title}</td>${cols}</tr>`;
       };
 
+      const natSyms = [0,1,2,3,4,5,6].map(d => this.getDiatonicChordFromScale(natScale, d, false).symbol);
+      const harSyms = [0,1,2,3,4,5,6].map(d => this.getDiatonicChordFromScale(harScale, d, false).symbol);
+      const commonSyms = [natSyms[0], natSyms[1], natSyms[2], natSyms[3], harSyms[4], natSyms[5], harSyms[6]];
+
       const romanTriad = ['i', 'ii°', 'III / III+', 'iv', 'v / V', 'VI / vi°', 'VII / vii°'];
       diaWrap.innerHTML = `
-        <div style="margin-bottom:12px;">
-          <strong style="font-size:0.9rem; color:#1e293b;">ตาราง Diatonic Triad ในคีย์ ${keyBase.name} (เทียบ Natural / Harmonic / Melodic):</strong>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap:12px; margin-bottom:12px;">
+          ${renderStackMatrix('Natural Minor (Triad)', natScale, false, '#0369a1')}
+          ${renderStackMatrix('Harmonic Minor (Triad)', harScale, false, '#7c3aed')}
+          ${renderStackMatrix('Harmonic Minor (7th Chord)', harScale, true, '#be185d')}
+          ${renderStackMatrix('Melodic Minor (7th Chord)', melScale, true, '#0f766e')}
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <strong style="font-size:0.9rem; color:#1e293b;">เทียบ Diatonic Triad &amp; Rare Chords ใน ${keyBase.name}:</strong>
           <table class="theory-table" style="margin-top:6px;">
             <thead><tr><th>Scale</th>${romanTriad.map(r => `<th style="text-align:center;">${r}</th>`).join('')}</tr></thead>
             <tbody>
@@ -320,6 +364,32 @@ const AdvancedTheoryPages = {
             </tbody>
           </table>
         </div>
+
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:14px; margin-bottom:14px;">
+          <strong style="color:#0f172a; font-size:0.92rem;">🔀 แผนภาพคัดคอร์ดที่ใช้งานจริงบ่อยที่สุด (Most Commonly Used Chords in ${keyBase.name}):</strong>
+          <div style="overflow-x:auto; margin-top:10px;">
+            <svg width="620" height="165" viewBox="0 0 620 165" xmlns="http://www.w3.org/2000/svg" style="max-width:100%; height:auto; display:block; margin:0 auto;">
+              <rect width="620" height="165" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+              <text x="16" y="30" font-size="12" font-weight="700" fill="#0369a1">Natural:</text>
+              <text x="16" y="64" font-size="12" font-weight="700" fill="#7c3aed">Harmonic:</text>
+              <text x="16" y="96" font-size="12" font-weight="700" fill="#0f766e">Melodic:</text>
+              ${natSyms.map((s, i) => `<text x="${120 + i*72}" y="30" text-anchor="middle" font-size="13" font-weight="${(i===2||i===5)?'800':'500'}" fill="${(i===4||i===6)?'#94a3b8':'#0f172a'}">${s}</text>`).join('')}
+              ${harSyms.map((s, i) => `<text x="${120 + i*72}" y="64" text-anchor="middle" font-size="13" font-weight="${(i===4||i===6)?'800':'500'}" fill="${(i===2)?'#94a3b8':'#0f172a'}">${s}</text>`).join('')}
+              ${[0,1,2,3,4,5,6].map(d => this.getDiatonicChordFromScale(melScale, d, false).symbol).map((s, i) => `<text x="${120 + i*72}" y="96" text-anchor="middle" font-size="13" fill="#64748b">${s}</text>`).join('')}
+              <path d="M 264 36 L 264 50" stroke="#2563eb" stroke-width="2"/>
+              <line x1="90" y1="112" x2="585" y2="112" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,3"/>
+              <text x="16" y="142" font-size="12" font-weight="800" fill="#15803d">ใช้บ่อยสุด ⟹</text>
+              ${commonSyms.map((s, i) => `
+                <rect x="${92 + i*72}" y="122" width="56" height="28" rx="6" fill="#dcfce7" stroke="#16a34a"/>
+                <text x="${120 + i*72}" y="141" text-anchor="middle" font-size="13" font-weight="800" fill="#14532d">${s}</text>
+              `).join('')}
+            </svg>
+          </div>
+          <div style="font-size:0.82rem; color:#475569; margin-top:8px;">
+            💡 <strong>rare</strong> = พบน้อย (ไม่ผิดกฎ แค่ต้องรู้อ้างอิง เช่น ใช้ <strong>${natSyms[4]}</strong> ใน ${keyBase.name} = ยืมจาก Natural minor)
+          </div>
+        </div>
+
         <div>
           <strong style="font-size:0.9rem; color:#1e293b;">ตาราง Diatonic 7th Chord ในคีย์ ${keyBase.name}:</strong>
           <table class="theory-table" style="margin-top:6px;">
@@ -560,6 +630,68 @@ const AdvancedTheoryPages = {
     const keyId = sel ? sel.value : 'A_min';
     const keyBase = this.MINOR_KEY_BASES.find(k => k.id === keyId) || this.MINOR_KEY_BASES[0];
 
+    const summaryEl = document.getElementById('mm-summary-table');
+    if (summaryEl) {
+      summaryEl.innerHTML = `
+        <table class="theory-table" style="margin-bottom:14px;">
+          <thead>
+            <tr>
+              <th>ขั้นที่</th>
+              <th>ชื่อ Mode</th>
+              <th>Root (${keyBase.name})</th>
+              <th>Formula</th>
+              <th>Tensions</th>
+              <th>Arpeggio</th>
+              <th>Tetrachord</th>
+              <th>ฟัง</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${this.MELODIC_MODES.map((m, idx) => {
+              const notes = this.buildMelodicModeNotes(keyBase, idx);
+              const rootName = Theory.formatPitchClass(notes[0]);
+              return `
+                <tr>
+                  <td><span class="slot-rank-badge" style="background:#7c3aed;">${m.degreeLabel}</span></td>
+                  <td><strong>${m.name}</strong></td>
+                  <td><strong>${rootName}</strong></td>
+                  <td><code>${m.formula}</code></td>
+                  <td><code>${m.tensions}</code></td>
+                  <td><strong>${m.arpeggio}</strong></td>
+                  <td>${m.tetrachord}</td>
+                  <td><button class="btn btn-success btn-xs" onclick="window.advancedTheoryPages.playMelodicMode(${idx})">🔊</button></td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+
+        <div class="diagram-flow-grid" style="margin-bottom:16px;">
+          <div class="flow-card" style="border-color:#c4b5fd; background:#f5f3ff;">
+            <div class="flow-title" style="color:#6d28d9;">กลุ่ม Minor Quality</div>
+            <div class="flow-node"><strong>1st Melodic minor</strong> → <code>mM7</code></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node"><strong>2nd Dorian ♭2</strong> → <code>m7, m7(♭9)</code></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node"><strong>6th Locrian ♯2</strong> → <code>m7♭5 (half dim)</code></div>
+          </div>
+          <div class="flow-card" style="border-color:#fcd34d; background:#fffbeb;">
+            <div class="flow-title" style="color:#b45309;">กลุ่ม Dominant Quality</div>
+            <div class="flow-node"><strong>4th Lydian dominant</strong> → <code>7(♯11)</code></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node"><strong>5th Dominant7 ♭13</strong> → <code>7(♭13)</code></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node"><strong>7th Altered (Super Locrian)</strong> → <code>7alt (♭9,♯9,♯11,♭13)</code></div>
+          </div>
+          <div class="flow-card" style="border-color:#99f6e4; background:#f0fdfa;">
+            <div class="flow-title" style="color:#0f766e;">กลุ่ม Major Augmented</div>
+            <div class="flow-node"><strong>3rd Lydian augmented</strong> → <code>M7(♯5)</code></div>
+            <div class="flow-note">Wholetone + Diminished Tetrachord<br>เสียง ♯4 (#11) และ ♯5 เด่นชัด</div>
+          </div>
+        </div>
+      `;
+    }
+
     const listEl = document.getElementById('mm-modes-list');
     if (!listEl) return;
 
@@ -757,7 +889,109 @@ const AdvancedTheoryPages = {
 
   renderSecDomPage() {
     const keyId = document.getElementById('sd-lesson-key')?.value || 'C_maj';
+    const keyName = Theory.KEYS[keyId].name;
+    const scale = Theory.getScaleDegrees(keyId);
     const items = this.getSecDomDataForKey(keyId);
+
+    const visualWrap = document.getElementById('sd-visual-diagrams');
+    if (visualWrap) {
+      const circleLabels = ['C', 'F', 'B♭', 'E♭', 'A♭', 'D♭', 'G♭', 'B', 'E', 'A', 'D', 'G'];
+      const r = 92, cx = 130, cy = 125;
+      const circleSvg = `
+        <svg width="260" height="250" viewBox="0 0 260 250" xmlns="http://www.w3.org/2000/svg" style="max-width:100%; height:auto; display:block; margin:0 auto;">
+          <circle cx="${cx}" cy="${cy}" r="${r + 22}" fill="#fde68a" fill-opacity="0.35" stroke="#d97706" stroke-width="2"/>
+          <circle cx="${cx}" cy="${cy}" r="${r - 22}" fill="#ffffff" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="${cx}" y="${cy - 4}" text-anchor="middle" font-size="13" font-weight="800" fill="#92400e">Circle of</text>
+          <text x="${cx}" y="${cy + 14}" text-anchor="middle" font-size="13" font-weight="800" fill="#92400e">Fifths (V→I)</text>
+          ${circleLabels.map((lbl, idx) => {
+            const ang = (-90 + idx * 30) * Math.PI / 180;
+            const x = cx + r * Math.cos(ang);
+            const y = cy + r * Math.sin(ang);
+            const angNext = (-90 + (idx + 0.5) * 30) * Math.PI / 180;
+            const ax = cx + (r - 12) * Math.cos(angNext);
+            const ay = cy + (r - 12) * Math.sin(angNext);
+            return `
+              <circle cx="${x}" cy="${y}" r="14" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+              <text x="${x}" y="${y + 4}" text-anchor="middle" font-size="11.5" font-weight="800" fill="#0f172a">${lbl}</text>
+              <text x="${ax}" y="${ay + 3}" text-anchor="middle" font-size="10" fill="#1d4ed8">↻</text>
+            `;
+          }).join('')}
+        </svg>
+      `;
+
+      const vItem = items.find(i => i.romanTarget === 'V');
+      const viiDeg = Theory.formatPitchClass(scale[6]);
+      const iiiDeg = Theory.formatPitchClass(scale[2]);
+      const viDeg  = Theory.formatPitchClass(scale[5]);
+      const iiDeg  = Theory.formatPitchClass(scale[1]);
+      const vDeg   = Theory.formatPitchClass(scale[4]);
+      const iDeg   = Theory.formatPitchClass(scale[0]);
+      const chainRoots = [viiDeg, iiiDeg, viDeg, iiDeg, vDeg, iDeg];
+      const chainDia   = [`${viiDeg}°`, `${iiiDeg}m`, `${viDeg}m`, `${iiDeg}m`, `${vDeg}7`, iDeg];
+      const chainSec   = [
+        items.find(i => i.romanTarget === 'iii').dom7Sym,
+        items.find(i => i.romanTarget === 'vi').dom7Sym,
+        items.find(i => i.romanTarget === 'ii').dom7Sym,
+        items.find(i => i.romanTarget === 'V').dom7Sym,
+        `${vDeg}7`,
+        iDeg
+      ];
+      const chainRom = ['V7/iii', 'V7/vi', 'V7/ii', 'V7/V', 'V7', 'I'];
+
+      visualWrap.innerHTML = `
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:14px; margin-bottom:16px;">
+          <div style="background:#fffbeb; border:1px solid #fcd34d; border-radius:12px; padding:12px; display:flex; flex-direction:column; align-items:center;">
+            <strong style="color:#92400e; font-size:0.9rem; margin-bottom:6px;">🎡 วงจรคู่ 5 (Circle of Fifths: ทิศทาง V → I)</strong>
+            ${circleSvg}
+          </div>
+          <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:12px; padding:14px;">
+            <strong style="color:#9d174d; font-size:0.9rem;">🔗 ตารางสายโซ่ Secondary Dominant ในคีย์ ${keyName}</strong>
+            <p style="font-size:0.83rem; color:#475569; margin:4px 0 8px;">คอร์ดนอกคีย์ที่สร้างจากหลัก <code>V → I</code> ไล่ตามลำดับขั้น 7–3–6–2–5–1:</p>
+            <table class="theory-table" style="font-size:0.82rem;">
+              <tbody>
+                <tr><th>ลำดับ Root</th>${chainRoots.map(r => `<td style="text-align:center; font-weight:800;">${r}</td>`).join('')}</tr>
+                <tr><th>Diatonic</th>${chainDia.map(d => `<td style="text-align:center;">${d}</td>`).join('')}</tr>
+                <tr><th>Secondary</th>${chainSec.map(s => `<td style="text-align:center; color:#be185d; font-weight:800;">${s}</td>`).join('')}</tr>
+                <tr><th>วิเคราะห์</th>${chainRom.map(rm => `<td style="text-align:center; background:#fce7f3;"><code>${rm}</code></td>`).join('')}</tr>
+              </tbody>
+            </table>
+            <div style="margin-top:10px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+              <span style="font-size:0.78rem; color:#64748b;">เกิดได้ทั้ง Triad และ 7th (ยกเว้น vii°)</span>
+              <button class="btn btn-success btn-xs" onclick="window.advancedTheoryPages.playCircleChain()">🔊 ฟังสายโซ่ V7 ต่อเนื่อง</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:14px; margin-bottom:16px;">
+          <strong style="color:#0f172a; font-size:0.92rem;">🔀 แผนภาพเปรียบเทียบการคลี่คลายเสียง (Voice-Leading Flow เข้าสู่คอร์ด V: ${vItem.targetSym})</strong>
+          <div class="diagram-flow-grid" style="margin-top:10px;">
+            <div class="flow-card" style="border-color:#cbd5e1; background:#ffffff;">
+              <div class="flow-title" style="color:#334155;">1. Original (Diatonic ii–V)</div>
+              <div class="flow-node">${Theory.formatPitchClass(scale[1])}m → ${vItem.targetSym}</div>
+              <div class="flow-note">ไม่มี Leading Tone พิเศษ<br>เสียงนุ่มตาม Diatonic ปกติ</div>
+            </div>
+            <div class="flow-card" style="border-color:#93c5fd; background:#eff6ff;">
+              <div class="flow-title" style="color:#1d4ed8;">2. Secondary Dominant (V7/V)</div>
+              <div class="flow-node"><strong>${vItem.dom7Sym}</strong> → ${vItem.targetSym}</div>
+              <div class="flow-arrow">+ เพิ่ม Leading tone (${vItem.ltName})</div>
+              <div class="flow-arrow">+ เพิ่ม Resolve <strong>7 → 3</strong> (${vItem.seventhName})</div>
+            </div>
+            <div class="flow-card" style="border-color:#d8b4fe; background:#faf5ff;">
+              <div class="flow-title" style="color:#7c3aed;">3. Half Diminished (viiø7/V)</div>
+              <div class="flow-node"><strong>${vItem.halfDimSym}</strong> → ${vItem.targetSym}</div>
+              <div class="flow-arrow">+ เพิ่ม Leading tone (${vItem.ltName})</div>
+              <div class="flow-arrow">+ เพิ่ม Resolve <strong>5 → 3</strong></div>
+            </div>
+            <div class="flow-card" style="border-color:#f9a8d4; background:#fdf2f8;">
+              <div class="flow-title" style="color:#be185d;">4. Full Diminished (vii°7/V)</div>
+              <div class="flow-node"><strong>${vItem.fullDimSym}</strong> → ${vItem.targetSym}</div>
+              <div class="flow-arrow">+ Leading tone + Resolve 5 → 3</div>
+              <div class="flow-arrow">+ <strong>เพิ่ม Resolve 7 → 5</strong></div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
 
     this.lessonSecDomTriadsCache = items.map(it => ({ label: it.triadSym, sublabel: it.triadRoman, notes: it.triadNotes }));
     this.lessonSecDomSeventhsCache = items.map(it => ({ label: it.dom7Sym, sublabel: it.dom7Roman, notes: it.dom7Notes }));
@@ -1052,24 +1286,157 @@ const AdvancedTheoryPages = {
 
     const summaryEl = document.getElementById('mod-closely-summary');
     if (summaryEl) {
+      const idx = this.CIRCLE_MAJOR_ORDER.indexOf(keyId);
+      const scale = Theory.getScaleDegrees(keyId);
+      const getSigStr = (k) => {
+        const inf = Theory.KEYS[k];
+        if (!inf) return '';
+        if (inf.accidentals === 0) return '0♯, 0♭';
+        return inf.accidentals > 0 ? `${inf.accidentals}♯` : `${Math.abs(inf.accidentals)}♭`;
+      };
+      const domSig = getSigStr(rel.domId);
+      const homeSig = getSigStr(keyId);
+      const subSig = getSigStr(rel.subId);
+
+      // Build dual-row alignment tables like Stefan Kostka Slides 3-4
+      const domScale = Theory.getScaleDegrees(rel.domId);
+      const homeTriads = [0,1,2,3,4,5,6].map(i => `${Theory.formatPitchClass(scale[i])}${[1,2,5].includes(i)?'m':(i===6?'°':'')}`);
+      const domTriads  = [0,1,2,3,4,5,6].map(i => `${Theory.formatPitchClass(domScale[i])}${[1,2,5].includes(i)?'m':(i===6?'°':'')}`);
+      const homeRomMaj = ['I', 'ii', 'iii', 'IV', 'V', 'vi', 'vii°'];
+      const domRomMaj  = ['IV', 'V', 'vi', 'vii°', 'I', 'ii', 'iii'];
+
+      const relMinRoot = scale[5]; // e.g. A in C_maj, G in Bb_maj -> actually let's show ii minor (e.g. Bb->c min as in PDF!)
+      const iiMinScale = this.getMinorScaleDegrees(
+        this.MINOR_KEY_BASES.find(k => k.root === scale[1].step && (k.alter || 0) === (scale[1].alter || 0))
+        || { root: scale[1].step, alter: scale[1].alter || 0, name: `${Theory.formatPitchClass(scale[1])} minor` },
+        'harmonic'
+      );
+      const iiMinName = `${Theory.formatPitchClass(scale[1])} minor`;
+      const iiMinTriads = [0,1,2,3,4,5,6].map(i => this.getDiatonicChordFromScale(iiMinScale, i, false).symbol);
+      // Compare homeTriads[1..7] shifted so ii aligns with i:
+      const minRomAligned = ['vii°', 'i', 'ii°', 'III', 'iv', 'V', 'VI'];
+
       summaryEl.innerHTML = `
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap:12px;">
-          <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:12px;">
-            <strong style="color:#1d4ed8;">คีย์ตั้งต้น: ${rel.homeName}</strong>
-            <div style="font-size:0.84rem; color:#334155; margin-top:4px;">คีย์ที่สนิทกัน (Closely Related Keys) ทั้ง 5 คีย์ ได้แก่:</div>
-            <ul style="margin:6px 0 0 18px; font-size:0.84rem; color:#0f172a;">
-              <li><strong>V (ขวา +1):</strong> ${rel.domName} (Relative: ${rel.relDom})</li>
-              <li><strong>IV (ซ้าย -1):</strong> ${rel.subName} (Relative: ${rel.relSub})</li>
-              <li><strong>Relative ของคีย์หลัก:</strong> ${rel.relHome}</li>
-            </ul>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:14px; margin-bottom:16px;">
+          <div style="background:#ffffff; border:1px solid #bfdbfe; border-radius:10px; padding:12px;">
+            <strong style="color:#1d4ed8;">วิธีที่ 1: ดูจาก Circle of Fifths (Starting Key: ${rel.homeName})</strong>
+            <table class="theory-table" style="margin-top:8px;">
+              <thead><tr><th>Key Sig</th><th>Major</th><th>Relative Minor</th></tr></thead>
+              <tbody>
+                <tr><td><code>${domSig}</code></td><td>${rel.domName}</td><td>${rel.relDom}</td></tr>
+                <tr style="background:#eff6ff;"><td><code>${homeSig}</code></td><td><span style="display:inline-block; padding:2px 8px; border:2px solid #2563eb; border-radius:999px; font-weight:800;">${rel.homeName}</span></td><td><strong>${rel.relHome}</strong></td></tr>
+                <tr><td><code>${subSig}</code></td><td>${rel.subName}</td><td>${rel.relSub}</td></tr>
+              </tbody>
+            </table>
           </div>
-          <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:12px;">
-            <strong style="color:#15803d;">คอร์ดร่วม (Common-Chord Pivot: ${rel.homeName} → ${rel.domName})</strong>
-            <div style="font-size:0.84rem; color:#334155; margin-top:4px;">มี 4 คอร์ดที่เป็น Diatonic ร่วมกัน:</div>
-            <ul style="margin:6px 0 0 18px; font-size:0.84rem; color:#0f172a;">
-              ${rel.pivotsWithDom.map(p => `<li><strong>${p.chord}:</strong> เป็น <code>${p.inHome}</code> ใน ${rel.homeName} = <code>${p.inNew}</code> ใน ${rel.domName}</li>`).join('')}
-            </ul>
+
+          <div style="background:#ffffff; border:1px solid #bfdbfe; border-radius:10px; padding:12px;">
+            <strong style="color:#1d4ed8;">วิธีที่ 2: ดูจาก I, IV, V และ Relative Minor</strong>
+            <table class="theory-table" style="margin-top:8px;">
+              <thead><tr><th>หน้าที่คอร์ด</th><th>Major</th><th>Relative Minor</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Dominant (V)</strong></td><td>${rel.domName}</td><td>${rel.relDom}</td></tr>
+                <tr style="background:#eff6ff;"><td><strong>Tonic (I)</strong></td><td><span style="display:inline-block; padding:2px 8px; border:2px solid #2563eb; border-radius:999px; font-weight:800;">${rel.homeName}</span></td><td><strong>${rel.relHome}</strong></td></tr>
+                <tr><td><strong>Subdominant (IV)</strong></td><td>${rel.subName}</td><td>${rel.relSub}</td></tr>
+              </tbody>
+            </table>
           </div>
+        </div>
+
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:12px; margin-bottom:14px;">
+          <strong style="color:#0f172a;">📊 ตารางความสัมพันธ์รูปแบบอื่น (Other Key Relationships)</strong>
+          <table class="theory-table" style="margin-top:8px;">
+            <thead><tr><th>ประเภทความสัมพันธ์</th><th>ตัวอย่าง</th><th>คำอธิบาย &amp; สถานะ Modulation</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Closely Related Keys</strong></td><td>${rel.homeName} ↔ 5 คีย์สนิท (${rel.domName}, ${rel.subName}, ...)</td><td>Key Signature ต่างกัน ≤ 1 ตัว — ใช้ Common-Chord เชื่อมได้เนียนที่สุด</td></tr>
+              <tr><td><strong>Enharmonically Equivalent</strong></td><td>C♯ Major ↔ D♭ Major</td><td>เสียงเหมือนกันเป๊ะแต่เขียนต่าง — <strong style="color:#dc2626;">ไม่ใช่การ Modulation</strong></td></tr>
+              <tr><td><strong>Parallel Keys</strong></td><td>${rel.homeName} ↔ ${rel.homeName.replace('Major', 'minor')}</td><td>Tonic ตัวเดียวกัน — เรียกว่า <strong style="color:#d97706;">Change of Mode</strong></td></tr>
+              <tr><td><strong>Foreign Relationships</strong></td><td>${rel.homeName} ↔ ${Theory.KEYS[rel.foreignId].name}</td><td>ห่างกัน > 1 เครื่องหมาย — ใช้ Altered Chord หรือ Common Tone ช่วยเชื่อม</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:10px; padding:14px; margin-bottom:14px;">
+          <strong style="color:#15803d;">🔀 ตารางเปรียบเทียบคอร์ดร่วม (Diatonic Common-Chord Pivot Alignment)</strong>
+          <div style="display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; margin:10px 0; font-size:0.84rem; font-weight:700;">
+            <span style="padding:4px 10px; background:#ffffff; border:1px solid #cbd5e1; border-radius:6px;">คีย์เดิม (${rel.homeName}) □ □</span>
+            <span>──▶</span>
+            <span style="padding:4px 12px; background:#15803d; color:#ffffff; border-radius:6px;">[ Pivot Chord ร่วมกัน ]</span>
+            <span>──▶</span>
+            <span style="padding:4px 10px; background:#ffffff; border:1px solid #cbd5e1; border-radius:6px;">□ □ คีย์ใหม่</span>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div style="font-size:0.84rem; font-weight:700; color:#166534; margin-bottom:4px;">1) Major → Major (${rel.homeName} → ${rel.domName}): มีคอร์ดร่วม 4 คอร์ด (กรอบเขียว)</div>
+            <table class="theory-table">
+              <tbody>
+                <tr><th>คีย์แรก (${rel.homeName})</th>${homeRomMaj.map((r, i) => `<td style="text-align:center; ${[0,2,4,5].includes(i)?'background:#dcfce7; font-weight:800;':''}">${r}</td>`).join('')}</tr>
+                <tr><th>Triads ใน ${rel.homeName}</th>${homeTriads.map((t, i) => `<td style="text-align:center; ${[0,2,4,5].includes(i)?'background:#dcfce7; font-weight:800;':''}">${t}</td>`).join('')}</tr>
+                <tr><th>Triads ใน ${rel.domName}</th>${[3,4,5,6,0,1,2].map((di, i) => `<td style="text-align:center; ${[0,2,4,5].includes(i)?'background:#dcfce7; font-weight:800;':''}">${domTriads[di]}</td>`).join('')}</tr>
+                <tr><th>คีย์ใหม่ (${rel.domName})</th>${domRomMaj.map((r, i) => `<td style="text-align:center; ${[0,2,4,5].includes(i)?'background:#dcfce7; font-weight:800;':''}">${r}</td>`).join('')}</tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <div style="font-size:0.84rem; font-weight:700; color:#166534; margin-bottom:4px;">2) Major → Minor (${rel.homeName} → ${iiMinName}): มีคอร์ดร่วม 2 คอร์ด (กรอบเขียว)</div>
+            <table class="theory-table">
+              <tbody>
+                <tr><th>คีย์แรก (${rel.homeName})</th>${homeRomMaj.map((r, i) => `<td style="text-align:center; ${[1,3].includes(i)?'background:#dcfce7; font-weight:800;':''}">${r}</td>`).join('')}</tr>
+                <tr><th>Triads ใน ${rel.homeName}</th>${homeTriads.map((t, i) => `<td style="text-align:center; ${[1,3].includes(i)?'background:#dcfce7; font-weight:800;':''}">${t}</td>`).join('')}</tr>
+                <tr><th>Triads ใน ${iiMinName}</th>${[6,0,1,2,3,4,5].map((mi, i) => `<td style="text-align:center; ${[1,3].includes(i)?'background:#dcfce7; font-weight:800;':''}">${iiMinTriads[mi]}</td>`).join('')}</tr>
+                <tr><th>คีย์ใหม่ (${iiMinName})</th>${minRomAligned.map((r, i) => `<td style="text-align:center; ${[1,3].includes(i)?'background:#dcfce7; font-weight:800;':''}">${r}</td>`).join('')}</tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    const flowEl = document.getElementById('mod-types-flowchart');
+    if (flowEl) {
+      flowEl.innerHTML = `
+        <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:12px; padding:14px; margin-bottom:16px;">
+          <strong style="color:#0f172a;">🧭 แผนผังการตัดสินใจวิเคราะห์ Modulation 3 ขั้นตอน (Analysis Flowchart)</strong>
+          <div class="diagram-flow-grid" style="margin-top:10px;">
+            <div class="flow-card" style="border-color:#93c5fd; background:#eff6ff;">
+              <div class="flow-title" style="color:#1d4ed8;">ขั้นที่ 1 → 2 → 3</div>
+              <div class="flow-node"><strong>① ฟัง (Listen):</strong> หาจุดสีสันเปลี่ยน / Cadence</div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-node"><strong>② ชี้คอร์ดแรกของคีย์ใหม่</strong></div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-node"><strong>③ ถอยหลัง 1 คอร์ด</strong> เพื่อตรวจจุดเชื่อม!</div>
+            </div>
+            <div class="flow-card" style="border-color:#86efac; background:#f0fdf4;">
+              <div class="flow-title" style="color:#15803d;">สาขา A: มีคอร์ดร่วมไหม?</div>
+              <div class="flow-node">เข้าได้กับทั้ง 2 คีย์ (Diatonic)</div>
+              <div class="flow-arrow">⟹ <strong>Diatonic Common-Chord Modulation</strong> (เนียนสุด)</div>
+              <div class="flow-node" style="margin-top:6px;">ใช้คอร์ดแปลงเสียง เช่น V7/V</div>
+              <div class="flow-arrow">⟹ <strong>Altered Common-Chord</strong></div>
+            </div>
+            <div class="flow-card" style="border-color:#fda4af; background:#fff1f2;">
+              <div class="flow-title" style="color:#be123c;">สาขา B: เน้นโน้ตตัวเดียว / คู่ 3?</div>
+              <div class="flow-node">ลากโน้ตร่วม 1 ตัวแล้วเปลี่ยนคอร์ด</div>
+              <div class="flow-arrow">⟹ <strong>Common Tone / Chromatic Mediant</strong> (ดราม่า)</div>
+            </div>
+            <div class="flow-card" style="border-color:#fcd34d; background:#fffbeb;">
+              <div class="flow-title" style="color:#b45309;">สาขา C: ไม่มีตัวเชื่อมเลย</div>
+              <div class="flow-node">เปลี่ยนทันทีตรงรอยต่อวลี / ทำนองซ้ำ</div>
+              <div class="flow-arrow">⟹ <strong>Direct / Phrase Modulation</strong> หรือ Sequence / Monophonic</div>
+            </div>
+          </div>
+
+          <table class="theory-table" style="margin-top:12px;">
+            <thead><tr><th>รูปแบบ Modulation</th><th>กลไกหลัก</th><th>ตัวอย่างเด่น</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Common-Chord (Diatonic)</strong></td><td>คอร์ดเดียวเป็น Diatonic ทั้ง 2 คีย์ (Pivot)</td><td>B♭ → F ผ่านคอร์ด F (V ใน B♭ = I ใน F)</td></tr>
+              <tr><td><strong>Altered Common-Chord</strong></td><td>ใช้ V7/V ในคีย์เก่าเป็น V7 คีย์ใหม่</td><td>G → D ผ่านคอร์ด A7</td></tr>
+              <tr><td><strong>Common Tone / Chromatic Mediant</strong></td><td>เชื่อมด้วยโน้ตตัวเดียวร่วมกัน</td><td>C Maj ↔ E Maj แช่โน้ต E (case: Brahms)</td></tr>
+              <tr><td><strong>Sequential Modulation</strong></td><td>เล่นแพทเทิร์นเดิมไล่ระดับ / Circle of 5ths</td><td>B → E → A → D → G → C</td></tr>
+              <tr><td><strong>Monophonic Modulation</strong></td><td>โน้ตเอกลักษณ์ของคีย์ใหม่ในแนวเดี่ยว</td><td>ทำนอง C Maj อยู่ดีๆ ร้อง F♯ พาเข้า G</td></tr>
+              <tr><td><strong>Direct / Phrase Modulation</strong></td><td>จบประโยคแล้วขึ้นคีย์ใหม่ทันทีตรงรอยต่อวลี</td><td>Bach Chorale: จบ g minor → ขึ้น B♭ Major</td></tr>
+            </tbody>
+          </table>
         </div>
       `;
     }

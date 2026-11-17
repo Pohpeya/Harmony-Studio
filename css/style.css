@@ -1573,6 +1573,51 @@ svg {
   display: none;
 }
 
+/* Flowcharts & Visual Diagrams สำหรับหน้าบทเรียน */
+.diagram-flow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 12px;
+}
+
+.flow-card {
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.flow-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+.flow-node {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.83rem;
+  color: #0f172a;
+}
+
+.flow-arrow {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.flow-note {
+  font-size: 0.8rem;
+  color: #475569;
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
 /* Modal theme สำหรับผลประเมินแบบผ่าน (สีเขียว) */
 .feedback-modal.is-pass .feedback-modal-header {
   background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);

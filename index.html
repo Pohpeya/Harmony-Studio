@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=20261117a">
+  <link rel="stylesheet" href="css/style.css?v=20261117b">
 </head>
 <body class="is-home">
 
@@ -1270,8 +1270,9 @@
           </div>
         </div>
         <p style="font-size: 0.9rem; color: #334155; margin-bottom: 14px; line-height: 1.6;">
-          เมื่อสร้างโหมดบนโน้ตทั้ง 7 ขั้นของสเกล <strong>Melodic Minor</strong> จะได้โหมดสำคัญ 7 โหมดพร้อมสูตร Arpeggio (Tensions 9, 11, ♯11, ♭13, 13) และคู่ Tetrachord ที่นิยมใช้อย่างแพร่หลายในดนตรี Jazz &amp; Harmony ขั้นสูง
+          เปรียบเทียบโหมดทั้ง 7 ของสเกล <strong>Melodic Minor</strong> ในตารางสรุปและแผนผัง Chord Family ด้านล่าง พร้อมฟังเสียงแต่ละสเกลได้ทุกคีย์
         </p>
+        <div id="mm-summary-table"></div>
         <div id="mm-modes-list"></div>
       </div>
 
@@ -1314,32 +1315,7 @@
           </div>
         </div>
 
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:14px; margin-bottom:16px;">
-          <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:14px;">
-            <strong style="color:#9d174d;">1) แนวคิด &amp; Circle of Fifths (V → I)</strong>
-            <p style="font-size:0.86rem; color:#334155; line-height:1.65; margin:6px 0 8px;">
-              Secondary Dominant คือ<strong>คอร์ดนอกคีย์</strong>ที่มีที่มาจาก <strong>Circle of Fifths</strong> โดยใช้ความสัมพันธ์ทางเดินคอร์ด <code>V → I</code> ส่งเข้าคอร์ดเป้าหมายในคีย์ (ii, iii, IV, V, vi) เกิดได้ทั้ง <strong>Triad</strong> และ <strong>7th Chord</strong> (ยกเว้น <code>vii°</code> เพราะเป็น Diminished ไม่เสถียร)
-            </p>
-            <div style="background:#ffffff; border:1px solid #f9a8d4; border-radius:8px; padding:8px 10px; font-size:0.84rem;">
-              <strong>สายโซ่ B – E – A – D – G – C:</strong><br>
-              Diatonic: <code>Bdim – Em – Am – Dm – G7 – C</code><br>
-              Secondary: <code>B7 – E7 – A7 – D7 – G7 – C</code><br>
-              วิเคราะห์: <code>V7/iii – V7/vi – V7/ii – V7/V – V7 – I</code>
-              <div style="margin-top:8px;">
-                <button class="btn btn-success btn-xs" onclick="window.advancedTheoryPages.playCircleChain()">🔊 ฟังสายโซ่ V7 ต่อเนื่องในคีย์ที่เลือก</button>
-              </div>
-            </div>
-          </div>
-
-          <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:14px;">
-            <strong style="color:#1e40af;">2) กลไกโน้ตที่เปลี่ยนเมื่อใช้ Secondary Dominant (เช่น V7/V → V)</strong>
-            <ul style="margin:8px 0 0 18px; font-size:0.86rem; color:#334155; line-height:1.65;">
-              <li>เทียบ <code>Dm → G</code> (ii–V ปกติใน C) กับ <strong>D7 → G</strong> (<code>V7/V → V</code>)</li>
-              <li><strong>เพิ่ม Leading Tone:</strong> แปลงขั้นที่ 3 ของคอร์ดให้เป็น Major 3rd (เช่น F → F♯) เพื่อพุ่งขึ้นหา Root ของคอร์ดเป้าหมาย (G)</li>
-              <li><strong>เพิ่มตัว Resolve 7 → 3:</strong> โน้ตที่ 7 ของคอร์ด Secondary Dominant (เช่น C ใน D7) เคลื่อนที่ลงครึ่งเสียง/ขั้นเดียวหาตัวที่ 3 ของคอร์ดเป้าหมาย (B ใน G)</li>
-            </ul>
-          </div>
-        </div>
+        <div id="sd-visual-diagrams"></div>
 
         <div style="margin-bottom:14px;">
           <strong style="font-size:0.9rem; color:#0f172a;">ตัวอย่าง Secondary Dominant แบบ Triad (V/ii .. V/vi) — คลิกเพื่อฟัง:</strong>
@@ -1351,24 +1327,14 @@
         </div>
 
         <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:14px;">
-          <strong style="color:#0f172a;">3) Substitution of Secondary Dominant (ใช้คอร์ด vii แทน V จากหลัก Diatonic Sub)</strong>
-          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap:10px; margin:10px 0;">
-            <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:10px; font-size:0.85rem;">
-              <strong>Triad Substitution:</strong><br>
-              <code>V/V = vii°/V</code><br>
-              <code>V/vi = vii°/vi</code>
-            </div>
-            <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:10px; font-size:0.85rem;">
-              <strong>Half Diminished (m7♭5):</strong><br>
-              <code>V7/V = viiø7/V</code> (เช่น F♯m7♭5 → G)<br>
-              มี Leading tone + <strong>Resolve 5–3</strong>
-            </div>
-            <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:10px; font-size:0.85rem;">
-              <strong>Full Diminished (°7):</strong><br>
-              <code>V7/V = vii°7/V</code> (เช่น F♯°7 → G)<br>
-              มี Leading tone + 5–3 + <strong>เพิ่ม Resolve 7–5</strong>
-            </div>
-          </div>
+          <strong style="color:#0f172a;">3) Substitution of Secondary Dominant (ตารางเทียบคอร์ดแทน V ด้วย vii)</strong>
+          <table class="theory-table" style="margin:10px 0;">
+            <thead><tr><th>คอร์ดเป้าหมาย</th><th>รูปแบบ Triad</th><th>Half Diminished (m7♭5)</th><th>Full Diminished (°7)</th></tr></thead>
+            <tbody>
+              <tr><td>เข้าคอร์ด V</td><td><code>V/V = vii°/V</code></td><td><code>V7/V = viiø7/V</code> (Leading tone + 5→3)</td><td><code>V7/V = vii°7/V</code> (+ Resolve 7→5)</td></tr>
+              <tr><td>เข้าคอร์ด vi</td><td><code>V/vi = vii°/vi</code></td><td><code>V7/vi = viiø7/vi</code></td><td><code>V7/vi = vii°7/vi</code></td></tr>
+            </tbody>
+          </table>
           <div id="sd-sub-staff" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px;"></div>
         </div>
       </div>
@@ -1412,36 +1378,8 @@
           </div>
         </div>
 
-        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:14px; margin-bottom:16px;">
-          <strong style="color:#0f172a;">หมวดที่ 1: พื้นฐานความสัมพันธ์ของคีย์ (Key Relationships)</strong>
-          <ul style="margin:8px 0 12px 18px; font-size:0.86rem; color:#334155; line-height:1.65;">
-            <li><strong>Closely Related Keys (คีย์สนิท 5 คีย์เสมอ):</strong> คีย์ที่ Key Signature ต่างกันไม่เกิน 1 ตัว (±1♯/♭) คิดได้ 2 วิธี: (1) <em>Circle of Fifths</em> คีย์ติดกันซ้าย–ขวา + Relative ของพวกมัน หรือ (2) คีย์ <em>I, IV, V</em> + Relative ของทั้ง 3 ตัว</li>
-            <li><strong>Enharmonically Equivalent</strong> (เช่น C♯ Maj กับ D♭ Maj): เสียงเหมือนกันแค่เขียนต่าง — <strong>"ไม่ใช่ Modulation"</strong></li>
-            <li><strong>Parallel Keys</strong> (เช่น C Maj กับ c min): Tonic ตัวเดียวกัน — เรียกว่า <strong>"Change of Mode"</strong></li>
-            <li><strong>Foreign Relationships:</strong> คีย์ห่างไกลที่ไม่อยู่ใน 5 คีย์สนิท ต้องใช้ Altered Chord หรือ Common Tone ช่วยเชื่อม</li>
-          </ul>
-          <div id="mod-closely-summary"></div>
-        </div>
-
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:14px; margin-bottom:16px;">
-          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:14px;">
-            <strong style="color:#0f766e;">หมวดที่ 2: การเปลี่ยนคีย์ด้วย Pivot (ตัวเชื่อม)</strong>
-            <ul style="margin:8px 0 0 18px; font-size:0.85rem; color:#334155; line-height:1.65;">
-              <li><strong>2.1 Diatonic Common-Chord Modulation:</strong> ใช้คอร์ดที่มีตัวตนในทั้ง 2 คีย์เป็นจุดหมุน เช่น B♭ → F มี 4 คอร์ดร่วม (B♭, dm, F, gm) หรือ B♭ → c มี 2 คอร์ดร่วม (cm, E♭)</li>
-              <li><strong>2.2 Altered Chords as Common Chords:</strong> ใช้เชื่อมคีย์ห่างไกลด้วย Secondary Dominant เช่น G → D ใช้ <code>A7</code> (V7/V ใน G = V7 ใน D)</li>
-              <li><strong>2.3 Common Tone Modulation:</strong> ลากหรือเน้น "โน้ตตัวเดียว" ที่ร่วมกันแล้วเปลี่ยนคอร์ดพื้นหลังเป็นคีย์ใหม่ทันที</li>
-            </ul>
-          </div>
-          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:14px;">
-            <strong style="color:#b45309;">หมวดที่ 3–4 &amp; ขั้นตอนวิเคราะห์ 3 ขั้น</strong>
-            <ul style="margin:8px 0 0 18px; font-size:0.85rem; color:#334155; line-height:1.65;">
-              <li><strong>Sequential Modulation:</strong> ก๊อปปี้รูปแบบ/Circle of Fifths ไล่ระดับขึ้นหรือลง (เช่น B→E→A→D→G→C)</li>
-              <li><strong>Monophonic Modulation:</strong> เล่นโน้ตเอกลักษณ์ของคีย์ใหม่ในแนวทำนองเดียว (เช่น F♯ พาเข้า G)</li>
-              <li><strong>Direct / Phrase Modulation:</strong> จบประโยคหนึ่งแล้วขึ้นคีย์ใหม่ทันทีตรงรอยต่อวลี (เช่น Chorale ของ Bach g minor → B♭ Major)</li>
-              <li><strong>วิเคราะห์ 3 ขั้นตอน:</strong> ① ฟังหาจุดเปลี่ยน/Cadence → ② หาคอร์ดแรกของคีย์ใหม่ → ③ ถอยหลัง 1 คอร์ดเช็ค Common Chord / Common Tone / Chromatic Mediant / Phrase</li>
-            </ul>
-          </div>
-        </div>
+        <div id="mod-closely-summary" style="margin-bottom: 16px;"></div>
+        <div id="mod-types-flowchart"></div>
 
         <div style="background:#fff1f2; border:1px solid #fecdd3; border-radius:10px; padding:14px;">
           <strong style="color:#9f1239;">✨ เจาะลึก: Chromatic Mediant (กฎ 2 ข้อ + โน้ตร่วม 1 ตัว)</strong>
@@ -1791,15 +1729,15 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/theory.js?v=20261117a"></script>
-  <script src="js/rules.js?v=20261117a"></script>
-  <script src="js/renderer.js?v=20261117a"></script>
-  <script src="js/audio.js?v=20261117a"></script>
-  <script src="js/presets.js?v=20261117a"></script>
-  <script src="js/chords-lab.js?v=20261117a"></script>
-  <script src="js/cadence-lab.js?v=20261117a"></script>
-  <script src="js/theory-pages.js?v=20261117a"></script>
-  <script src="js/theory-pages-advanced.js?v=20261117a"></script>
-  <script src="js/app.js?v=20261117a"></script>
+  <script src="js/theory.js?v=20261117b"></script>
+  <script src="js/rules.js?v=20261117b"></script>
+  <script src="js/renderer.js?v=20261117b"></script>
+  <script src="js/audio.js?v=20261117b"></script>
+  <script src="js/presets.js?v=20261117b"></script>
+  <script src="js/chords-lab.js?v=20261117b"></script>
+  <script src="js/cadence-lab.js?v=20261117b"></script>
+  <script src="js/theory-pages.js?v=20261117b"></script>
+  <script src="js/theory-pages-advanced.js?v=20261117b"></script>
+  <script src="js/app.js?v=20261117b"></script>
 </body>
 </html>
