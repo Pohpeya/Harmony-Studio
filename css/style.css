@@ -1696,6 +1696,10 @@ svg {
 
 /* Responsive Breakpoint สำหรับมือถือ (<= 768px) */
 @media (max-width: 768px) {
+  html {
+    font-size: 14.5px;
+  }
+
   .app-header {
     position: static;
   }
@@ -1934,7 +1938,56 @@ svg {
   .theory-table {
     display: table;
     width: 100%;
+    font-size: 0.76rem;
+    line-height: 1.4;
+  }
+
+  .theory-table th,
+  .theory-table td {
+    padding: 6px 5px;
+  }
+
+  .card p,
+  .card li,
+  .rule-legend-item,
+  .flow-node,
+  .flow-note {
+    font-size: 0.88rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .question-banner-title {
+    font-size: 0.96rem;
+    line-height: 1.4;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .question-banner-subtitle {
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+
+  .btn {
+    font-size: 0.84rem;
+    line-height: 1.35;
+    white-space: normal;
+  }
+
+  .pill-btn {
+    font-size: 0.8rem;
+    padding: 5px 8px;
+  }
+
+  .active-voice-badge,
+  .question-clef-chip {
     font-size: 0.78rem;
+    padding: 3px 9px;
+  }
+
+  code {
+    font-size: 0.86em;
+    word-break: break-word;
   }
 
   .topic-bottom-nav {
@@ -1984,5 +2037,21 @@ svg {
   .tbn-pill {
     flex-shrink: 0;
     white-space: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 13.5px;
+  }
+
+  .card-title {
+    font-size: 0.98rem;
+    line-height: 1.4;
+  }
+
+  .menu-card h3 {
+    font-size: 0.92rem;
+    line-height: 1.38;
   }
 }
