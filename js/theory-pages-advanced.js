@@ -370,24 +370,18 @@ const AdvancedTheoryPages = {
         </div>
 
         <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:14px; margin-bottom:14px;">
-          <strong style="color:#0f172a; font-size:0.92rem;">🔀 แผนภาพคัดคอร์ดที่ใช้งานจริงบ่อยที่สุด (Most Commonly Used Chords in ${keyBase.name}):</strong>
-          <div style="overflow-x:auto; margin-top:10px;">
-            <svg width="620" height="165" viewBox="0 0 620 165" xmlns="http://www.w3.org/2000/svg" style="max-width:100%; height:auto; display:block; margin:0 auto;">
-              <rect width="620" height="165" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
-              <text x="16" y="30" font-size="12" font-weight="700" fill="#0369a1">Natural:</text>
-              <text x="16" y="64" font-size="12" font-weight="700" fill="#7c3aed">Harmonic:</text>
-              <text x="16" y="96" font-size="12" font-weight="700" fill="#0f766e">Melodic:</text>
-              ${natSyms.map((s, i) => `<text x="${120 + i*72}" y="30" text-anchor="middle" font-size="13" font-weight="${(i===2||i===5)?'800':'500'}" fill="${(i===4||i===6)?'#94a3b8':'#0f172a'}">${s}</text>`).join('')}
-              ${harSyms.map((s, i) => `<text x="${120 + i*72}" y="64" text-anchor="middle" font-size="13" font-weight="${(i===4||i===6)?'800':'500'}" fill="${(i===2)?'#94a3b8':'#0f172a'}">${s}</text>`).join('')}
-              ${[0,1,2,3,4,5,6].map(d => this.getDiatonicChordFromScale(melScale, d, false).symbol).map((s, i) => `<text x="${120 + i*72}" y="96" text-anchor="middle" font-size="13" fill="#64748b">${s}</text>`).join('')}
-              <path d="M 264 36 L 264 50" stroke="#2563eb" stroke-width="2"/>
-              <line x1="90" y1="112" x2="585" y2="112" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,3"/>
-              <text x="16" y="142" font-size="12" font-weight="800" fill="#15803d">ใช้บ่อยสุด ⟹</text>
-              ${commonSyms.map((s, i) => `
-                <rect x="${92 + i*72}" y="122" width="56" height="28" rx="6" fill="#dcfce7" stroke="#16a34a"/>
-                <text x="${120 + i*72}" y="141" text-anchor="middle" font-size="13" font-weight="800" fill="#14532d">${s}</text>
-              `).join('')}
-            </svg>
+          <strong style="color:#0f172a; font-size:0.92rem;">📌 ตารางคัดคอร์ดที่ใช้งานจริงบ่อยที่สุด (Most Commonly Used Chords in ${keyBase.name}):</strong>
+          <div class="theory-table-wrap" style="margin-top:8px;">
+            <table class="theory-table">
+              <thead>
+                <tr><th>ลำดับขั้น</th><th>i</th><th>ii°</th><th>III</th><th>iv</th><th>V / v</th><th>VI</th><th>vii°</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Natural</strong></td><td>${natSyms[0]}</td><td>${natSyms[1]}</td><td><strong>${natSyms[2]}</strong></td><td>${natSyms[3]}</td><td style="color:#94a3b8;">${natSyms[4]} (rare)</td><td><strong>${natSyms[5]}</strong></td><td style="color:#94a3b8;">${natSyms[6]} (rare)</td></tr>
+                <tr><td><strong>Harmonic</strong></td><td>${harSyms[0]}</td><td>${harSyms[1]}</td><td style="color:#94a3b8;">${harSyms[2]} (rare)</td><td>${harSyms[3]}</td><td><strong>${harSyms[4]}</strong></td><td>${harSyms[5]}</td><td><strong>${harSyms[6]}</strong></td></tr>
+                <tr style="background:#dcfce7;"><td><strong style="color:#15803d;">นิยมใช้จริง ⟹</strong></td>${commonSyms.map(s => `<td style="text-align:center; font-weight:800; color:#14532d;">${s}</td>`).join('')}</tr>
+              </tbody>
+            </table>
           </div>
           <div style="font-size:0.82rem; color:#475569; margin-top:8px;">
             💡 <strong>rare</strong> = พบน้อย (ไม่ผิดกฎ แค่ต้องรู้อ้างอิง เช่น ใช้ <strong>${natSyms[4]}</strong> ใน ${keyBase.name} = ยืมจาก Natural minor)
@@ -674,28 +668,15 @@ const AdvancedTheoryPages = {
         </table>
         </div>
 
-        <div class="diagram-flow-grid" style="margin-bottom:16px;">
-          <div class="flow-card" style="border-color:#c4b5fd; background:#f5f3ff;">
-            <div class="flow-title" style="color:#6d28d9;">กลุ่ม Minor Quality</div>
-            <div class="flow-node"><strong>1st Melodic minor</strong> → <code>mM7</code></div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-node"><strong>2nd Dorian ♭2</strong> → <code>m7, m7(♭9)</code></div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-node"><strong>6th Locrian ♯2</strong> → <code>m7♭5 (half dim)</code></div>
-          </div>
-          <div class="flow-card" style="border-color:#fcd34d; background:#fffbeb;">
-            <div class="flow-title" style="color:#b45309;">กลุ่ม Dominant Quality</div>
-            <div class="flow-node"><strong>4th Lydian dominant</strong> → <code>7(♯11)</code></div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-node"><strong>5th Dominant7 ♭13</strong> → <code>7(♭13)</code></div>
-            <div class="flow-arrow">↓</div>
-            <div class="flow-node"><strong>7th Altered (Super Locrian)</strong> → <code>7alt (♭9,♯9,♯11,♭13)</code></div>
-          </div>
-          <div class="flow-card" style="border-color:#99f6e4; background:#f0fdfa;">
-            <div class="flow-title" style="color:#0f766e;">กลุ่ม Major Augmented</div>
-            <div class="flow-node"><strong>3rd Lydian augmented</strong> → <code>M7(♯5)</code></div>
-            <div class="flow-note">Wholetone + Diminished Tetrachord<br>เสียง ♯4 (#11) และ ♯5 เด่นชัด</div>
-          </div>
+        <div class="theory-table-wrap" style="margin-bottom:16px;">
+          <table class="theory-table">
+            <thead><tr><th>กลุ่ม Chord Family</th><th>โหมดที่อยู่ในกลุ่ม</th><th>Arpeggio / คอร์ดหลัก</th></tr></thead>
+            <tbody>
+              <tr><td><strong style="color:#6d28d9;">Minor Quality</strong></td><td>1st Melodic minor • 2nd Dorian ♭2 • 6th Locrian ♯2</td><td><code>mM7</code> / <code>m7(♭9)</code> / <code>m7♭5 (half dim)</code></td></tr>
+              <tr><td><strong style="color:#b45309;">Dominant Quality</strong></td><td>4th Lydian dominant • 5th Dominant7 ♭13 • 7th Altered</td><td><code>7(♯11)</code> / <code>7(♭13)</code> / <code>7alt (♭9,♯9,♯11,♭13)</code></td></tr>
+              <tr><td><strong style="color:#0f766e;">Major Augmented</strong></td><td>3rd Lydian augmented</td><td><code>M7(♯5)</code> (Wholetone + Diminished)</td></tr>
+            </tbody>
+          </table>
         </div>
       `;
     }
@@ -722,7 +703,6 @@ const AdvancedTheoryPages = {
             <div style="font-size:0.78rem; color:#475569;">Tetrachord: <strong>${m.tetrachord}</strong> | Tensions: <code>${m.tensions}</code></div>
           </div>
           <div class="mode-row-staff">
-            <img src="assets/pdf-examples/melodic-mode-${idx + 1}.png" alt="${m.name} notation from slides" class="pdf-score-img" loading="lazy" style="margin-bottom:6px; border:1px solid #e2e8f0; border-radius:6px;">
             ${TheoryPages.renderScaleSvg(notes, m.halfIdx)}
           </div>
           <button class="btn btn-success btn-sm mode-row-play-btn" onclick="window.advancedTheoryPages.playMelodicMode(${idx})">🔊 ฟัง</button>
@@ -904,30 +884,6 @@ const AdvancedTheoryPages = {
 
     const visualWrap = document.getElementById('sd-visual-diagrams');
     if (visualWrap) {
-      const circleLabels = ['C', 'F', 'B♭', 'E♭', 'A♭', 'D♭', 'G♭', 'B', 'E', 'A', 'D', 'G'];
-      const r = 92, cx = 130, cy = 125;
-      const circleSvg = `
-        <svg width="260" height="250" viewBox="0 0 260 250" xmlns="http://www.w3.org/2000/svg" style="max-width:100%; height:auto; display:block; margin:0 auto;">
-          <circle cx="${cx}" cy="${cy}" r="${r + 22}" fill="#fde68a" fill-opacity="0.35" stroke="#d97706" stroke-width="2"/>
-          <circle cx="${cx}" cy="${cy}" r="${r - 22}" fill="#ffffff" stroke="#f59e0b" stroke-width="1.5"/>
-          <text x="${cx}" y="${cy - 4}" text-anchor="middle" font-size="13" font-weight="800" fill="#92400e">Circle of</text>
-          <text x="${cx}" y="${cy + 14}" text-anchor="middle" font-size="13" font-weight="800" fill="#92400e">Fifths (V→I)</text>
-          ${circleLabels.map((lbl, idx) => {
-            const ang = (-90 + idx * 30) * Math.PI / 180;
-            const x = cx + r * Math.cos(ang);
-            const y = cy + r * Math.sin(ang);
-            const angNext = (-90 + (idx + 0.5) * 30) * Math.PI / 180;
-            const ax = cx + (r - 12) * Math.cos(angNext);
-            const ay = cy + (r - 12) * Math.sin(angNext);
-            return `
-              <circle cx="${x}" cy="${y}" r="14" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-              <text x="${x}" y="${y + 4}" text-anchor="middle" font-size="11.5" font-weight="800" fill="#0f172a">${lbl}</text>
-              <text x="${ax}" y="${ay + 3}" text-anchor="middle" font-size="10" fill="#1d4ed8">↻</text>
-            `;
-          }).join('')}
-        </svg>
-      `;
-
       const vItem = items.find(i => i.romanTarget === 'V');
       const viiDeg = Theory.formatPitchClass(scale[6]);
       const iiiDeg = Theory.formatPitchClass(scale[2]);
@@ -948,57 +904,40 @@ const AdvancedTheoryPages = {
       const chainRom = ['V7/iii', 'V7/vi', 'V7/ii', 'V7/V', 'V7', 'I'];
 
       visualWrap.innerHTML = `
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:14px; margin-bottom:16px;">
-          <div style="background:#fffbeb; border:1px solid #fcd34d; border-radius:12px; padding:12px; display:flex; flex-direction:column; align-items:center;">
-            <strong style="color:#92400e; font-size:0.9rem; margin-bottom:6px;">🎡 วงจรคู่ 5 (Circle of Fifths: ทิศทาง V → I)</strong>
-            ${circleSvg}
+        <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:12px; padding:14px; margin-bottom:14px;">
+          <strong style="color:#9d174d; font-size:0.92rem;">🔗 ตารางหลักการ Circle of Fifths (V → I) และสายโซ่ Secondary Dominant ในคีย์ ${keyName}</strong>
+          <p style="font-size:0.84rem; color:#475569; margin:4px 0 8px;">
+            Secondary Dominant คือคอร์ดนอกคีย์จาก Circle of Fifths (<code>C → F → B♭ → E♭ → A♭ → D♭ → G♭ → B → E → A → D → G → C</code>) ใช้ทางเดิน <code>V → I</code> เกิดได้ทั้ง Triad และ 7th (ยกเว้น <code>vii°</code>)
+          </p>
+          <div class="theory-table-wrap">
+            <table class="theory-table">
+              <tbody>
+                <tr><th>ลำดับ Root</th>${chainRoots.map(r => `<td style="text-align:center; font-weight:800;">${r}</td>`).join('')}</tr>
+                <tr><th>Diatonic ปกติ</th>${chainDia.map(d => `<td style="text-align:center;">${d}</td>`).join('')}</tr>
+                <tr><th>Secondary Dom</th>${chainSec.map(s => `<td style="text-align:center; color:#be185d; font-weight:800;">${s}</td>`).join('')}</tr>
+                <tr><th>วิเคราะห์</th>${chainRom.map(rm => `<td style="text-align:center; background:#fce7f3;"><code>${rm}</code></td>`).join('')}</tr>
+              </tbody>
+            </table>
           </div>
-          <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:12px; padding:14px;">
-            <strong style="color:#9d174d; font-size:0.9rem;">🔗 ตารางสายโซ่ Secondary Dominant ในคีย์ ${keyName}</strong>
-            <p style="font-size:0.83rem; color:#475569; margin:4px 0 8px;">คอร์ดนอกคีย์ที่สร้างจากหลัก <code>V → I</code> ไล่ตามลำดับขั้น 7–3–6–2–5–1:</p>
-            <div class="theory-table-wrap">
-              <table class="theory-table" style="font-size:0.82rem;">
-                <tbody>
-                  <tr><th>ลำดับ Root</th>${chainRoots.map(r => `<td style="text-align:center; font-weight:800;">${r}</td>`).join('')}</tr>
-                  <tr><th>Diatonic</th>${chainDia.map(d => `<td style="text-align:center;">${d}</td>`).join('')}</tr>
-                  <tr><th>Secondary</th>${chainSec.map(s => `<td style="text-align:center; color:#be185d; font-weight:800;">${s}</td>`).join('')}</tr>
-                  <tr><th>วิเคราะห์</th>${chainRom.map(rm => `<td style="text-align:center; background:#fce7f3;"><code>${rm}</code></td>`).join('')}</tr>
-                </tbody>
-              </table>
-            </div>
-            <div style="margin-top:10px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-              <span style="font-size:0.78rem; color:#64748b;">เกิดได้ทั้ง Triad และ 7th (ยกเว้น vii°)</span>
-              <button class="btn btn-success btn-xs" onclick="window.advancedTheoryPages.playCircleChain()">🔊 ฟังสายโซ่ V7 ต่อเนื่อง</button>
-            </div>
+          <div style="margin-top:10px; display:flex; justify-content:flex-end;">
+            <button class="btn btn-success btn-xs" onclick="window.advancedTheoryPages.playCircleChain()">🔊 ฟังสายโซ่ V7 ต่อเนื่องในคีย์ ${keyName}</button>
           </div>
         </div>
 
         <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:14px; margin-bottom:16px;">
-          <strong style="color:#0f172a; font-size:0.92rem;">🔀 แผนภาพเปรียบเทียบการคลี่คลายเสียง (Voice-Leading Flow เข้าสู่คอร์ด V: ${vItem.targetSym})</strong>
-          <div class="diagram-flow-grid" style="margin-top:10px;">
-            <div class="flow-card" style="border-color:#cbd5e1; background:#ffffff;">
-              <div class="flow-title" style="color:#334155;">1. Original (Diatonic ii–V)</div>
-              <div class="flow-node">${Theory.formatPitchClass(scale[1])}m → ${vItem.targetSym}</div>
-              <div class="flow-note">ไม่มี Leading Tone พิเศษ<br>เสียงนุ่มตาม Diatonic ปกติ</div>
-            </div>
-            <div class="flow-card" style="border-color:#93c5fd; background:#eff6ff;">
-              <div class="flow-title" style="color:#1d4ed8;">2. Secondary Dominant (V7/V)</div>
-              <div class="flow-node"><strong>${vItem.dom7Sym}</strong> → ${vItem.targetSym}</div>
-              <div class="flow-arrow">+ เพิ่ม Leading tone (${vItem.ltName})</div>
-              <div class="flow-arrow">+ เพิ่ม Resolve <strong>7 → 3</strong> (${vItem.seventhName})</div>
-            </div>
-            <div class="flow-card" style="border-color:#d8b4fe; background:#faf5ff;">
-              <div class="flow-title" style="color:#7c3aed;">3. Half Diminished (viiø7/V)</div>
-              <div class="flow-node"><strong>${vItem.halfDimSym}</strong> → ${vItem.targetSym}</div>
-              <div class="flow-arrow">+ เพิ่ม Leading tone (${vItem.ltName})</div>
-              <div class="flow-arrow">+ เพิ่ม Resolve <strong>5 → 3</strong></div>
-            </div>
-            <div class="flow-card" style="border-color:#f9a8d4; background:#fdf2f8;">
-              <div class="flow-title" style="color:#be185d;">4. Full Diminished (vii°7/V)</div>
-              <div class="flow-node"><strong>${vItem.fullDimSym}</strong> → ${vItem.targetSym}</div>
-              <div class="flow-arrow">+ Leading tone + Resolve 5 → 3</div>
-              <div class="flow-arrow">+ <strong>เพิ่ม Resolve 7 → 5</strong></div>
-            </div>
+          <strong style="color:#0f172a; font-size:0.92rem;">📊 ตารางเปรียบเทียบการคลี่คลายเสียง (Voice Leading เข้าสู่คอร์ด V: ${vItem.targetSym})</strong>
+          <div class="theory-table-wrap" style="margin-top:8px;">
+            <table class="theory-table">
+              <thead>
+                <tr><th>ประเภท</th><th>คู่คอร์ดในคีย์ ${keyName}</th><th>การเปลี่ยนแปลงโน้ต / Leading Tone</th><th>แนวการ Resolve</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>1. Original (Diatonic ii–V)</strong></td><td>${Theory.formatPitchClass(scale[1])}m → ${vItem.targetSym}</td><td>ใช้โน้ต Diatonic ในคีย์ปกติ</td><td>ไม่มี Leading Tone พิเศษ</td></tr>
+                <tr><td><strong style="color:#1d4ed8;">2. Secondary Dominant (V7/V)</strong></td><td><strong>${vItem.dom7Sym}</strong> → ${vItem.targetSym}</td><td>เพิ่ม Leading tone (<strong>${vItem.ltName}</strong>)</td><td>เพิ่ม Resolve <strong>7 → 3</strong> (${vItem.seventhName})</td></tr>
+                <tr><td><strong style="color:#7c3aed;">3. Half Diminished (viiø7/V)</strong></td><td><strong>${vItem.halfDimSym}</strong> → ${vItem.targetSym}</td><td>เพิ่ม Leading tone (<strong>${vItem.ltName}</strong>)</td><td>เพิ่ม Resolve <strong>5 → 3</strong></td></tr>
+                <tr><td><strong style="color:#be185d;">4. Full Diminished (vii°7/V)</strong></td><td><strong>${vItem.fullDimSym}</strong> → ${vItem.targetSym}</td><td>เพิ่ม Leading tone (<strong>${vItem.ltName}</strong>)</td><td>Resolve 5 → 3 และ <strong>เพิ่ม 7 → 5</strong></td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
       `;
@@ -1418,33 +1357,18 @@ const AdvancedTheoryPages = {
     if (flowEl) {
       flowEl.innerHTML = `
         <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:12px; padding:14px; margin-bottom:16px;">
-          <strong style="color:#0f172a;">🧭 แผนผังการตัดสินใจวิเคราะห์ Modulation 3 ขั้นตอน (Analysis Flowchart)</strong>
-          <div class="diagram-flow-grid" style="margin-top:10px;">
-            <div class="flow-card" style="border-color:#93c5fd; background:#eff6ff;">
-              <div class="flow-title" style="color:#1d4ed8;">ขั้นที่ 1 → 2 → 3</div>
-              <div class="flow-node"><strong>① ฟัง (Listen):</strong> หาจุดสีสันเปลี่ยน / Cadence</div>
-              <div class="flow-arrow">↓</div>
-              <div class="flow-node"><strong>② ชี้คอร์ดแรกของคีย์ใหม่</strong></div>
-              <div class="flow-arrow">↓</div>
-              <div class="flow-node"><strong>③ ถอยหลัง 1 คอร์ด</strong> เพื่อตรวจจุดเชื่อม!</div>
-            </div>
-            <div class="flow-card" style="border-color:#86efac; background:#f0fdf4;">
-              <div class="flow-title" style="color:#15803d;">สาขา A: มีคอร์ดร่วมไหม?</div>
-              <div class="flow-node">เข้าได้กับทั้ง 2 คีย์ (Diatonic)</div>
-              <div class="flow-arrow">⟹ <strong>Diatonic Common-Chord Modulation</strong> (เนียนสุด)</div>
-              <div class="flow-node" style="margin-top:6px;">ใช้คอร์ดแปลงเสียง เช่น V7/V</div>
-              <div class="flow-arrow">⟹ <strong>Altered Common-Chord</strong></div>
-            </div>
-            <div class="flow-card" style="border-color:#fda4af; background:#fff1f2;">
-              <div class="flow-title" style="color:#be123c;">สาขา B: เน้นโน้ตตัวเดียว / คู่ 3?</div>
-              <div class="flow-node">ลากโน้ตร่วม 1 ตัวแล้วเปลี่ยนคอร์ด</div>
-              <div class="flow-arrow">⟹ <strong>Common Tone / Chromatic Mediant</strong> (ดราม่า)</div>
-            </div>
-            <div class="flow-card" style="border-color:#fcd34d; background:#fffbeb;">
-              <div class="flow-title" style="color:#b45309;">สาขา C: ไม่มีตัวเชื่อมเลย</div>
-              <div class="flow-node">เปลี่ยนทันทีตรงรอยต่อวลี / ทำนองซ้ำ</div>
-              <div class="flow-arrow">⟹ <strong>Direct / Phrase Modulation</strong> หรือ Sequence / Monophonic</div>
-            </div>
+          <strong style="color:#0f172a;">🧭 ตารางสรุปรูปแบบ Modulation และขั้นตอนการวิเคราะห์ (3 ขั้นตอน)</strong>
+          <div class="theory-table-wrap" style="margin-top:10px;">
+            <table class="theory-table">
+              <thead><tr><th>ขั้นตอน</th><th>สิ่งที่ต้องสังเกต</th><th>ข้อสรุปชนิด Modulation</th></tr></thead>
+              <tbody>
+                <tr><td><strong>ขั้นที่ 1 • Listen</strong></td><td>ฟังหาช่วงที่สีสันเสียงเปลี่ยนหรือ Cadence ลงคีย์ใหม่</td><td>กำหนดขอบเขตช่วงเปลี่ยนคีย์</td></tr>
+                <tr><td><strong>ขั้นที่ 2 • First Chord</strong></td><td>ชี้ไปที่คอร์ดแรกของคีย์ใหม่ที่ชัดเจน</td><td>ตั้งหลักคีย์ใหม่ (New Key)</td></tr>
+                <tr><td><strong>ขั้นที่ 3 • Step Back 1</strong></td><td>ถอยหลัง 1 คอร์ด: คอร์ดเชื่อมเป็น Diatonic ของทั้ง 2 คีย์หรือไม่?</td><td><strong>Diatonic / Altered Common-Chord Modulation</strong></td></tr>
+                <tr><td><strong>ขั้นที่ 3 (กรณีพิเศษ)</strong></td><td>ไม่มีคอร์ดร่วม แต่เน้นโน้ตตัวเดียว (หรือคู่ 3 คุณภาพเดียวกัน)</td><td><strong>Common Tone / Chromatic Mediant</strong></td></tr>
+                <tr><td><strong>ขั้นที่ 3 (รอยต่อวลี)</strong></td><td>ไม่มีตัวเชื่อมเลย เกิดขึ้นตรงจบประโยคแล้วขึ้นคีย์ใหม่ทันที</td><td><strong>Direct / Phrase Modulation</strong></td></tr>
+              </tbody>
+            </table>
           </div>
 
           <div class="theory-table-wrap" style="margin-top:12px;">
