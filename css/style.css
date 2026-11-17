@@ -1594,20 +1594,20 @@ svg {
   border-collapse: collapse;
   font-size: 0.85rem;
   background: #ffffff;
-  border: 1px solid #cbd5e1;
+  border: 1.5px solid #cbd5e1;
   border-radius: 8px;
 }
 
 .theory-table th,
 .theory-table td {
-  padding: 8px 6px;
-  border: 1px solid #e2e8f0;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
   vertical-align: middle;
 }
 
 .theory-table th {
-  background: #f1f5f9;
-  color: #1e293b;
+  background: #eff6ff;
+  color: #1e3a8a;
   font-weight: 700;
   text-align: center;
 }

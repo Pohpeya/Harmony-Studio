@@ -1330,40 +1330,46 @@ const AdvancedTheoryPages = {
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:14px; margin-bottom:16px;">
           <div style="background:#ffffff; border:1px solid #bfdbfe; border-radius:10px; padding:12px;">
             <strong style="color:#1d4ed8;">วิธีที่ 1: ดูจาก Circle of Fifths (Starting Key: ${rel.homeName})</strong>
-            <table class="theory-table" style="margin-top:8px;">
-              <thead><tr><th>Key Sig</th><th>Major</th><th>Relative Minor</th></tr></thead>
-              <tbody>
-                <tr><td><code>${domSig}</code></td><td>${rel.domName}</td><td>${rel.relDom}</td></tr>
-                <tr style="background:#eff6ff;"><td><code>${homeSig}</code></td><td><span style="display:inline-block; padding:2px 8px; border:2px solid #2563eb; border-radius:999px; font-weight:800;">${rel.homeName}</span></td><td><strong>${rel.relHome}</strong></td></tr>
-                <tr><td><code>${subSig}</code></td><td>${rel.subName}</td><td>${rel.relSub}</td></tr>
-              </tbody>
-            </table>
+            <div class="theory-table-wrap" style="margin-top:8px;">
+              <table class="theory-table">
+                <thead><tr><th>Key Sig</th><th>Major</th><th>Relative Minor</th></tr></thead>
+                <tbody>
+                  <tr><td><code>${domSig}</code></td><td>${rel.domName}</td><td>${rel.relDom}</td></tr>
+                  <tr style="background:#eff6ff;"><td><code>${homeSig}</code></td><td><span style="display:inline-block; padding:2px 8px; border:2px solid #2563eb; border-radius:999px; font-weight:800;">${rel.homeName}</span></td><td><strong>${rel.relHome}</strong></td></tr>
+                  <tr><td><code>${subSig}</code></td><td>${rel.subName}</td><td>${rel.relSub}</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div style="background:#ffffff; border:1px solid #bfdbfe; border-radius:10px; padding:12px;">
             <strong style="color:#1d4ed8;">วิธีที่ 2: ดูจาก I, IV, V และ Relative Minor</strong>
-            <table class="theory-table" style="margin-top:8px;">
-              <thead><tr><th>หน้าที่คอร์ด</th><th>Major</th><th>Relative Minor</th></tr></thead>
-              <tbody>
-                <tr><td><strong>Dominant (V)</strong></td><td>${rel.domName}</td><td>${rel.relDom}</td></tr>
-                <tr style="background:#eff6ff;"><td><strong>Tonic (I)</strong></td><td><span style="display:inline-block; padding:2px 8px; border:2px solid #2563eb; border-radius:999px; font-weight:800;">${rel.homeName}</span></td><td><strong>${rel.relHome}</strong></td></tr>
-                <tr><td><strong>Subdominant (IV)</strong></td><td>${rel.subName}</td><td>${rel.relSub}</td></tr>
-              </tbody>
-            </table>
+            <div class="theory-table-wrap" style="margin-top:8px;">
+              <table class="theory-table">
+                <thead><tr><th>หน้าที่คอร์ด</th><th>Major</th><th>Relative Minor</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Dominant (V)</strong></td><td>${rel.domName}</td><td>${rel.relDom}</td></tr>
+                  <tr style="background:#eff6ff;"><td><strong>Tonic (I)</strong></td><td><span style="display:inline-block; padding:2px 8px; border:2px solid #2563eb; border-radius:999px; font-weight:800;">${rel.homeName}</span></td><td><strong>${rel.relHome}</strong></td></tr>
+                  <tr><td><strong>Subdominant (IV)</strong></td><td>${rel.subName}</td><td>${rel.relSub}</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
         <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:12px; margin-bottom:14px;">
           <strong style="color:#0f172a;">📊 ตารางความสัมพันธ์รูปแบบอื่น (Other Key Relationships)</strong>
-          <table class="theory-table" style="margin-top:8px;">
-            <thead><tr><th>ประเภทความสัมพันธ์</th><th>ตัวอย่าง</th><th>คำอธิบาย &amp; สถานะ Modulation</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Closely Related Keys</strong></td><td>${rel.homeName} ↔ 5 คีย์สนิท (${rel.domName}, ${rel.subName}, ...)</td><td>Key Signature ต่างกัน ≤ 1 ตัว — ใช้ Common-Chord เชื่อมได้เนียนที่สุด</td></tr>
-              <tr><td><strong>Enharmonically Equivalent</strong></td><td>C♯ Major ↔ D♭ Major</td><td>เสียงเหมือนกันเป๊ะแต่เขียนต่าง — <strong style="color:#dc2626;">ไม่ใช่การ Modulation</strong></td></tr>
-              <tr><td><strong>Parallel Keys</strong></td><td>${rel.homeName} ↔ ${rel.homeName.replace('Major', 'minor')}</td><td>Tonic ตัวเดียวกัน — เรียกว่า <strong style="color:#d97706;">Change of Mode</strong></td></tr>
-              <tr><td><strong>Foreign Relationships</strong></td><td>${rel.homeName} ↔ ${Theory.KEYS[rel.foreignId].name}</td><td>ห่างกัน > 1 เครื่องหมาย — ใช้ Altered Chord หรือ Common Tone ช่วยเชื่อม</td></tr>
-            </tbody>
-          </table>
+          <div class="theory-table-wrap" style="margin-top:8px;">
+            <table class="theory-table">
+              <thead><tr><th>ประเภทความสัมพันธ์</th><th>ตัวอย่าง</th><th>คำอธิบาย &amp; สถานะ Modulation</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Closely Related Keys</strong></td><td>${rel.homeName} ↔ 5 คีย์สนิท (${rel.domName}, ${rel.subName}, ...)</td><td>Key Signature ต่างกัน ≤ 1 ตัว — ใช้ Common-Chord เชื่อมได้เนียนที่สุด</td></tr>
+                <tr><td><strong>Enharmonically Equivalent</strong></td><td>C♯ Major ↔ D♭ Major</td><td>เสียงเหมือนกันเป๊ะแต่เขียนต่าง — <strong style="color:#dc2626;">ไม่ใช่การ Modulation</strong></td></tr>
+                <tr><td><strong>Parallel Keys</strong></td><td>${rel.homeName} ↔ ${rel.homeName.replace('Major', 'minor')}</td><td>Tonic ตัวเดียวกัน — เรียกว่า <strong style="color:#d97706;">Change of Mode</strong></td></tr>
+                <tr><td><strong>Foreign Relationships</strong></td><td>${rel.homeName} ↔ ${Theory.KEYS[rel.foreignId].name}</td><td>ห่างกัน > 1 เครื่องหมาย — ใช้ Altered Chord หรือ Common Tone ช่วยเชื่อม</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:10px; padding:14px; margin-bottom:14px;">
