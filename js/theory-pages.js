@@ -954,9 +954,16 @@ const TheoryPages = {
     this.dsAnswered = false;
 
     if (typeof ChordLabRenderer !== 'undefined' && this.currentDsQuiz.chordPair) {
+      // ซ่อนชื่อคอร์ดและตัวสะกดของคอร์ดคำตอบ (ใบ้เฉพาะคอร์ดโจทย์ + ตัวโน้ตบนบรรทัด 5 เส้น) จนกว่าจะตอบ
+      const maskedPair = this.currentDsQuiz.chordPair.map((c, idx) => {
+        if (idx === 1 && !this.currentDsQuiz.id.startsWith('ds_pct_')) {
+          return { label: '❓ คอร์ดคำตอบ', sublabel: 'สังเกตโน้ตบนบรรทัด', notes: c.notes };
+        }
+        return c;
+      });
       ChordLabRenderer.renderLessonExamples(
         'ds-quiz-staff',
-        this.currentDsQuiz.chordPair,
+        maskedPair,
         'window.theoryPages.playDsQuizSingle',
         'treble'
       );
@@ -1012,6 +1019,15 @@ const TheoryPages = {
     }
     if (!ok) {
       this.showQuizErrorPopup('.ds-choice-btn', val, this.currentDsQuiz.answer, 'แบบฝึกหัด Diatonic Substitution & Chord Spelling', this.currentDsQuiz.explain);
+    }
+    // เฉลยชื่อคอร์ดคำตอบใต้บรรทัด 5 เส้นหลังจากส่งคำตอบแล้ว
+    if (typeof ChordLabRenderer !== 'undefined' && this.currentDsQuiz.chordPair) {
+      ChordLabRenderer.renderLessonExamples(
+        'ds-quiz-staff',
+        this.currentDsQuiz.chordPair,
+        'window.theoryPages.playDsQuizSingle',
+        'treble'
+      );
     }
     this.playCurrentDsQuiz();
     this.updateBadge('ds-stats-badge', this.dsStats);
