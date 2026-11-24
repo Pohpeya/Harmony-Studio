@@ -694,6 +694,7 @@ window.TOPIC_PAGES = [
   { id: 'melodicmodes', label: '🎼 Melodic Minor Modes' },
   { id: 'figuredbass', label: '🔢 Figured Bass' },
   { id: 'diatonicsub', label: '🔁 Diatonic Sub' },
+  { id: 'dom7', label: '👑 Dominant 7th (V⁷)' },
   { id: 'secdom', label: '⚡ Secondary Dominant' },
   { id: 'modulation', label: '🔀 Modulation' },
   { id: 'cadence', label: '🎯 Cadence' },
@@ -770,6 +771,8 @@ window.switchAppView = function(viewName) {
     window.advancedTheoryPages.renderMinorScalePage();
   } else if (viewName === 'melodicmodes' && window.advancedTheoryPages) {
     window.advancedTheoryPages.renderMelodicModesPage();
+  } else if (viewName === 'dom7' && window.dom7Page) {
+    window.dom7Page.renderLesson();
   } else if (viewName === 'secdom' && window.advancedTheoryPages) {
     window.advancedTheoryPages.renderSecDomPage();
   } else if (viewName === 'modulation' && window.advancedTheoryPages) {
@@ -845,6 +848,11 @@ window.addEventListener('DOMContentLoaded', () => {
   if (typeof AdvancedTheoryPages !== 'undefined') {
     window.advancedTheoryPages = window.AdvancedTheoryPages;
     window.advancedTheoryPages.init();
+  }
+
+  if (typeof Dom7Page !== 'undefined') {
+    window.dom7Page = window.Dom7Page;
+    window.dom7Page.init();
   }
 
   window.switchAppView('home');

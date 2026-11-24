@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=20261120a">
+  <link rel="stylesheet" href="css/style.css?v=20261124a">
 </head>
 <body class="is-home">
 
@@ -45,6 +45,7 @@
         <button class="nav-pill" data-view="melodicmodes" onclick="window.switchAppView('melodicmodes')">🎼 Melodic Minor Modes</button>
         <button class="nav-pill" data-view="figuredbass" onclick="window.switchAppView('figuredbass')">🔢 Figured Bass</button>
         <button class="nav-pill" data-view="diatonicsub" onclick="window.switchAppView('diatonicsub')">🔁 Diatonic Sub</button>
+        <button class="nav-pill" data-view="dom7" onclick="window.switchAppView('dom7')">👑 Dominant 7th (V⁷ &amp; vii°)</button>
         <button class="nav-pill" data-view="secdom" onclick="window.switchAppView('secdom')">⚡ Secondary Dominant</button>
         <button class="nav-pill" data-view="modulation" onclick="window.switchAppView('modulation')">🔀 Modulation</button>
         <button class="nav-pill" data-view="cadence" onclick="window.switchAppView('cadence')">🎯 Cadence</button>
@@ -110,6 +111,13 @@
             <h3>🔁 Diatonic Sub &amp; Chord Spelling</h3>
           </div>
           <span class="menu-card-cta" style="background: #0f766e;">เลือก →</span>
+        </button>
+
+        <button type="button" class="menu-card" onclick="window.switchAppView('dom7')">
+          <div class="menu-card-main">
+            <h3>👑 Dominant 7th (V⁷) &amp; vii°</h3>
+          </div>
+          <span class="menu-card-cta" style="background: #d97706;">เลือก →</span>
         </button>
 
         <button type="button" class="menu-card" onclick="window.switchAppView('secdom')">
@@ -1307,6 +1315,178 @@
   </section>
 
   <!-- ===================================================================== -->
+  <!-- NEW VIEW: DOMINANT 7TH (V7) & LEADING-TONE TRIAD (vii°)                -->
+  <!-- ===================================================================== -->
+  <section id="view-dom7" class="view-section">
+    <div class="lab-container">
+      <!-- บทเรียน Dominant 7th (V7) & vii° -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title" style="justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+          <span>👑 Dominant 7th Chord (V⁷) &amp; Leading-Tone Triad (vii°)</span>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; max-width:100%;">
+            <label for="v7-lesson-key" style="font-size:0.85rem; color:#b45309; font-weight:700;">ดูตัวอย่างในคีย์:</label>
+            <select id="v7-lesson-key" class="quiz-filter-select" onchange="window.dom7Page.renderLesson()"></select>
+          </div>
+        </div>
+
+        <p style="font-size: 0.9rem; color: #334155; margin-bottom: 14px; line-height: 1.6;">
+          สรุปหลักการเขียนแนวเสียงของคอร์ด <strong>Dominant 7th (V⁷)</strong> ทั้งรูปปกติ รูปไม่ครบเสียง (Incomplete) การพลิกกลับทั้ง 3 รูป (<strong>V⁶₅, V⁴₃, V⁴₂</strong>) และคอร์ด <strong>vii°</strong> ที่ใช้แทนกันในกลุ่ม Dominant Family พร้อมตัวอย่างโน้ตและเสียงในคีย์ที่เลือก
+        </p>
+
+        <!-- Dynamic Key Summary Table -->
+        <div id="v7-key-summary" style="margin-bottom: 16px;"></div>
+
+        <!-- Section 1: General Voice Leading, Outer vs Inner Part, Incomplete V7 -->
+        <div style="margin-bottom: 16px;">
+          <h4 style="font-size:0.95rem; color:#92400e; margin-bottom:8px;">1. กฎการคลี่คลายเสียงของ V⁷ (General Voice Leading &amp; Incomplete V⁷)</h4>
+          <div class="theory-table-wrap">
+            <table class="theory-table">
+              <thead>
+                <tr>
+                  <th>หัวข้อ / กรณี</th>
+                  <th>หลักการเขียนแนวเสียง (Voice Leading)</th>
+                  <th>ผลลัพธ์ / ข้อควรระวัง</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>3rd ของ V⁷ (Leading Tone)</strong></td>
+                  <td>คลี่คลาย <strong>ขึ้นครึ่งเสียงไปหา Root</strong> ของคอร์ด Tonic (7 → 1)</td>
+                  <td><strong>บังคับเสมอ</strong> เมื่ออยู่ใน <strong>Outer Part (Soprano)</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>7th ของ V⁷</strong></td>
+                  <td>คลี่คลาย <strong>ลงไปหา 3rd</strong> ของคอร์ด Tonic (4 → 3)</td>
+                  <td>บังคับเสมอ (สลับตำแหน่งเสียงบน-ล่างกับ Leading Tone ได้)</td>
+                </tr>
+                <tr>
+                  <td><strong>Inner Part (Alto / Tenor)</strong></td>
+                  <td>Leading Tone (3rd ของ V⁷) <strong>กระโดดลงคู่ 3 ไปหา 5th</strong> ของ Tonic ได้</td>
+                  <td>ช่วยให้ได้คอร์ด <strong>Complete I / i</strong> (เช่น <code>iv⁶ → i⁶₄ → V⁷ → i</code>)</td>
+                </tr>
+                <tr>
+                  <td><strong>Incomplete V⁷</strong></td>
+                  <td><strong>ตัดขั้นที่ 5 (Omit 5th) + เบิ้ล Root (Double Root)</strong></td>
+                  <td>Root ที่เบิ้ลค้างเป็น 5th ของ I → ได้ <strong>Complete I</strong> (ห้ามตัด 3rd หรือ 7th)</td>
+                </tr>
+                <tr>
+                  <td><strong>Complete (c) vs Incomplete (i)</strong></td>
+                  <td><code>V⁷(c) → I(i)</code> (Root 3 ตัว + 3rd 1 ตัว) หรือ <code>V⁷(i) → I(c)</code></td>
+                  <td>ใน Deceptive Resolution <code>V⁷ → vi</code> (หรือ <code>V⁷ → VI</code>) มักได้คอร์ด vi ที่เบิ้ล 3rd</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="v7-vl-staff" style="margin-top:10px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
+        </div>
+
+        <!-- Section 2: Inversions of V7 -->
+        <div style="margin-bottom: 16px;">
+          <h4 style="font-size:0.95rem; color:#92400e; margin-bottom:8px;">2. การพลิกกลับของ V⁷ (Inversions of V⁷: V⁶₅, V⁴₃, V⁴₂)</h4>
+          <div class="theory-table-wrap">
+            <table class="theory-table">
+              <thead>
+                <tr>
+                  <th>สัญลักษณ์</th>
+                  <th>รูปการพลิกกลับ &amp; แนวเบส</th>
+                  <th>หน้าที่ &amp; ตำแหน่งในประโยคเพลง</th>
+                  <th>การเชื่อมคอร์ดที่พบบ่อย</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>V⁶₅</strong></td>
+                  <td>1st Inversion (เบส = <strong>3rd / LT</strong>)</td>
+                  <td>อยู่ใน <strong>Tonic Area</strong> ตำแหน่งจังหวะเบา (Weak position) — น้ำหนักเบากว่า Root Position V</td>
+                  <td><code>I – V⁶₅ – I</code> หรือ <code>I – V⁶₅ – I⁶</code> (เบส LT ขึ้นหา Root)</td>
+                </tr>
+                <tr>
+                  <td><strong>V⁴₃</strong></td>
+                  <td>2nd Inversion (เบส = <strong>5th</strong>)</td>
+                  <td>อยู่ใน <strong>Tonic Area</strong> ใช้เป็น <strong>Passing Chord</strong> ให้แนวเบสเดินขั้นบันได</td>
+                  <td><code>I – V⁴₃ – I⁶</code> (เบสขึ้น 1–2–3) หรือ <code>I⁶ – V⁴₃ – I</code> (เบสลง 3–2–1)</td>
+                </tr>
+                <tr>
+                  <td><strong>V⁴₂</strong></td>
+                  <td>3rd Inversion (เบส = <strong>7th</strong>)</td>
+                  <td><strong>แทบจะตามด้วย I⁶ เสมอ</strong> (เพราะ 7th ที่เบสต้องคลี่คลายลงหา 3rd ของ I)</td>
+                  <td>นำหน้าด้วย <code>I⁶, IV, ii</code> หรือ Passing/Cadential <code>I⁶₄</code> → <strong><code>V⁴₂ – I⁶</code></strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="v7-inv-staff" style="margin-top:10px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
+        </div>
+
+        <!-- Section 3: The vii° (Leading-Tone Triad) -->
+        <div>
+          <h4 style="font-size:0.95rem; color:#92400e; margin-bottom:8px;">3. คอร์ด vii° (Dominant Family — โน้ต 3 ตัวบนของ V⁷)</h4>
+          <div class="theory-table-wrap">
+            <table class="theory-table">
+              <thead>
+                <tr>
+                  <th>กฎสำคัญของ vii°</th>
+                  <th>รายละเอียด &amp; วิธีปฏิบัติใน 4 แนวเสียง (SATB)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>ความสัมพันธ์กับ V⁷</strong></td>
+                  <td>ประกอบด้วย<strong>โน้ต 3 ตัวบนของ V⁷</strong> (เช่น ใน C Major: <code>B–D–F</code> อยู่ใน <code>G–B–D–F</code>) ใช้แทน V⁷ ได้ แต่น้ำหนักเบากว่าเล็กน้อย</td>
+                </tr>
+                <tr>
+                  <td><strong>Tendency Tones เหมือน V⁷</strong></td>
+                  <td>ขั้นที่ 7 ของคีย์ (Root ของ vii°) <strong>ขึ้นหา 1</strong> (7 → 1) และขั้นที่ 4 ของคีย์ (5th ของ vii°) <strong>ลงหา 3</strong> (4 → 3)</td>
+                </tr>
+                <tr>
+                  <td><strong>1) คุณภาพคอร์ด</strong></td>
+                  <td>เป็น <strong>Diminished Triad</strong> (1 – ♭3 – ♭5) มีขั้นคู่ Tritone ระหว่าง Root กับ 5th</td>
+                </tr>
+                <tr>
+                  <td><strong>2) Root Position &amp; การเบิ้ล</strong></td>
+                  <td>ไม่ค่อยใช้ใน Root Position และ <strong>ห้ามเบิ้ล Root (Leading Tone) เด็ดขาด</strong> เพราะจะเกิด Parallel 8ves เมื่อคลี่คลายไป I</td>
+                </tr>
+                <tr>
+                  <td><strong>3) รูปที่นิยมที่สุด</strong></td>
+                  <td>นิยมใช้ใน <strong>1st Inversion (vii°⁶ หรือ vii°b)</strong> มากที่สุด เช่น <code>I⁶ – vii°⁶ – I</code></td>
+                </tr>
+                <tr>
+                  <td><strong>4) โน้ตที่ต้องเบิ้ล</strong></td>
+                  <td><strong>Double 3rd ของคอร์ด</strong> (ซึ่งก็คือแนวเบสในรูป <code>vii°⁶</code>) เพื่อหลีกเลี่ยงการเบิ้ล Tendency Tones</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="v7-vii-staff" style="margin-top:10px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
+        </div>
+      </div>
+
+      <!-- แบบฝึกหัด Dominant 7th (V7) & vii° -->
+      <div class="card">
+        <div class="studio-question-bar" style="border-radius:10px; margin-bottom:14px;">
+          <div>
+            <div class="question-banner-title">
+              <span>🎯 แบบฝึกหัด: Dominant 7th (V⁷) &amp; vii° (12 คีย์)</span>
+              <span id="v7-quiz-key-badge" class="question-clef-chip">คีย์ C Major</span>
+            </div>
+            <div class="question-banner-subtitle" id="v7-quiz-prompt">วิเคราะห์การคลี่คลายเสียง (Voice Leading), การพลิกกลับของ V⁷ และกฎของ vii°</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <select id="v7-key-filter" class="quiz-filter-select" onchange="window.dom7Page.nextQuiz()"></select>
+            <span id="v7-stats-badge" style="background:#fef3c7; color:#92400e; padding:5px 12px; border-radius:999px; font-weight:700; font-size:0.84rem; border:1px solid #fcd34d;">คะแนนสะสม: 0 / 0 ข้อ</span>
+            <button class="btn btn-success btn-sm" onclick="window.dom7Page.playCurrentQuiz()">🔊 ฟังเสียง</button>
+            <button class="btn btn-primary btn-sm" onclick="window.dom7Page.nextQuiz()">🎲 ข้อถัดไป</button>
+          </div>
+        </div>
+
+        <div id="v7-quiz-staff" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; margin-bottom:14px; display:flex; justify-content:center; overflow-x:auto;"></div>
+        <div id="v7-quiz-options" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap:10px; margin-bottom:14px;"></div>
+        <div id="v7-quiz-feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
   <!-- NEW VIEW C: SECONDARY DOMINANT & SUBSTITUTIONS                         -->
   <!-- ===================================================================== -->
   <section id="view-secdom" class="view-section">
@@ -1707,15 +1887,16 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/theory.js?v=20261120a"></script>
-  <script src="js/rules.js?v=20261120a"></script>
-  <script src="js/renderer.js?v=20261120a"></script>
-  <script src="js/audio.js?v=20261120a"></script>
-  <script src="js/presets.js?v=20261120a"></script>
-  <script src="js/chords-lab.js?v=20261120a"></script>
-  <script src="js/cadence-lab.js?v=20261120a"></script>
-  <script src="js/theory-pages.js?v=20261120a"></script>
-  <script src="js/theory-pages-advanced.js?v=20261120a"></script>
-  <script src="js/app.js?v=20261120a"></script>
+  <script src="js/theory.js?v=20261124a"></script>
+  <script src="js/rules.js?v=20261124a"></script>
+  <script src="js/renderer.js?v=20261124a"></script>
+  <script src="js/audio.js?v=20261124a"></script>
+  <script src="js/presets.js?v=20261124a"></script>
+  <script src="js/chords-lab.js?v=20261124a"></script>
+  <script src="js/cadence-lab.js?v=20261124a"></script>
+  <script src="js/theory-pages.js?v=20261124a"></script>
+  <script src="js/theory-pages-advanced.js?v=20261124a"></script>
+  <script src="js/dom7-page.js?v=20261124a"></script>
+  <script src="js/app.js?v=20261124a"></script>
 </body>
 </html>
