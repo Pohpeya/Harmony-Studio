@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=20261124b">
+  <link rel="stylesheet" href="css/style.css?v=20261124c">
 </head>
 <body class="is-home">
 
@@ -38,18 +38,19 @@
     <nav class="top-nav-bar" aria-label="เมนูหลัก">
       <div class="top-nav-inner">
         <button class="nav-pill active" data-view="home" onclick="window.switchAppView('home')">🏠 เมนูหลัก</button>
-        <button class="nav-pill" data-view="chords" onclick="window.switchAppView('chords')">🎹 โน้ตในคอร์ด (12 คีย์)</button>
-        <button class="nav-pill" data-view="inversions" onclick="window.switchAppView('inversions')">🔄 การพลิกกลับของคอร์ด</button>
-        <button class="nav-pill" data-view="modes" onclick="window.switchAppView('modes')">🎭 Major Mode</button>
+        <button class="nav-pill" data-view="modes" onclick="window.switchAppView('modes')">🎭 Major mode</button>
+        <button class="nav-pill" data-view="chords" onclick="window.switchAppView('chords')">🎹 Chordtone โน้ตในคอร์ด</button>
+        <button class="nav-pill" data-view="inversions" onclick="window.switchAppView('inversions')">🔄 inversion การพลิกกลับของคอร์ด</button>
+        <button class="nav-pill" data-view="diatonicsub" onclick="window.switchAppView('diatonicsub')">🔁 Diatonic substitution</button>
+        <button class="nav-pill" data-view="figuredbass" onclick="window.switchAppView('figuredbass')">🔢 Figured bass</button>
+        <button class="nav-pill" data-view="cadence" onclick="window.switchAppView('cadence')">🎯 Cadence</button>
+        <button class="nav-pill" data-view="basic4part" onclick="window.switchAppView('basic4part')">📝 Basic four part writing</button>
+        <button class="nav-pill" data-view="partwriting" onclick="window.switchAppView('partwriting')">🎼 Rootposition Part Writing</button>
         <button class="nav-pill" data-view="minorscale" onclick="window.switchAppView('minorscale')">🌙 Minor Scale</button>
-        <button class="nav-pill" data-view="melodicmodes" onclick="window.switchAppView('melodicmodes')">🎼 Melodic Minor Modes</button>
-        <button class="nav-pill" data-view="figuredbass" onclick="window.switchAppView('figuredbass')">🔢 Figured Bass</button>
-        <button class="nav-pill" data-view="diatonicsub" onclick="window.switchAppView('diatonicsub')">🔁 Diatonic Sub</button>
-        <button class="nav-pill" data-view="dom7" onclick="window.switchAppView('dom7')">👑 Dominant 7th (V⁷ &amp; vii°)</button>
+        <button class="nav-pill" data-view="melodicmodes" onclick="window.switchAppView('melodicmodes')">🎼 Mode in Melodic minor</button>
         <button class="nav-pill" data-view="secdom" onclick="window.switchAppView('secdom')">⚡ Secondary Dominant</button>
         <button class="nav-pill" data-view="modulation" onclick="window.switchAppView('modulation')">🔀 Modulation</button>
-        <button class="nav-pill" data-view="cadence" onclick="window.switchAppView('cadence')">🎯 Cadence</button>
-        <button class="nav-pill" data-view="partwriting" onclick="window.switchAppView('partwriting')">🎼 Root Position</button>
+        <button class="nav-pill" data-view="dom7" onclick="window.switchAppView('dom7')">👑 Dominant 7th (V⁷ &amp; vii°)</button>
       </div>
     </nav>
   </header>
@@ -63,90 +64,105 @@
         <h2>🎼 เลือกหัวข้อบทเรียน</h2>
       </div>
 
-      <div class="menu-cards-grid">
-        <button type="button" class="menu-card" onclick="window.switchAppView('chords')">
-          <div class="menu-card-main">
-            <h3>🎹 โน้ตในคอร์ด 12 คีย์ (Triads &amp; 7th)</h3>
-          </div>
-          <span class="menu-card-cta" style="background: #2563eb;">เลือก →</span>
-        </button>
+      <div class="semester-section">
+        <h3 class="semester-heading">📘 Semester 1</h3>
+        <div class="menu-cards-grid">
+          <button type="button" class="menu-card" onclick="window.switchAppView('modes')">
+            <div class="menu-card-main">
+              <h3>1. Major mode</h3>
+            </div>
+            <span class="menu-card-cta" style="background: #0284c7;">เลือก →</span>
+          </button>
 
-        <button type="button" class="menu-card" onclick="window.switchAppView('inversions')">
-          <div class="menu-card-main">
-            <h3>🔄 การพลิกกลับของคอร์ด (Inversions)</h3>
-          </div>
-          <span class="menu-card-cta" style="background: #7c3aed;">เลือก →</span>
-        </button>
+          <button type="button" class="menu-card" onclick="window.switchAppView('chords')">
+            <div class="menu-card-main">
+              <h3>2. Chordtone โน้ตในคอร์ด</h3>
+            </div>
+            <span class="menu-card-cta" style="background: #2563eb;">เลือก →</span>
+          </button>
 
-        <button type="button" class="menu-card" onclick="window.switchAppView('modes')">
-          <div class="menu-card-main">
-            <h3>🎭 Major Mode (7 Modes &amp; Tetrachord)</h3>
-          </div>
-          <span class="menu-card-cta" style="background: #0284c7;">เลือก →</span>
-        </button>
+          <button type="button" class="menu-card" onclick="window.switchAppView('inversions')">
+            <div class="menu-card-main">
+              <h3>3. inversion การพลิกกลับของคอร์ด</h3>
+            </div>
+            <span class="menu-card-cta" style="background: #7c3aed;">เลือก →</span>
+          </button>
 
-        <button type="button" class="menu-card" onclick="window.switchAppView('minorscale')">
-          <div class="menu-card-main">
-            <h3>🌙 Minor Scale &amp; Diatonic Minor</h3>
-          </div>
-          <span class="menu-card-cta" style="background: #4f46e5;">เลือก →</span>
-        </button>
+          <button type="button" class="menu-card" onclick="window.switchAppView('diatonicsub')">
+            <div class="menu-card-main">
+              <h3>4. Diatonic substitution คอร์ดที่แทนกันได้</h3>
+            </div>
+            <span class="menu-card-cta" style="background: #0f766e;">เลือก →</span>
+          </button>
 
-        <button type="button" class="menu-card" onclick="window.switchAppView('melodicmodes')">
-          <div class="menu-card-main">
-            <h3>🎼 Mode in Melodic Minor</h3>
-          </div>
-          <span class="menu-card-cta" style="background: #9333ea;">เลือก →</span>
-        </button>
+          <button type="button" class="menu-card" onclick="window.switchAppView('figuredbass')">
+            <div class="menu-card-main">
+              <h3>5. Figured bass</h3>
+            </div>
+            <span class="menu-card-cta" style="background: #be185d;">เลือก →</span>
+          </button>
 
-        <button type="button" class="menu-card" onclick="window.switchAppView('figuredbass')">
-          <div class="menu-card-main">
-            <h3>🔢 Figured Bass</h3>
-          </div>
-          <span class="menu-card-cta" style="background: #be185d;">เลือก →</span>
-        </button>
+          <button type="button" class="menu-card" onclick="window.switchAppView('cadence')">
+            <div class="menu-card-main">
+              <h3>6. Cadence</h3>
+            </div>
+            <span class="menu-card-cta" style="background: #d97706;">เลือก →</span>
+          </button>
 
-        <button type="button" class="menu-card" onclick="window.switchAppView('diatonicsub')">
-          <div class="menu-card-main">
-            <h3>🔁 Diatonic Sub &amp; Chord Spelling</h3>
-          </div>
-          <span class="menu-card-cta" style="background: #0f766e;">เลือก →</span>
-        </button>
+          <button type="button" class="menu-card" onclick="window.switchAppView('basic4part')">
+            <div class="menu-card-main">
+              <h3>7. Basic four part writing</h3>
+            </div>
+            <span class="menu-card-cta" style="background: #059669;">เลือก →</span>
+          </button>
 
-        <button type="button" class="menu-card" onclick="window.switchAppView('dom7')">
-          <div class="menu-card-main">
-            <h3>👑 Dominant 7th (V⁷) &amp; vii°</h3>
-          </div>
-          <span class="menu-card-cta" style="background: #d97706;">เลือก →</span>
-        </button>
+          <button type="button" class="menu-card" onclick="window.switchAppView('partwriting')">
+            <div class="menu-card-main">
+              <h3>8. Rootposition Part Writing</h3>
+            </div>
+            <span class="menu-card-cta" style="background: #16a34a;">เลือก →</span>
+          </button>
+        </div>
+      </div>
 
-        <button type="button" class="menu-card" onclick="window.switchAppView('secdom')">
-          <div class="menu-card-main">
-            <h3>⚡ Secondary Dominant &amp; Substitutions</h3>
-          </div>
-          <span class="menu-card-cta" style="background: #db2777;">เลือก →</span>
-        </button>
+      <div class="semester-section">
+        <h3 class="semester-heading sem2">📗 Semester 2</h3>
+        <div class="menu-cards-grid">
+          <button type="button" class="menu-card" onclick="window.switchAppView('minorscale')">
+            <div class="menu-card-main">
+              <h3>1. Minor Scale</h3>
+            </div>
+            <span class="menu-card-cta" style="background: #4f46e5;">เลือก →</span>
+          </button>
 
-        <button type="button" class="menu-card" onclick="window.switchAppView('modulation')">
-          <div class="menu-card-main">
-            <h3>🔀 Modulation (การเปลี่ยนคีย์)</h3>
-          </div>
-          <span class="menu-card-cta" style="background: #0d9488;">เลือก →</span>
-        </button>
+          <button type="button" class="menu-card" onclick="window.switchAppView('melodicmodes')">
+            <div class="menu-card-main">
+              <h3>2. Mode in Melodic minor</h3>
+            </div>
+            <span class="menu-card-cta" style="background: #9333ea;">เลือก →</span>
+          </button>
 
-        <button type="button" class="menu-card" onclick="window.switchAppView('cadence')">
-          <div class="menu-card-main">
-            <h3>🎯 Cadence</h3>
-          </div>
-          <span class="menu-card-cta" style="background: #d97706;">เลือก →</span>
-        </button>
+          <button type="button" class="menu-card" onclick="window.switchAppView('secdom')">
+            <div class="menu-card-main">
+              <h3>3. Secondary Dominant</h3>
+            </div>
+            <span class="menu-card-cta" style="background: #db2777;">เลือก →</span>
+          </button>
 
-        <button type="button" class="menu-card" onclick="window.switchAppView('partwriting')">
-          <div class="menu-card-main">
-            <h3>🎼 Root Position Part Writing (SATB)</h3>
-          </div>
-          <span class="menu-card-cta" style="background: #16a34a;">เลือก →</span>
-        </button>
+          <button type="button" class="menu-card" onclick="window.switchAppView('modulation')">
+            <div class="menu-card-main">
+              <h3>4. Modulation</h3>
+            </div>
+            <span class="menu-card-cta" style="background: #0d9488;">เลือก →</span>
+          </button>
+
+          <button type="button" class="menu-card" onclick="window.switchAppView('dom7')">
+            <div class="menu-card-main">
+              <h3>5. Dominant 7th (V⁷) &amp; vii°</h3>
+            </div>
+            <span class="menu-card-cta" style="background: #b45309;">เลือก →</span>
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -1315,6 +1331,261 @@
   </section>
 
   <!-- ===================================================================== -->
+  <!-- NEW VIEW: BASIC FOUR-PART WRITING (SEMESTER 1 - TOPIC 7)               -->
+  <!-- ===================================================================== -->
+  <section id="view-basic4part" class="view-section">
+    <div class="lab-container">
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">
+          <span>📝 Basic four part writing (หลักพื้นฐานการประสานเสียง 4 แนว SATB)</span>
+        </div>
+
+        <p style="font-size: 0.9rem; color: #334155; margin-bottom: 16px; line-height: 1.6;">
+          สรุปพื้นฐานสำคัญก่อนลงมือเขียน Four-Part Writing ครบทั้ง 5 เรื่อง: <strong>โครงสร้าง SATB &amp; Spacing</strong>, <strong>การเบิ้ลโน้ต (Note Doubling)</strong>, <strong>Open–Close Voicing</strong>, <strong>กฎ Parallel &amp; Hidden Parallel</strong>, และ <strong>การเขียนทำนอง (Melody)</strong> พร้อมตัวอย่างโน้ตและแบบฝึกหัด 120 ข้อ
+        </p>
+
+        <!-- 1. Notation, Range, Outer/Inner, Spacing, Stem -->
+        <div style="margin-bottom: 20px;">
+          <h4 style="font-size:0.95rem; color:#047857; margin-bottom:8px;">1. การบันทึกโน้ต ช่วงเสียง SATB ระยะห่าง (Spacing) และหางโน้ต (Stem)</h4>
+          <div class="theory-table-wrap">
+            <table class="theory-table">
+              <thead>
+                <tr>
+                  <th>แนวเสียง (Part)</th>
+                  <th>กลุ่มแนว</th>
+                  <th>ช่วงเสียง (Vocal Range)</th>
+                  <th>บรรทัด &amp; หางโน้ต (Stem)</th>
+                  <th>ระยะห่าง (Spacing) &amp; ข้อแนะนำ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Soprano (S)</strong></td>
+                  <td>Outer Part</td>
+                  <td><strong>C4 – G5</strong> (ถึง A5)</td>
+                  <td>กุญแจซอล • <strong>หางขึ้น</strong></td>
+                  <td>Soprano – Alto ห่าง <strong>ไม่เกิน 1 Octave (≤ 8)</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Alto (A)</strong></td>
+                  <td>Inner Part</td>
+                  <td><strong>G3 – D5</strong> (ถึง F5)</td>
+                  <td>กุญแจซอล • <strong>หางลง</strong></td>
+                  <td>Alto – Tenor ห่าง <strong>ไม่เกิน 1 Octave (≤ 8)</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Tenor (T)</strong></td>
+                  <td>Inner Part</td>
+                  <td><strong>C3 – G4</strong> (รอบ Middle C)</td>
+                  <td>กุญแจฟา • <strong>หางขึ้น</strong></td>
+                  <td>Tenor – Bass ห่าง <strong>เกิน 1 Octave ได้</strong> (เช่น คู่ 12)</td>
+                </tr>
+                <tr>
+                  <td><strong>Bass (B)</strong></td>
+                  <td>Outer Part</td>
+                  <td><strong>E2 – C4</strong> (หรือ F2–D4)</td>
+                  <td>กุญแจฟา • <strong>หางลง</strong></td>
+                  <td>เลี่ยงขั้นคู่ 3 ในย่านเสียงต่ำมากเพราะเสียงจะขุ่น (muddy)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size: 0.84rem; color: #475569; margin-top: 6px; line-height: 1.5;">
+            <strong>บทเพลงที่พบ:</strong> Vocal quartet, Oratorio (Handel: <em>Messiah</em>), Vocal music (Bach &amp; Handel), Baroque ensemble (2 Violins, Cello &amp; Bass), String quartet (Haydn, Mozart, Vivaldi) — บันทึกได้ทั้งแบบแยก 4 บรรทัด (Open score) และแบบรวม 2 บรรทัด (Grand Staff)
+          </p>
+        </div>
+
+        <!-- 2. Note Doubling -->
+        <div style="margin-bottom: 20px;">
+          <h4 style="font-size:0.95rem; color:#047857; margin-bottom:8px;">2. การเบิ้ลโน้ต (Note Doubling — เพราะ Triad มี 3 เสียง ต้องเพิ่มเป็น 4 แนว)</h4>
+          <div class="theory-table-wrap">
+            <table class="theory-table">
+              <thead>
+                <tr>
+                  <th>โน้ตใน Triad</th>
+                  <th>หลักการเบิ้ล (Doubling) / ตัดโน้ต</th>
+                  <th>ข้อยกเว้นสำคัญ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Root (1)</strong></td>
+                  <td><strong>นิยม Double Root มากที่สุด</strong> (I, IV, V, ii, vi)</td>
+                  <td><strong>คอร์ด vii° ห้าม Double Root</strong> (เพราะเป็น Leading Tone) → ให้พลิกเป็น <strong>vii°⁶</strong> แล้ว Double 3rd แทน</td>
+                </tr>
+                <tr>
+                  <td><strong>3rd (3)</strong></td>
+                  <td><strong>ห้ามตัด 3rd ออก</strong> (ต้องมีในคอร์ดเสมอ) • Minor 3rd เบิ้ลได้</td>
+                  <td>Major 3rd บางตำราให้เบิ้ลเมื่อห่างกัน 2 Octaves • <strong>คอร์ด V ห้าม Double 3rd</strong> เพราะเป็น Leading Tone</td>
+                </tr>
+                <tr>
+                  <td><strong>5th (5)</strong></td>
+                  <td>สามารถ <strong>Double ได้</strong> หรือ <strong>ตัดออก (Omit 5th)</strong> ก็ได้</td>
+                  <td>เสียงยังยอมรับได้ทั้ง 2 แบบ (เช่น ตัด 5th ในคอร์ด I เพื่อเชื่อม V⁷ → I ให้เรียบ)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top:10px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; max-width:100%; background:#ecfdf5; border:1px solid #a7f3d0; border-radius:10px; padding:8px 12px;">
+            <label for="b4p-doubling-key" style="font-size:0.86rem; color:#065f46; font-weight:700;">🎹 เลือกคอร์ดตัวอย่าง (Note Doubling):</label>
+            <select id="b4p-doubling-key" class="quiz-filter-select" onchange="window.basic4PartPage.renderDoublingSection()"></select>
+          </div>
+          <div id="b4p-doubling-summary" style="margin-top:8px;"></div>
+          <div id="b4p-doubling-staff" style="margin-top:8px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
+        </div>
+
+        <!-- 3. Open vs Close Voicing -->
+        <div style="margin-bottom: 20px;">
+          <h4 style="font-size:0.95rem; color:#047857; margin-bottom:8px;">3. Open Voicing vs Close Voicing (Kostka 5th Edition)</h4>
+          <div class="theory-table-wrap">
+            <table class="theory-table">
+              <thead>
+                <tr>
+                  <th>ประเภท Voicing</th>
+                  <th>การเรียงโน้ต 3 แนวบน (S–A–T)</th>
+                  <th>ระยะ Soprano – Tenor</th>
+                  <th>ตัวอย่างแบบฝึกหัด Kostka</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Close Voicing (ชิด)</strong></td>
+                  <td>เรียงโน้ตในคอร์ดชิดกัน ไม่มีโน้ตในคอร์ดแทรกกลางระหว่าง S–A หรือ A–T</td>
+                  <td><strong>น้อยกว่า 1 Octave (&lt; 8ve)</strong></td>
+                  <td>A: ii (Close), c: V (Close), D: I (Close), B♭: V (Close)</td>
+                </tr>
+                <tr>
+                  <td><strong>Open Voicing (โปร่ง)</strong></td>
+                  <td>เว้นข้ามโน้ตในคอร์ดไป 1 ตัวระหว่าง S–A และ A–T</td>
+                  <td><strong>มากกว่าหรือเท่ากับ 1 Octave (≥ 8ve)</strong></td>
+                  <td>F: vi (Open), g: VI (Open), a: iv (Open), f♯: III (Open)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top:10px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; max-width:100%; background:#ecfdf5; border:1px solid #a7f3d0; border-radius:10px; padding:8px 12px;">
+            <label for="b4p-voicing-key" style="font-size:0.86rem; color:#065f46; font-weight:700;">🎹 เลือกคอร์ดตัวอย่าง (Open / Close):</label>
+            <select id="b4p-voicing-key" class="quiz-filter-select" onchange="window.basic4PartPage.renderVoicingSection()"></select>
+          </div>
+          <div id="b4p-voicing-summary" style="margin-top:8px;"></div>
+          <div id="b4p-voicing-staff" style="margin-top:8px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
+        </div>
+
+        <!-- 4. Motion & Parallel Rules -->
+        <div style="margin-bottom: 20px;">
+          <h4 style="font-size:0.95rem; color:#047857; margin-bottom:8px;">4. ทิศทางการเคลื่อนไหว (Motion 5 แบบ) และกฎ Parallel / Hidden Parallel</h4>
+          <div class="theory-table-wrap">
+            <table class="theory-table">
+              <thead>
+                <tr>
+                  <th>หัวข้อ / ประเภท</th>
+                  <th>ความหมาย &amp; ลักษณะการเคลื่อนที่</th>
+                  <th>สถานะ &amp; เงื่อนไขการใช้งาน</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Static / Oblique / Contrary</strong></td>
+                  <td>Static (ค้างทั้งคู่) • Oblique (ค้าง 1 เดิน 1) • <strong>Contrary (สวนทางกัน)</strong></td>
+                  <td><strong>ใช้ได้ดีมาก ✓</strong> โดยเฉพาะ Contrary Motion ช่วยกัน Parallel ได้ดีที่สุด</td>
+                </tr>
+                <tr>
+                  <td><strong>Parallel 3rd, 6th</strong></td>
+                  <td>2 แนวเคลื่อนที่ขนานกันด้วยขั้นคู่ 3 หรือ 6 (Major/Minor)</td>
+                  <td><strong>ใช้ได้ ✓</strong> แต่ <strong>ไม่ควรติดต่อกันเกิน 3 ครั้ง</strong> (เดี๋ยวแนวเสียงขาดความเป็นอิสระ)</td>
+                </tr>
+                <tr>
+                  <td><strong>Parallel 5th, 8th (Perfect)</strong></td>
+                  <td>2 แนวเคลื่อนที่ขนานกันด้วยขั้นคู่ P5→P5 หรือ P8→P8</td>
+                  <td><strong>ข้อห้ามเด็ดขาด ✗</strong> ไม่ว่าแนวเสียงคู่ใด</td>
+                </tr>
+                <tr>
+                  <td><strong>Contrary 5th, 8th</strong></td>
+                  <td>เริ่มจากคู่ 5 หรือ 8 แล้วสวนทางกันไปจบที่คู่ 5 หรือ 8 อีกครั้ง</td>
+                  <td><strong>ถือว่าขนาน (ห้าม) ✗</strong> (อนุญาตเฉพาะบางกรณีใน Cadence V–I เท่านั้น)</td>
+                </tr>
+                <tr>
+                  <td><strong>ข้อยกเว้นที่ทำได้</strong></td>
+                  <td><strong>Unequal 5th</strong> (P5 → d5), <strong>Common tone</strong> (ซ้ำคอร์ดเดิม), <strong>Inversion</strong>, <strong>Crossline</strong></td>
+                  <td><strong>ทำได้ ✓</strong> (Unequal 5th บางตำราอนุญาตเฉพาะ Inner parts)</td>
+                </tr>
+                <tr>
+                  <td><strong>Hidden (Direct) 5th, 8th</strong></td>
+                  <td>Outer parts (S &amp; B) เดินทิศทางเดียวกัน (Similar) แล้วจบที่คู่ 5 หรือ 8</td>
+                  <td><strong>ห้าม ✗</strong> เมื่อ Soprano กระโดด (Leap) • <strong>ทำได้ ✓</strong> เมื่อ Soprano เดินขั้นบันได (Step)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="b4p-motion-staff" style="margin-top:10px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
+        </div>
+
+        <!-- 5. Melody (Horizontal Line) -->
+        <div>
+          <h4 style="font-size:0.95rem; color:#047857; margin-bottom:8px;">5. หลักการเขียนทำนอง (Melody — Horizontal Line)</h4>
+          <div class="theory-table-wrap">
+            <table class="theory-table">
+              <thead>
+                <tr>
+                  <th>องค์ประกอบของ Melody</th>
+                  <th>หลักปฏิบัติมาตรฐาน</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1. Rhythm</strong></td>
+                  <td>เรียบง่าย ไม่ซับซ้อนเกินไป (Simple rhythm)</td>
+                </tr>
+                <tr>
+                  <td><strong>2. Harmonic</strong></td>
+                  <td>โน้ตทำนองทุกตัวต้องสอดคล้องกับคอร์ด (Chord tone) ที่เล่นรองรับอยู่เสมอ</td>
+                </tr>
+                <tr>
+                  <td><strong>3. Leaps (การกระโดด)</strong></td>
+                  <td><strong>หลีกเลี่ยงขั้นคู่ Augmented, ขั้นคู่ 7th และขั้นคู่ที่เกิน Octave (&gt; 8)</strong> • หากกระโดดเกินคู่ P4 ให้ตามด้วย <strong>Step ในทิศทางตรงกันข้าม</strong> (ไม่กระโดดซ้ำต่อเนื่อง)</td>
+                </tr>
+                <tr>
+                  <td><strong>4. Tendency Tones</strong></td>
+                  <td>เกลาทิศทางของโน้ตตัวนำ: <strong>ขั้นที่ 4 → 3</strong> (ลงครึ่งเสียง) และ <strong>ขั้นที่ 7 → 1</strong> (ขึ้นครึ่งเสียง)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top:10px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; max-width:100%; background:#ecfdf5; border:1px solid #a7f3d0; border-radius:10px; padding:8px 12px;">
+            <label for="b4p-melody-key" style="font-size:0.86rem; color:#065f46; font-weight:700;">🎹 เลือกคีย์ตัวอย่าง (Tendency Tones):</label>
+            <select id="b4p-melody-key" class="quiz-filter-select" onchange="window.basic4PartPage.renderMelodySection()"></select>
+          </div>
+          <div id="b4p-melody-summary" style="margin-top:8px;"></div>
+          <div id="b4p-melody-staff" style="margin-top:8px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
+        </div>
+      </div>
+
+      <!-- แบบฝึกหัด Basic Four-Part Writing -->
+      <div class="card">
+        <div class="studio-question-bar" style="border-radius:10px; margin-bottom:14px;">
+          <div>
+            <div class="question-banner-title">
+              <span>🎯 แบบฝึกหัด: Basic four part writing (12 คีย์)</span>
+              <span id="b4p-quiz-key-badge" class="question-clef-chip">คีย์ C Major</span>
+            </div>
+            <div class="question-banner-subtitle" id="b4p-quiz-prompt">ทดสอบความเข้าใจเรื่อง Spacing, Doubling, Open/Close Voicing, Parallel และ Melody</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <select id="b4p-key-filter" class="quiz-filter-select" onchange="window.basic4PartPage.nextQuiz()"></select>
+            <span id="b4p-stats-badge" style="background:#d1fae5; color:#065f46; padding:5px 12px; border-radius:999px; font-weight:700; font-size:0.84rem; border:1px solid #6ee7b7;">คะแนนสะสม: 0 / 0 ข้อ</span>
+            <button class="btn btn-success btn-sm" onclick="window.basic4PartPage.playCurrentQuiz()">🔊 ฟังเสียง</button>
+            <button class="btn btn-primary btn-sm" onclick="window.basic4PartPage.nextQuiz()">🎲 ข้อถัดไป</button>
+          </div>
+        </div>
+
+        <div id="b4p-quiz-staff" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; margin-bottom:14px; display:flex; justify-content:center; overflow-x:auto;"></div>
+        <div id="b4p-quiz-options" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap:10px; margin-bottom:14px;"></div>
+        <div id="b4p-quiz-feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
   <!-- NEW VIEW: DOMINANT 7TH (V7) & LEADING-TONE TRIAD (vii°)                -->
   <!-- ===================================================================== -->
   <section id="view-dom7" class="view-section">
@@ -1895,16 +2166,17 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/theory.js?v=20261124b"></script>
-  <script src="js/rules.js?v=20261124b"></script>
-  <script src="js/renderer.js?v=20261124b"></script>
-  <script src="js/audio.js?v=20261124b"></script>
-  <script src="js/presets.js?v=20261124b"></script>
-  <script src="js/chords-lab.js?v=20261124b"></script>
-  <script src="js/cadence-lab.js?v=20261124b"></script>
-  <script src="js/theory-pages.js?v=20261124b"></script>
-  <script src="js/theory-pages-advanced.js?v=20261124b"></script>
-  <script src="js/dom7-page.js?v=20261124b"></script>
-  <script src="js/app.js?v=20261124b"></script>
+  <script src="js/theory.js?v=20261124c"></script>
+  <script src="js/rules.js?v=20261124c"></script>
+  <script src="js/renderer.js?v=20261124c"></script>
+  <script src="js/audio.js?v=20261124c"></script>
+  <script src="js/presets.js?v=20261124c"></script>
+  <script src="js/chords-lab.js?v=20261124c"></script>
+  <script src="js/cadence-lab.js?v=20261124c"></script>
+  <script src="js/theory-pages.js?v=20261124c"></script>
+  <script src="js/theory-pages-advanced.js?v=20261124c"></script>
+  <script src="js/basic4part-page.js?v=20261124c"></script>
+  <script src="js/dom7-page.js?v=20261124c"></script>
+  <script src="js/app.js?v=20261124c"></script>
 </body>
 </html>

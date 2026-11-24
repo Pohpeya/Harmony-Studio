@@ -687,18 +687,21 @@ class HarmonyApp {
 
 // ระบบสลับหน้า (Multi-View Router: home | chords | inversions | modes | figuredbass | diatonicsub | cadence | partwriting)
 window.TOPIC_PAGES = [
-  { id: 'chords', label: '🎹 โน้ตในคอร์ด' },
-  { id: 'inversions', label: '🔄 การพลิกกลับ' },
-  { id: 'modes', label: '🎭 Major Mode' },
+  // Semester 1
+  { id: 'modes', label: '🎭 Major mode' },
+  { id: 'chords', label: '🎹 Chordtone โน้ตในคอร์ด' },
+  { id: 'inversions', label: '🔄 inversion การพลิกกลับของคอร์ด' },
+  { id: 'diatonicsub', label: '🔁 Diatonic substitution' },
+  { id: 'figuredbass', label: '🔢 Figured bass' },
+  { id: 'cadence', label: '🎯 Cadence' },
+  { id: 'basic4part', label: '📝 Basic four part writing' },
+  { id: 'partwriting', label: '🎼 Rootposition Part Writing' },
+  // Semester 2
   { id: 'minorscale', label: '🌙 Minor Scale' },
-  { id: 'melodicmodes', label: '🎼 Melodic Minor Modes' },
-  { id: 'figuredbass', label: '🔢 Figured Bass' },
-  { id: 'diatonicsub', label: '🔁 Diatonic Sub' },
-  { id: 'dom7', label: '👑 Dominant 7th (V⁷)' },
+  { id: 'melodicmodes', label: '🎼 Mode in Melodic minor' },
   { id: 'secdom', label: '⚡ Secondary Dominant' },
   { id: 'modulation', label: '🔀 Modulation' },
-  { id: 'cadence', label: '🎯 Cadence' },
-  { id: 'partwriting', label: '🎼 Root Position' }
+  { id: 'dom7', label: '👑 Dominant 7th (V⁷ & vii°)' }
 ];
 
 window.renderTopicBottomNav = function(viewName) {
@@ -773,6 +776,8 @@ window.switchAppView = function(viewName) {
     window.advancedTheoryPages.renderMelodicModesPage();
   } else if (viewName === 'dom7' && window.dom7Page) {
     window.dom7Page.renderLesson();
+  } else if (viewName === 'basic4part' && window.basic4PartPage) {
+    window.basic4PartPage.renderAll();
   } else if (viewName === 'secdom' && window.advancedTheoryPages) {
     window.advancedTheoryPages.renderSecDomPage();
   } else if (viewName === 'modulation' && window.advancedTheoryPages) {
@@ -848,6 +853,11 @@ window.addEventListener('DOMContentLoaded', () => {
   if (typeof AdvancedTheoryPages !== 'undefined') {
     window.advancedTheoryPages = window.AdvancedTheoryPages;
     window.advancedTheoryPages.init();
+  }
+
+  if (typeof Basic4PartPage !== 'undefined') {
+    window.basic4PartPage = window.Basic4PartPage;
+    window.basic4PartPage.init();
   }
 
   if (typeof Dom7Page !== 'undefined') {
