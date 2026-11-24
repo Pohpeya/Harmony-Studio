@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=20261124d">
+  <link rel="stylesheet" href="css/style.css?v=20261124e">
 </head>
 <body class="is-home">
 
@@ -1393,6 +1393,13 @@
           <p style="font-size: 0.84rem; color: #475569; margin-top: 6px; line-height: 1.5;">
             <strong>บทเพลงที่พบ:</strong> Vocal quartet, Oratorio (Handel: <em>Messiah</em>), Vocal music (Bach &amp; Handel), Baroque ensemble (2 Violins, Cello &amp; Bass), String quartet (Haydn, Mozart, Vivaldi) — บันทึกได้ทั้งแบบแยก 4 บรรทัด (Open score) และแบบรวม 2 บรรทัด (Grand Staff)
           </p>
+          <div style="margin-top:10px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
+              <strong style="font-size:0.86rem; color:#065f46;">🎼 ตัวอย่าง Spacing ที่ถูกต้อง (✓) และผิด (✗) บน Grand Staff 4 แนว (คอร์ด C)</strong>
+              <button type="button" class="btn btn-success btn-sm" onclick="window.basic4PartPage.playSpacingExamples()">🔊 ฟังตัวอย่าง Spacing</button>
+            </div>
+            <div id="b4p-spacing-staff" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; overflow-x:auto;"></div>
+          </div>
         </div>
 
         <!-- 2. Note Doubling -->
@@ -1517,7 +1524,7 @@
               </tbody>
             </table>
           </div>
-          <div id="b4p-motion-staff" style="margin-top:10px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
+          <div id="b4p-motion-staff" style="margin-top:10px; display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap:10px;"></div>
         </div>
 
         <!-- 5. Melody (Horizontal Line) -->
@@ -1556,7 +1563,7 @@
             <select id="b4p-melody-key" class="quiz-filter-select" onchange="window.basic4PartPage.renderMelodySection()"></select>
           </div>
           <div id="b4p-melody-summary" style="margin-top:8px;"></div>
-          <div id="b4p-melody-staff" style="margin-top:8px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
+          <div id="b4p-melody-staff" style="margin-top:8px; display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap:10px;"></div>
         </div>
       </div>
 
@@ -2166,17 +2173,17 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/theory.js?v=20261124d"></script>
-  <script src="js/rules.js?v=20261124d"></script>
-  <script src="js/renderer.js?v=20261124d"></script>
-  <script src="js/audio.js?v=20261124d"></script>
-  <script src="js/presets.js?v=20261124d"></script>
-  <script src="js/chords-lab.js?v=20261124d"></script>
-  <script src="js/cadence-lab.js?v=20261124d"></script>
-  <script src="js/theory-pages.js?v=20261124d"></script>
-  <script src="js/theory-pages-advanced.js?v=20261124d"></script>
-  <script src="js/basic4part-page.js?v=20261124d"></script>
-  <script src="js/dom7-page.js?v=20261124d"></script>
-  <script src="js/app.js?v=20261124d"></script>
+  <script src="js/theory.js?v=20261124e"></script>
+  <script src="js/rules.js?v=20261124e"></script>
+  <script src="js/renderer.js?v=20261124e"></script>
+  <script src="js/audio.js?v=20261124e"></script>
+  <script src="js/presets.js?v=20261124e"></script>
+  <script src="js/chords-lab.js?v=20261124e"></script>
+  <script src="js/cadence-lab.js?v=20261124e"></script>
+  <script src="js/theory-pages.js?v=20261124e"></script>
+  <script src="js/theory-pages-advanced.js?v=20261124e"></script>
+  <script src="js/basic4part-page.js?v=20261124e"></script>
+  <script src="js/dom7-page.js?v=20261124e"></script>
+  <script src="js/app.js?v=20261124e"></script>
 </body>
 </html>

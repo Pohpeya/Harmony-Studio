@@ -118,10 +118,66 @@ const Basic4PartPage = {
   },
 
   renderAll() {
+    this.renderSpacingSection();
     this.renderDoublingSection();
     this.renderVoicingSection();
     this.renderMotionSection();
     this.renderMelodySection();
+  },
+
+  renderSpacingSection() {
+    const container = document.getElementById('b4p-spacing-staff');
+    if (!container || typeof StaffRenderer === 'undefined') return;
+
+    this.spacingExamples = [
+      {
+        romanNumeral: '✓ ถูก (Close)',
+        bass:    { step: 'C', alter: 0, octave: 3 },
+        tenor:   { step: 'G', alter: 0, octave: 3 },
+        alto:    { step: 'C', alter: 0, octave: 4 },
+        soprano: { step: 'E', alter: 0, octave: 4 }
+      },
+      {
+        romanNumeral: '✓ ถูก (T–B>8)',
+        bass:    { step: 'C', alter: 0, octave: 2 },
+        tenor:   { step: 'G', alter: 0, octave: 3 },
+        alto:    { step: 'C', alter: 0, octave: 4 },
+        soprano: { step: 'E', alter: 0, octave: 4 }
+      },
+      {
+        romanNumeral: '✗ ผิด (S–A>8)',
+        bass:    { step: 'C', alter: 0, octave: 3 },
+        tenor:   { step: 'G', alter: 0, octave: 3 },
+        alto:    { step: 'C', alter: 0, octave: 4 },
+        soprano: { step: 'E', alter: 0, octave: 5 }
+      },
+      {
+        romanNumeral: '✗ ผิด (A–T>8)',
+        bass:    { step: 'C', alter: 0, octave: 3 },
+        tenor:   { step: 'C', alter: 0, octave: 3 },
+        alto:    { step: 'E', alter: 0, octave: 4 },
+        soprano: { step: 'G', alter: 0, octave: 4 }
+      }
+    ];
+
+    const renderer = new StaffRenderer('b4p-spacing-staff', {
+      colorCoded: true,
+      showErrors: true,
+      showSpacingBadges: true,
+      showParallelLines: false,
+      showCommonToneTies: false,
+      chordWidth: 112
+    });
+    const analysis = (typeof HarmonyRules !== 'undefined' && typeof HarmonyRules.analyze === 'function')
+      ? HarmonyRules.analyze(this.spacingExamples, 'C_maj')
+      : null;
+    renderer.render(this.spacingExamples, 'C_maj', analysis);
+  },
+
+  playSpacingExamples() {
+    if (!this.spacingExamples) return;
+    const noteLists = this.spacingExamples.map(ch => [ch.bass, ch.tenor, ch.alto, ch.soprano]);
+    TheoryPages.playChordList(noteLists, 800);
   },
 
   renderDoublingSection() {
@@ -218,44 +274,70 @@ const Basic4PartPage = {
   },
 
   renderMotionSection() {
-    // 5 Motion examples in C Major
-    this.motionStaffCache = [
+    const container = document.getElementById('b4p-motion-staff');
+    if (!container) return;
+
+    // All 5 Motion types with Chord 1 -> Chord 2 clearly shown in separate playable cards
+    const defs = [
       {
-        label: 'Static', sublabel: 'ค้างทั้งคู่',
-        notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }],
-        pair: [
-          [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }],
-          [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }]
+        id: 'static', title: '1. Static (ค้างทั้งคู่)', badgeColor: '#475569',
+        chords: [
+          { label: 'คอร์ด 1', sublabel: 'C–E', notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }] },
+          { label: '→ คอร์ด 2', sublabel: 'C–E (ค้าง)', notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }] }
         ]
       },
       {
-        label: 'Oblique', sublabel: 'ค้าง 1 เดิน 1',
-        notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'G', alter: 0, octave: 4 }],
-        pair: [
-          [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }],
-          [{ step: 'C', alter: 0, octave: 4 }, { step: 'G', alter: 0, octave: 4 }]
+        id: 'oblique', title: '2. Oblique (ค้าง 1 เดิน 1)', badgeColor: '#0284c7',
+        chords: [
+          { label: 'คอร์ด 1', sublabel: 'C–E', notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }] },
+          { label: '→ คอร์ด 2', sublabel: 'C–G (บนขึ้น)', notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'G', alter: 0, octave: 4 }] }
         ]
       },
       {
-        label: 'Contrary', sublabel: 'สวนทางกัน ✓',
-        notes: [{ step: 'B', alter: 0, octave: 3 }, { step: 'G', alter: 0, octave: 4 }],
-        pair: [
-          [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }],
-          [{ step: 'B', alter: 0, octave: 3 }, { step: 'G', alter: 0, octave: 4 }]
+        id: 'contrary', title: '3. Contrary (สวนทางกัน ✓)', badgeColor: '#16a34a',
+        chords: [
+          { label: 'คอร์ด 1', sublabel: 'C–E', notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }] },
+          { label: '→ คอร์ด 2', sublabel: 'B–G (แยกออก)', notes: [{ step: 'B', alter: 0, octave: 3 }, { step: 'G', alter: 0, octave: 4 }] }
         ]
       },
       {
-        label: 'Parallel 3rd', sublabel: 'ขนาน ≤ 3 ครั้ง',
-        notes: [{ step: 'D', alter: 0, octave: 4 }, { step: 'F', alter: 0, octave: 4 }],
-        pair: [
-          [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }],
-          [{ step: 'D', alter: 0, octave: 4 }, { step: 'F', alter: 0, octave: 4 }]
+        id: 'similar', title: '4. Similar (ทางเดียวกัน ขั้นคู่เปลี่ยน)', badgeColor: '#d97706',
+        chords: [
+          { label: 'คอร์ด 1', sublabel: 'C–E (คู่ 3)', notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }] },
+          { label: '→ คอร์ด 2', sublabel: 'D–A (คู่ 5)', notes: [{ step: 'D', alter: 0, octave: 4 }, { step: 'A', alter: 0, octave: 4 }] }
+        ]
+      },
+      {
+        id: 'parallel', title: '5. Parallel (ขนานกัน ขั้นคู่เดิม)', badgeColor: '#7c3aed',
+        chords: [
+          { label: 'คอร์ด 1', sublabel: 'C–E (คู่ 3)', notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }] },
+          { label: '→ คอร์ด 2', sublabel: 'D–F (คู่ 3)', notes: [{ step: 'D', alter: 0, octave: 4 }, { step: 'F', alter: 0, octave: 4 }] }
         ]
       }
     ];
 
+    this.motionStaffCache = defs.map(m => ({ pair: m.chords.map(c => c.notes) }));
+
+    container.innerHTML = defs.map((m, idx) => `
+      <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:6px; flex-wrap:wrap;">
+          <strong style="font-size:0.84rem; color:${m.badgeColor};">${m.title}</strong>
+          <button type="button" class="btn btn-outline btn-xs" style="padding:3px 8px; font-size:0.76rem;" onclick="window.basic4PartPage.playMotion(${idx})">🔊 ฟัง</button>
+        </div>
+        <div id="b4p-motion-card-${idx}" style="display:flex; justify-content:center; overflow-x:auto;"></div>
+      </div>
+    `).join('');
+
     if (typeof ChordLabRenderer !== 'undefined') {
-      ChordLabRenderer.renderLessonExamples('b4p-motion-staff', this.motionStaffCache, 'window.basic4PartPage.playMotion', 'treble');
+      defs.forEach((m, idx) => {
+        ChordLabRenderer.renderLessonExamples(
+          `b4p-motion-card-${idx}`,
+          m.chords,
+          `window.basic4PartPage.playMotionCard_${idx}`,
+          'treble'
+        );
+        this[`playMotionCard_${idx}`] = () => this.playMotion(idx);
+      });
     }
   },
 
@@ -292,13 +374,52 @@ const Basic4PartPage = {
       `;
     }
 
-    this.melodyStaffCache = [
-      { label: `4 → 3 (${d.n4}→${d.n3})`, sublabel: 'ลงครึ่งเสียง', notes: [d.n4Note], pair: [[d.n4Note], [d.n3Note]] },
-      { label: `7 → 1 (${d.n7}→${d.n1})`, sublabel: 'ขึ้นครึ่งเสียง', notes: [d.n7Note], pair: [[d.n7Note], [d.n8Note]] }
+    const container = document.getElementById('b4p-melody-staff');
+    if (!container) return;
+
+    const pairs = [
+      {
+        title: `ห้องที่ 1: ขั้นที่ 4 → 3 (${d.n4} → ${d.n3})`,
+        color: '#0284c7',
+        items: [
+          { label: `${d.n4} (ขั้น 4)`, sublabel: 'โน้ตนำ', notes: [d.n4Note] },
+          { label: `→ ${d.n3} (ขั้น 3)`, sublabel: 'ลงครึ่งเสียง', notes: [d.n3Note] }
+        ],
+        pair: [[d.n4Note], [d.n3Note]]
+      },
+      {
+        title: `ห้องที่ 2: ขั้นที่ 7 → 1 (${d.n7} → ${d.n1})`,
+        color: '#059669',
+        items: [
+          { label: `${d.n7} (ขั้น 7)`, sublabel: 'Leading Tone', notes: [d.n7Note] },
+          { label: `→ ${d.n1} (ขั้น 1)`, sublabel: 'ขึ้นครึ่งเสียง', notes: [d.n8Note] }
+        ],
+        pair: [[d.n7Note], [d.n8Note]]
+      }
     ];
 
+    this.melodyStaffCache = pairs.map(p => ({ pair: p.pair }));
+
+    container.innerHTML = pairs.map((p, idx) => `
+      <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:6px; flex-wrap:wrap;">
+          <strong style="font-size:0.85rem; color:${p.color};">${p.title}</strong>
+          <button type="button" class="btn btn-outline btn-xs" style="padding:3px 8px; font-size:0.76rem;" onclick="window.basic4PartPage.playMelody(${idx})">🔊 ฟัง</button>
+        </div>
+        <div id="b4p-melody-card-${idx}" style="display:flex; justify-content:center; overflow-x:auto;"></div>
+      </div>
+    `).join('');
+
     if (typeof ChordLabRenderer !== 'undefined') {
-      ChordLabRenderer.renderLessonExamples('b4p-melody-staff', this.melodyStaffCache, 'window.basic4PartPage.playMelody', 'treble');
+      pairs.forEach((p, idx) => {
+        ChordLabRenderer.renderLessonExamples(
+          `b4p-melody-card-${idx}`,
+          p.items,
+          `window.basic4PartPage.playMelodyCard_${idx}`,
+          'treble'
+        );
+        this[`playMelodyCard_${idx}`] = () => this.playMelody(idx);
+      });
     }
   },
 
