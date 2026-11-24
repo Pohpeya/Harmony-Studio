@@ -694,14 +694,14 @@ window.TOPIC_PAGES = [
   { id: 'diatonicsub', label: '🔁 Diatonic substitution' },
   { id: 'figuredbass', label: '🔢 Figured bass' },
   { id: 'cadence', label: '🎯 Cadence' },
+  { id: 'dom7', label: '👑 Dominant 7th (V⁷ & vii°)' },
   { id: 'basic4part', label: '📝 Basic four part writing' },
   { id: 'partwriting', label: '🎼 Rootposition Part Writing' },
   // Semester 2
   { id: 'minorscale', label: '🌙 Minor Scale' },
   { id: 'melodicmodes', label: '🎼 Mode in Melodic minor' },
   { id: 'secdom', label: '⚡ Secondary Dominant' },
-  { id: 'modulation', label: '🔀 Modulation' },
-  { id: 'dom7', label: '👑 Dominant 7th (V⁷ & vii°)' }
+  { id: 'modulation', label: '🔀 Modulation' }
 ];
 
 window.renderTopicBottomNav = function(viewName) {

@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=20261124c">
+  <link rel="stylesheet" href="css/style.css?v=20261124d">
 </head>
 <body class="is-home">
 
@@ -44,13 +44,13 @@
         <button class="nav-pill" data-view="diatonicsub" onclick="window.switchAppView('diatonicsub')">🔁 Diatonic substitution</button>
         <button class="nav-pill" data-view="figuredbass" onclick="window.switchAppView('figuredbass')">🔢 Figured bass</button>
         <button class="nav-pill" data-view="cadence" onclick="window.switchAppView('cadence')">🎯 Cadence</button>
+        <button class="nav-pill" data-view="dom7" onclick="window.switchAppView('dom7')">👑 Dominant 7th (V⁷ &amp; vii°)</button>
         <button class="nav-pill" data-view="basic4part" onclick="window.switchAppView('basic4part')">📝 Basic four part writing</button>
         <button class="nav-pill" data-view="partwriting" onclick="window.switchAppView('partwriting')">🎼 Rootposition Part Writing</button>
         <button class="nav-pill" data-view="minorscale" onclick="window.switchAppView('minorscale')">🌙 Minor Scale</button>
         <button class="nav-pill" data-view="melodicmodes" onclick="window.switchAppView('melodicmodes')">🎼 Mode in Melodic minor</button>
         <button class="nav-pill" data-view="secdom" onclick="window.switchAppView('secdom')">⚡ Secondary Dominant</button>
         <button class="nav-pill" data-view="modulation" onclick="window.switchAppView('modulation')">🔀 Modulation</button>
-        <button class="nav-pill" data-view="dom7" onclick="window.switchAppView('dom7')">👑 Dominant 7th (V⁷ &amp; vii°)</button>
       </div>
     </nav>
   </header>
@@ -109,16 +109,23 @@
             <span class="menu-card-cta" style="background: #d97706;">เลือก →</span>
           </button>
 
+          <button type="button" class="menu-card" onclick="window.switchAppView('dom7')">
+            <div class="menu-card-main">
+              <h3>7. Dominant 7th (V⁷) &amp; vii°</h3>
+            </div>
+            <span class="menu-card-cta" style="background: #b45309;">เลือก →</span>
+          </button>
+
           <button type="button" class="menu-card" onclick="window.switchAppView('basic4part')">
             <div class="menu-card-main">
-              <h3>7. Basic four part writing</h3>
+              <h3>8. Basic four part writing</h3>
             </div>
             <span class="menu-card-cta" style="background: #059669;">เลือก →</span>
           </button>
 
           <button type="button" class="menu-card" onclick="window.switchAppView('partwriting')">
             <div class="menu-card-main">
-              <h3>8. Rootposition Part Writing</h3>
+              <h3>9. Rootposition Part Writing</h3>
             </div>
             <span class="menu-card-cta" style="background: #16a34a;">เลือก →</span>
           </button>
@@ -154,13 +161,6 @@
               <h3>4. Modulation</h3>
             </div>
             <span class="menu-card-cta" style="background: #0d9488;">เลือก →</span>
-          </button>
-
-          <button type="button" class="menu-card" onclick="window.switchAppView('dom7')">
-            <div class="menu-card-main">
-              <h3>5. Dominant 7th (V⁷) &amp; vii°</h3>
-            </div>
-            <span class="menu-card-cta" style="background: #b45309;">เลือก →</span>
           </button>
         </div>
       </div>
@@ -2166,17 +2166,17 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/theory.js?v=20261124c"></script>
-  <script src="js/rules.js?v=20261124c"></script>
-  <script src="js/renderer.js?v=20261124c"></script>
-  <script src="js/audio.js?v=20261124c"></script>
-  <script src="js/presets.js?v=20261124c"></script>
-  <script src="js/chords-lab.js?v=20261124c"></script>
-  <script src="js/cadence-lab.js?v=20261124c"></script>
-  <script src="js/theory-pages.js?v=20261124c"></script>
-  <script src="js/theory-pages-advanced.js?v=20261124c"></script>
-  <script src="js/basic4part-page.js?v=20261124c"></script>
-  <script src="js/dom7-page.js?v=20261124c"></script>
-  <script src="js/app.js?v=20261124c"></script>
+  <script src="js/theory.js?v=20261124d"></script>
+  <script src="js/rules.js?v=20261124d"></script>
+  <script src="js/renderer.js?v=20261124d"></script>
+  <script src="js/audio.js?v=20261124d"></script>
+  <script src="js/presets.js?v=20261124d"></script>
+  <script src="js/chords-lab.js?v=20261124d"></script>
+  <script src="js/cadence-lab.js?v=20261124d"></script>
+  <script src="js/theory-pages.js?v=20261124d"></script>
+  <script src="js/theory-pages-advanced.js?v=20261124d"></script>
+  <script src="js/basic4part-page.js?v=20261124d"></script>
+  <script src="js/dom7-page.js?v=20261124d"></script>
+  <script src="js/app.js?v=20261124d"></script>
 </body>
 </html>
