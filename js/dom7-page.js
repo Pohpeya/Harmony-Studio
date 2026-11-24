@@ -6,10 +6,17 @@
  * - Complete (c) vs Incomplete (i) V7 -> I / i (Kostka) & Deceptive V7 -> vi
  * - Inversions of V7: V6/5, V4/3, V4/2
  * - The vii° (upper 3 notes of V7, tendency tones, vii°6 & doubling the 3rd)
+ * - Independent chord/key selector under each section (no key-sig #/b clutter)
  * - Interactive 12-key Quiz Bank (120 questions)
  */
 
 const Dom7Page = {
+  // Ordered with natural-letter V7 chords first (G7, D7, A7, E7, B7, C7, F7...)
+  CHORD_KEY_ORDER: [
+    'C_maj', 'G_maj', 'D_maj', 'A_maj', 'E_maj', 'F_maj', 'Bb_maj',
+    'Eb_maj', 'Ab_maj', 'Db_maj', 'Gb_maj', 'B_maj'
+  ],
+
   quizBank: [],
   currentQuiz: null,
   answered: false,
@@ -19,21 +26,38 @@ const Dom7Page = {
   lessonViiPairs: [],
 
   init() {
-    const lessonSel = document.getElementById('v7-lesson-key');
+    const buildOptions = (includeVii = false) => this.CHORD_KEY_ORDER.map(k => {
+      const d = this.getKeyData(k);
+      const label = includeVii
+        ? `${d.v7Sym} / ${d.viiSym} (คีย์ ${d.iSym})`
+        : `${d.v7Sym} → ${d.iSym} (คีย์ ${d.iSym})`;
+      return `<option value="${k}">${label}</option>`;
+    }).join('');
+
+    const sec1Sel = document.getElementById('v7-key-sec1');
+    const sec2Sel = document.getElementById('v7-key-sec2');
+    const sec3Sel = document.getElementById('v7-key-sec3');
     const filterSel = document.getElementById('v7-key-filter');
 
-    if (lessonSel) {
-      lessonSel.innerHTML = Theory.TWELVE_MAJOR_KEYS.map(k =>
-        `<option value="${k}">${Theory.formatKeySignatureInfo(k)}</option>`
-      ).join('');
-      lessonSel.value = 'C_maj';
+    if (sec1Sel) {
+      sec1Sel.innerHTML = buildOptions(false);
+      sec1Sel.value = 'C_maj'; // G7 -> C
+    }
+    if (sec2Sel) {
+      sec2Sel.innerHTML = buildOptions(false);
+      sec2Sel.value = 'G_maj'; // D7 -> G
+    }
+    if (sec3Sel) {
+      sec3Sel.innerHTML = buildOptions(true);
+      sec3Sel.value = 'D_maj'; // A7 / C#° -> D
     }
 
     if (filterSel) {
-      filterSel.innerHTML = `<option value="ALL">🎲 สุ่มทั้ง 12 คีย์ (120 ข้อ)</option>` +
-        Theory.TWELVE_MAJOR_KEYS.map(k =>
-          `<option value="${k}">เจาะจงคีย์ ${Theory.KEYS[k].name}</option>`
-        ).join('');
+      filterSel.innerHTML = `<option value="ALL">🎲 สุ่มทั้ง 12 คอร์ด (120 ข้อ)</option>` +
+        this.CHORD_KEY_ORDER.map(k => {
+          const d = this.getKeyData(k);
+          return `<option value="${k}">เจาะจง ${d.v7Sym} (คีย์ ${d.iSym})</option>`;
+        }).join('');
       filterSel.value = 'ALL';
     }
 
@@ -94,7 +118,6 @@ const Dom7Page = {
     return {
       keyId,
       keyName: keyInfo.name,
-      keySig: Theory.formatKeySignatureInfo(keyId),
       n1: pc(d1), n2: pc(d2), n3: pc(d3), n4: pc(d4), n5: pc(d5), n6: pc(d6), n7: pc(d7),
       iSym, iiSym, ivSym, vSym, v7Sym, viSym, viiSym,
       v7Complete, v7Incomplete, v65, v43, v42,
@@ -103,41 +126,37 @@ const Dom7Page = {
   },
 
   renderLesson() {
-    const keyId = document.getElementById('v7-lesson-key')?.value || 'C_maj';
+    this.renderSection1();
+    this.renderSection2();
+    this.renderSection3();
+  },
+
+  renderSection1() {
+    const keyId = document.getElementById('v7-key-sec1')?.value || 'C_maj';
     const d = this.getKeyData(keyId);
 
-    const summaryEl = document.getElementById('v7-key-summary');
+    const summaryEl = document.getElementById('v7-sec1-summary');
     if (summaryEl) {
       summaryEl.innerHTML = `
         <div class="theory-table-wrap">
           <table class="theory-table">
             <thead>
               <tr>
-                <th>โครงสร้างในคีย์ ${d.keyName}</th>
-                <th>สัญลักษณ์ / โน้ตในคอร์ด</th>
-                <th>โน้ตบังคับ (Tendency Tones) &amp; การคลี่คลาย</th>
+                <th>ตัวอย่างคอร์ด (${d.v7Sym} → ${d.iSym})</th>
+                <th>โน้ตในคอร์ด</th>
+                <th>การคลี่คลายเสียง (Voice Leading)</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>V⁷ (Complete)</strong></td>
-                <td><strong>${d.v7Sym}</strong> (${d.n5} – ${d.n7} – ${d.n2} – ${d.n4})</td>
-                <td>3rd (<strong>${d.n7}</strong> → <strong>${d.n1}</strong>) ขึ้นครึ่งเสียง | 7th (<strong>${d.n4}</strong> → <strong>${d.n3}</strong>) ลงครึ่งเสียง</td>
+                <td><strong>${d.v7Sym} (Complete)</strong> → <strong>${d.iSym} (Incomplete)</strong></td>
+                <td>${d.n5} – ${d.n7} – ${d.n2} – ${d.n4}</td>
+                <td>3rd (<strong>${d.n7} → ${d.n1}</strong>) ขึ้น | 7th (<strong>${d.n4} → ${d.n3}</strong>) ลง | Inner Part ยอมให้ ${d.n7} ลงไป ${d.n5} ได้</td>
               </tr>
               <tr>
-                <td><strong>V⁷ (Incomplete / No 5)</strong></td>
-                <td><strong>${d.v7Sym} (No 5)</strong> (${d.n5} – ${d.n7} – ${d.n4} – ${d.n5})</td>
-                <td>ตัดขั้นที่ 5 (<strong>${d.n2}</strong>) และ <strong>Double Root (${d.n5})</strong> → คลี่คลายไป <strong>Complete ${d.iSym}</strong> (${d.n1}–${d.n3}–${d.n5})</td>
-              </tr>
-              <tr>
-                <td><strong>Inversions ของ V⁷</strong></td>
-                <td><strong>V⁶₅</strong> (เบส ${d.n7}) | <strong>V⁴₃</strong> (เบส ${d.n2}) | <strong>V⁴₂</strong> (เบส ${d.n4})</td>
-                <td>V⁶₅ → ${d.iSym} | V⁴₃ ผ่านเบส ${d.n1}–${d.n2}–${d.n3} → ${d.iSym}⁶ | <strong>V⁴₂ → ${d.iSym}⁶ เสมอ</strong> (${d.n4}→${d.n3})</td>
-              </tr>
-              <tr>
-                <td><strong>Leading-Tone Triad (vii°⁶)</strong></td>
-                <td><strong>${d.viiSym}/${d.n2}</strong> (${d.n7} – ${d.n2} – ${d.n4})</td>
-                <td>เป็นโน้ต 3 ตัวบนของ ${d.v7Sym} | นิยมพลิกกลับขั้นที่ 1 (<strong>vii°⁶</strong>) และ <strong>Double 3rd (${d.n2})</strong> ห้าม Double ${d.n7}</td>
+                <td><strong>${d.v7Sym} (No 5)</strong> → <strong>${d.iSym} (Complete)</strong></td>
+                <td>${d.n5} – ${d.n7} – ${d.n4} – ${d.n5}</td>
+                <td>ตัด 5th (<strong>${d.n2}</strong>) และเบิ้ล Root (<strong>${d.n5}</strong>) → ได้คอร์ด <strong>${d.iSym}</strong> ครบ 3 เสียง (${d.n1}–${d.n3}–${d.n5})</td>
               </tr>
             </tbody>
           </table>
@@ -145,29 +164,107 @@ const Dom7Page = {
       `;
     }
 
-    // Playable staves via ChordLabRenderer
     this.lessonVlPairs = [
-      { label: `V⁷ (${d.v7Sym})`, sublabel: 'Complete V⁷', notes: d.v7Complete, pair: [d.v7Complete, d.iIncomplete] },
-      { label: `→ I (${d.iSym})`, sublabel: 'Incomplete I (No 5)', notes: d.iIncomplete, pair: [d.v7Complete, d.iIncomplete] },
-      { label: `V⁷ No 5`, sublabel: 'Double Root', notes: d.v7Incomplete, pair: [d.v7Incomplete, d.iComplete] },
-      { label: `→ I (${d.iSym})`, sublabel: 'Complete I', notes: d.iComplete, pair: [d.v7Incomplete, d.iComplete] }
-    ];
-
-    this.lessonInvPairs = [
-      { label: `V⁶₅ (${d.v7Sym}/${d.n7})`, sublabel: 'เบส=3rd → I', notes: d.v65, pair: [d.v65, d.iComplete] },
-      { label: `V⁴₃ (${d.v7Sym}/${d.n2})`, sublabel: 'Passing → I⁶', notes: d.v43, pair: [d.iComplete, d.v43, d.i6] },
-      { label: `V⁴₂ (${d.v7Sym}/${d.n4})`, sublabel: 'เบส=7th → I⁶ เสมอ', notes: d.v42, pair: [d.v42, d.i6] }
-    ];
-
-    this.lessonViiPairs = [
-      { label: `V⁷ (${d.v7Sym})`, sublabel: `${d.n5}-${d.n7}-${d.n2}-${d.n4}`, notes: d.v7Complete, pair: [d.v7Complete, d.iComplete] },
-      { label: `vii°⁶ (${d.viiSym}/${d.n2})`, sublabel: `Double 3rd (${d.n2})`, notes: d.vii6, pair: [d.vii6, d.iComplete] },
-      { label: `→ I (${d.iSym})`, sublabel: `7→1 (${d.n7}→${d.n1})`, notes: d.iComplete, pair: [d.vii6, d.iComplete] }
+      { label: `${d.v7Sym}`, sublabel: 'Complete V⁷', notes: d.v7Complete, pair: [d.v7Complete, d.iIncomplete] },
+      { label: `→ ${d.iSym}`, sublabel: 'Incomplete I (No 5)', notes: d.iIncomplete, pair: [d.v7Complete, d.iIncomplete] },
+      { label: `${d.v7Sym} (No 5)`, sublabel: 'Double Root', notes: d.v7Incomplete, pair: [d.v7Incomplete, d.iComplete] },
+      { label: `→ ${d.iSym}`, sublabel: 'Complete I', notes: d.iComplete, pair: [d.v7Incomplete, d.iComplete] }
     ];
 
     if (typeof ChordLabRenderer !== 'undefined') {
       ChordLabRenderer.renderLessonExamples('v7-vl-staff', this.lessonVlPairs, 'window.dom7Page.playLessonVl', 'treble');
+    }
+  },
+
+  renderSection2() {
+    const keyId = document.getElementById('v7-key-sec2')?.value || 'G_maj';
+    const d = this.getKeyData(keyId);
+
+    const summaryEl = document.getElementById('v7-sec2-summary');
+    if (summaryEl) {
+      summaryEl.innerHTML = `
+        <div class="theory-table-wrap">
+          <table class="theory-table">
+            <thead>
+              <tr>
+                <th>รูปพลิกกลับของ ${d.v7Sym}</th>
+                <th>ชื่อคอร์ด (Slash Chord)</th>
+                <th>การเดินคอร์ดจริงในคีย์ ${d.iSym}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>V⁶₅</strong> (เบส = 3rd / ${d.n7})</td>
+                <td><strong>${d.v7Sym}/${d.n7}</strong></td>
+                <td>${d.iSym} – <strong>${d.v7Sym}/${d.n7}</strong> – ${d.iSym} (เบส ${d.n7} → ${d.n1})</td>
+              </tr>
+              <tr>
+                <td><strong>V⁴₃</strong> (เบส = 5th / ${d.n2})</td>
+                <td><strong>${d.v7Sym}/${d.n2}</strong></td>
+                <td>${d.iSym} – <strong>${d.v7Sym}/${d.n2}</strong> – ${d.iSym}/${d.n3} (เบสเดินเรียบ ${d.n1}–${d.n2}–${d.n3})</td>
+              </tr>
+              <tr>
+                <td><strong>V⁴₂</strong> (เบส = 7th / ${d.n4})</td>
+                <td><strong>${d.v7Sym}/${d.n4}</strong></td>
+                <td><strong>${d.v7Sym}/${d.n4}</strong> → <strong>${d.iSym}/${d.n3} เสมอ</strong> (เบส ${d.n4} → ${d.n3})</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    this.lessonInvPairs = [
+      { label: `${d.v7Sym}/${d.n7}`, sublabel: 'V⁶₅ → ' + d.iSym, notes: d.v65, pair: [d.v65, d.iComplete] },
+      { label: `${d.v7Sym}/${d.n2}`, sublabel: 'V⁴₃ → ' + d.iSym + '/' + d.n3, notes: d.v43, pair: [d.iComplete, d.v43, d.i6] },
+      { label: `${d.v7Sym}/${d.n4}`, sublabel: 'V⁴₂ → ' + d.iSym + '/' + d.n3, notes: d.v42, pair: [d.v42, d.i6] }
+    ];
+
+    if (typeof ChordLabRenderer !== 'undefined') {
       ChordLabRenderer.renderLessonExamples('v7-inv-staff', this.lessonInvPairs, 'window.dom7Page.playLessonInv', 'treble');
+    }
+  },
+
+  renderSection3() {
+    const keyId = document.getElementById('v7-key-sec3')?.value || 'D_maj';
+    const d = this.getKeyData(keyId);
+
+    const summaryEl = document.getElementById('v7-sec3-summary');
+    if (summaryEl) {
+      summaryEl.innerHTML = `
+        <div class="theory-table-wrap">
+          <table class="theory-table">
+            <thead>
+              <tr>
+                <th>เปรียบเทียบ ${d.v7Sym} กับ ${d.viiSym}</th>
+                <th>โน้ตในคอร์ด</th>
+                <th>หลักการเขียนและเบิ้ลโน้ต</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>${d.v7Sym} (V⁷)</strong></td>
+                <td>${d.n5} – <strong>${d.n7} – ${d.n2} – ${d.n4}</strong></td>
+                <td>มีโน้ต 3 ตัวบนตรงกับคอร์ด <strong>${d.viiSym}</strong> ทุกตัว</td>
+              </tr>
+              <tr>
+                <td><strong>${d.viiSym}/${d.n2} (vii°⁶)</strong></td>
+                <td><strong>${d.n7} – ${d.n2} – ${d.n4}</strong> (เบส ${d.n2})</td>
+                <td><strong>Double 3rd (${d.n2})</strong> ห้ามเบิ้ล ${d.n7} | คลี่คลาย ${d.n7}→${d.n1} และ ${d.n4}→${d.n3} ไปหา <strong>${d.iSym}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    this.lessonViiPairs = [
+      { label: `${d.v7Sym}`, sublabel: `${d.n5}-${d.n7}-${d.n2}-${d.n4}`, notes: d.v7Complete, pair: [d.v7Complete, d.iComplete] },
+      { label: `${d.viiSym}/${d.n2}`, sublabel: `vii°⁶ (Double ${d.n2})`, notes: d.vii6, pair: [d.vii6, d.iComplete] },
+      { label: `→ ${d.iSym}`, sublabel: `${d.n7}→${d.n1}, ${d.n4}→${d.n3}`, notes: d.iComplete, pair: [d.vii6, d.iComplete] }
+    ];
+
+    if (typeof ChordLabRenderer !== 'undefined') {
       ChordLabRenderer.renderLessonExamples('v7-vii-staff', this.lessonViiPairs, 'window.dom7Page.playLessonVii', 'treble');
     }
   },
@@ -190,32 +287,32 @@ const Dom7Page = {
   buildQuizBank() {
     this.quizBank = [];
 
-    Theory.TWELVE_MAJOR_KEYS.forEach(keyId => {
+    this.CHORD_KEY_ORDER.forEach(keyId => {
       const d = this.getKeyData(keyId);
-      const kLabel = `คีย์ ${d.keyName}`;
+      const kLabel = `${d.v7Sym} → ${d.iSym}`;
 
       // 1. Leading Tone (3rd of V7) in Outer Part (Soprano)
       this.quizBank.push({
         id: `v7_lt_outer_${keyId}`,
         keyId,
         keyLabel: kLabel,
-        prompt: `ในคีย์ ${d.keyName}: โน้ตขั้นที่ 3 (Leading Tone = ${d.n7}) ของคอร์ด V⁷ (${d.v7Sym}) เมื่ออยู่ในแนว Soprano (Outer Part) ต้องคลี่คลายไปที่โน้ตใดของคอร์ด I?`,
+        prompt: `คอร์ด ${d.v7Sym} (V⁷ ในคีย์ ${d.iSym}): โน้ตขั้นที่ 3 (Leading Tone = ${d.n7}) เมื่ออยู่ในแนว Soprano (Outer Part) ต้องคลี่คลายไปที่โน้ตใดของคอร์ด ${d.iSym}?`,
         staffItems: [
-          { label: `V⁷ (${d.v7Sym})`, sublabel: `3rd = ${d.n7}`, notes: d.v7Complete },
+          { label: `${d.v7Sym}`, sublabel: `3rd = ${d.n7}`, notes: d.v7Complete },
           { label: '❓ คอร์ดคำตอบ', sublabel: 'Resolve → I', notes: d.iIncomplete }
         ],
         revealItems: [
-          { label: `V⁷ (${d.v7Sym})`, sublabel: `3rd = ${d.n7}`, notes: d.v7Complete },
-          { label: `I (${d.iSym})`, sublabel: `${d.n7} → ${d.n1}`, notes: d.iIncomplete }
+          { label: `${d.v7Sym}`, sublabel: `3rd = ${d.n7}`, notes: d.v7Complete },
+          { label: `${d.iSym}`, sublabel: `${d.n7} → ${d.n1}`, notes: d.iIncomplete }
         ],
         choices: [
-          { val: 'root', label: `ขึ้นไปหา Root (${d.n1}) ของคอร์ด I` },
-          { val: 'fifth', label: `กระโดดลงไปหา 5th (${d.n5}) ของคอร์ด I` },
-          { val: 'third', label: `ลงไปหา 3rd (${d.n3}) ของคอร์ด I` },
+          { val: 'root', label: `ขึ้นไปหา Root (${d.n1}) ของคอร์ด ${d.iSym}` },
+          { val: 'fifth', label: `กระโดดลงไปหา 5th (${d.n5}) ของคอร์ด ${d.iSym}` },
+          { val: 'third', label: `ลงไปหา 3rd (${d.n3}) ของคอร์ด ${d.iSym}` },
           { val: 'stay', label: `ค้างโน้ตเดิม (${d.n7}) ไว้` }
         ],
         answer: 'root',
-        explain: `ตามกฎ General Voice Leading ของ V⁷: โน้ตขั้นที่ 3 (Leading Tone = <strong>${d.n7}</strong>) เมื่ออยู่ในแนว <strong>Outer Part (Soprano)</strong> ต้องคลี่คลาย<strong>ขึ้นครึ่งเสียงไปหา Root (${d.n1})</strong> ของคอร์ด ${d.iSym} เสมอ`,
+        explain: `ตามกฎ General Voice Leading ของ ${d.v7Sym}: โน้ตขั้นที่ 3 (Leading Tone = <strong>${d.n7}</strong>) เมื่ออยู่ในแนว <strong>Outer Part (Soprano)</strong> ต้องคลี่คลาย<strong>ขึ้นครึ่งเสียงไปหา Root (${d.n1})</strong> ของคอร์ด ${d.iSym} เสมอ`,
         playPairs: [d.v7Complete, d.iIncomplete]
       });
 
@@ -224,23 +321,23 @@ const Dom7Page = {
         id: `v7_lt_inner_${keyId}`,
         keyId,
         keyLabel: kLabel,
-        prompt: `ในคีย์ ${d.keyName}: หาก Leading Tone (${d.n7}) ของคอร์ด V⁷ อยู่ในแนวใน (Inner Part: Alto หรือ Tenor) สามารถคลี่คลายแบบพิเศษ (Frustrated Leading Tone) ไปที่ใดเพื่อให้ได้คอร์ด I แบบ Complete?`,
+        prompt: `คอร์ด ${d.v7Sym} (V⁷ ในคีย์ ${d.iSym}): หาก Leading Tone (${d.n7}) อยู่ในแนวใน (Inner Part: Alto หรือ Tenor) สามารถคลี่คลายแบบพิเศษไปที่ใดเพื่อให้ได้คอร์ด ${d.iSym} แบบ Complete?`,
         staffItems: [
-          { label: `V⁷ (${d.v7Sym})`, sublabel: `LT ใน Inner Part`, notes: d.v7Complete },
+          { label: `${d.v7Sym}`, sublabel: `LT ใน Inner Part`, notes: d.v7Complete },
           { label: '❓ คอร์ดคำตอบ', sublabel: 'Complete I', notes: d.iComplete }
         ],
         revealItems: [
-          { label: `V⁷ (${d.v7Sym})`, sublabel: `LT = ${d.n7}`, notes: d.v7Complete },
-          { label: `I (${d.iSym})`, sublabel: `${d.n7} กระโดดลง → ${d.n5}`, notes: d.iComplete }
+          { label: `${d.v7Sym}`, sublabel: `LT = ${d.n7}`, notes: d.v7Complete },
+          { label: `${d.iSym}`, sublabel: `${d.n7} กระโดดลง → ${d.n5}`, notes: d.iComplete }
         ],
         choices: [
-          { val: 'leap5', label: `กระโดดลงคู่ 3 ไปหา 5th (${d.n5}) ของคอร์ด I` },
-          { val: 'leap3', label: `กระโดดขึ้นคู่ 4 ไปหา 3rd (${d.n3}) ของคอร์ด I` },
+          { val: 'leap5', label: `กระโดดลงคู่ 3 ไปหา 5th (${d.n5}) ของคอร์ด ${d.iSym}` },
+          { val: 'leap3', label: `กระโดดขึ้นคู่ 4 ไปหา 3rd (${d.n3}) ของคอร์ด ${d.iSym}` },
           { val: 'down4', label: `เดินลงไปหา 4th (${d.n4}) ของคีย์` },
           { val: 'never', label: `ไม่ได้เลย ห้ามกระโดดในทุกแนวเสียง` }
         ],
         answer: 'leap5',
-        explain: `เมื่อ Leading Tone (<strong>${d.n7}</strong>) อยู่ใน <strong>Inner Part (Alto/Tenor)</strong> สามารถ<strong>กระโดดลงคู่ 3 ไปหาขั้นที่ 5 (${d.n5})</strong> ของคอร์ด ${d.iSym} ได้ เพื่อให้ได้คอร์ด Tonic แบบ Complete`,
+        explain: `เมื่อ Leading Tone (<strong>${d.n7}</strong>) ของ ${d.v7Sym} อยู่ใน <strong>Inner Part (Alto/Tenor)</strong> สามารถ<strong>กระโดดลงคู่ 3 ไปหาขั้นที่ 5 (${d.n5})</strong> ของคอร์ด ${d.iSym} ได้ เพื่อให้ได้คอร์ด Tonic แบบ Complete`,
         playPairs: [d.v7Complete, d.iComplete]
       });
 
@@ -249,23 +346,23 @@ const Dom7Page = {
         id: `v7_7th_res_${keyId}`,
         keyId,
         keyLabel: kLabel,
-        prompt: `ในคีย์ ${d.keyName}: โน้ตขั้นที่ 7 (${d.n4}) ของคอร์ด V⁷ (${d.v7Sym}) ต้องคลี่คลายไปที่โน้ตใดในคอร์ด Tonic (${d.iSym})?`,
+        prompt: `คอร์ด ${d.v7Sym} (V⁷ ในคีย์ ${d.iSym}): โน้ตขั้นที่ 7 (${d.n4}) ต้องคลี่คลายไปที่โน้ตใดในคอร์ด ${d.iSym}?`,
         staffItems: [
-          { label: `V⁷ (${d.v7Sym})`, sublabel: `7th = ${d.n4}`, notes: d.v7Complete },
+          { label: `${d.v7Sym}`, sublabel: `7th = ${d.n4}`, notes: d.v7Complete },
           { label: '❓ คอร์ดคำตอบ', sublabel: '7th Resolve', notes: d.iComplete }
         ],
         revealItems: [
-          { label: `V⁷ (${d.v7Sym})`, sublabel: `7th = ${d.n4}`, notes: d.v7Complete },
-          { label: `I (${d.iSym})`, sublabel: `${d.n4} → ${d.n3}`, notes: d.iComplete }
+          { label: `${d.v7Sym}`, sublabel: `7th = ${d.n4}`, notes: d.v7Complete },
+          { label: `${d.iSym}`, sublabel: `${d.n4} → ${d.n3}`, notes: d.iComplete }
         ],
         choices: [
-          { val: 'third', label: `เดินลงไปหา 3rd (${d.n3}) ของคอร์ด I` },
-          { val: 'fifth', label: `เดินขึ้นไปหา 5th (${d.n5}) ของคอร์ด I` },
-          { val: 'root', label: `กระโดดลงไปหา Root (${d.n1}) ของคอร์ด I` },
+          { val: 'third', label: `เดินลงไปหา 3rd (${d.n3}) ของคอร์ด ${d.iSym}` },
+          { val: 'fifth', label: `เดินขึ้นไปหา 5th (${d.n5}) ของคอร์ด ${d.iSym}` },
+          { val: 'root', label: `กระโดดลงไปหา Root (${d.n1}) ของคอร์ด ${d.iSym}` },
           { val: 'sixth', label: `กระโดดขึ้นไปหา 6th (${d.n6}) ของคีย์` }
         ],
         answer: 'third',
-        explain: `โน้ตขั้นที่ 7 ของ V⁷ (<strong>${d.n4}</strong>) เป็น Tendency Tone บังคับให้<strong>คลี่คลายลงไปหาขั้นที่ 3 (${d.n3})</strong> ของคอร์ด ${d.iSym} เสมอ`,
+        explain: `โน้ตขั้นที่ 7 ของ ${d.v7Sym} (<strong>${d.n4}</strong>) เป็น Tendency Tone บังคับให้<strong>คลี่คลายลงไปหาขั้นที่ 3 (${d.n3})</strong> ของคอร์ด ${d.iSym} เสมอ`,
         playPairs: [d.v7Complete, d.iComplete]
       });
 
@@ -274,14 +371,14 @@ const Dom7Page = {
         id: `v7_incomp_${keyId}`,
         keyId,
         keyLabel: kLabel,
-        prompt: `ในคีย์ ${d.keyName}: เมื่อเขียนคอร์ด V⁷ (${d.v7Sym}) แบบ Incomplete เพื่อให้คลี่คลายไปคอร์ด I แบบ Complete ต้องตัดโน้ตใดออกและเบิ้ลโน้ตใด?`,
+        prompt: `เมื่อเขียนคอร์ด ${d.v7Sym} แบบ Incomplete เพื่อให้คลี่คลายไปคอร์ด ${d.iSym} แบบ Complete ต้องตัดโน้ตใดออกและเบิ้ลโน้ตใด?`,
         staffItems: [
-          { label: `❓ Incomplete V⁷`, sublabel: 'Omit ? / Double ?', notes: d.v7Incomplete },
-          { label: `I (${d.iSym})`, sublabel: 'Complete I', notes: d.iComplete }
+          { label: `❓ Incomplete ${d.v7Sym}`, sublabel: 'Omit ? / Double ?', notes: d.v7Incomplete },
+          { label: `${d.iSym}`, sublabel: 'Complete I', notes: d.iComplete }
         ],
         revealItems: [
-          { label: `V⁷ No 5`, sublabel: `ตัด ${d.n2} เบิ้ล ${d.n5}`, notes: d.v7Incomplete },
-          { label: `I (${d.iSym})`, sublabel: 'Complete I', notes: d.iComplete }
+          { label: `${d.v7Sym} (No 5)`, sublabel: `ตัด ${d.n2} เบิ้ล ${d.n5}`, notes: d.v7Incomplete },
+          { label: `${d.iSym}`, sublabel: 'Complete I', notes: d.iComplete }
         ],
         choices: [
           { val: 'omit5_dblR', label: `ตัด 5th (${d.n2}) และเบิ้ล Root (${d.n5})` },
@@ -290,7 +387,7 @@ const Dom7Page = {
           { val: 'omitR_dbl3', label: `ตัด Root (${d.n5}) และเบิ้ล 3rd (${d.n7})` }
         ],
         answer: 'omit5_dblR',
-        explain: `<strong>Incomplete V⁷</strong> ทำได้วิธีเดียวคือ<strong>ตัดขั้นที่ 5 (${d.n2}) และเบิ้ล Root (${d.n5})</strong> ห้ามตัด 3rd (Leading Tone) หรือ 7th เด็ดขาด`,
+        explain: `<strong>Incomplete ${d.v7Sym}</strong> ทำได้วิธีเดียวคือ<strong>ตัดขั้นที่ 5 (${d.n2}) และเบิ้ล Root (${d.n5})</strong> ห้ามตัด 3rd (Leading Tone) หรือ 7th เด็ดขาด`,
         playPairs: [d.v7Incomplete, d.iComplete]
       });
 
@@ -299,23 +396,23 @@ const Dom7Page = {
         id: `v7_kostka_ci_${keyId}`,
         keyId,
         keyLabel: kLabel,
-        prompt: `ในคีย์ ${d.keyName}: ตามแบบฝึกหัด V⁷ – I (Kostka) เมื่อ V⁷ เป็น Complete (c) ใน Root Position และทุก Tendency Tone คลี่คลายตามปกติ (LT ขึ้นหา Root) คอร์ด I ที่ตามมามักมีลักษณะใด?`,
+        prompt: `คู่คอร์ด ${d.v7Sym} → ${d.iSym} ใน Root Position: เมื่อ ${d.v7Sym} เป็น Complete (c) และทุก Tendency Tone คลี่คลายตามปกติ คอร์ด ${d.iSym} ที่ตามมามักมีลักษณะใด?`,
         staffItems: [
-          { label: `V⁷ (c)`, sublabel: `${d.n5}-${d.n7}-${d.n2}-${d.n4}`, notes: d.v7Complete },
-          { label: '❓ คอร์ด I', sublabel: '(c) หรือ (i)?', notes: d.iIncomplete }
+          { label: `${d.v7Sym} (c)`, sublabel: `${d.n5}-${d.n7}-${d.n2}-${d.n4}`, notes: d.v7Complete },
+          { label: `❓ คอร์ด ${d.iSym}`, sublabel: '(c) หรือ (i)?', notes: d.iIncomplete }
         ],
         revealItems: [
-          { label: `V⁷ (c)`, sublabel: 'Complete', notes: d.v7Complete },
-          { label: `I (i)`, sublabel: 'Incomplete (3 Root + 1 3rd)', notes: d.iIncomplete }
+          { label: `${d.v7Sym} (c)`, sublabel: 'Complete', notes: d.v7Complete },
+          { label: `${d.iSym} (i)`, sublabel: 'Incomplete (3 Root + 1 3rd)', notes: d.iIncomplete }
         ],
         choices: [
-          { val: 'incomp_i', label: `Incomplete I (i) — มี Root (${d.n1}) 3 ตัว + 3rd (${d.n3}) 1 ตัว (ไม่มี 5th)` },
-          { val: 'comp_i_no3', label: `Incomplete I (i) — ตัด 3rd (${d.n3}) ออกแล้วเบิ้ล 5th (${d.n5})` },
-          { val: 'comp_vi', label: `ต้องเปลี่ยนเป็นคอร์ด vi (${d.viSym}) เสมอ` },
-          { val: 'v65_only', label: `ไม่สามารถจบที่ Root Position I ได้` }
+          { val: 'incomp_i', label: `Incomplete ${d.iSym} (i) — มี Root (${d.n1}) 3 ตัว + 3rd (${d.n3}) 1 ตัว (ไม่มี 5th)` },
+          { val: 'comp_i_no3', label: `Incomplete ${d.iSym} (i) — ตัด 3rd (${d.n3}) ออกแล้วเบิ้ล 5th (${d.n5})` },
+          { val: 'comp_vi', label: `ต้องเปลี่ยนเป็นคอร์ด ${d.viSym} (vi) เสมอ` },
+          { val: 'v65_only', label: `ไม่สามารถจบที่ Root Position ${d.iSym} ได้` }
         ],
         answer: 'incomp_i',
-        explain: `ในคู่ Root Position <strong>V⁷(c) → I(i)</strong>: เบสเดิน ${d.n5}→${d.n1}, 3rd(${d.n7})→${d.n1}, 5th(${d.n2})→${d.n1}, 7th(${d.n4})→${d.n3} จึงได้คอร์ด <strong>Incomplete I (i)</strong> ที่มี Root 3 ตัว + 3rd 1 ตัว (ขาด 5th)`,
+        explain: `ในคู่ Root Position <strong>${d.v7Sym}(c) → ${d.iSym}(i)</strong>: เบสเดิน ${d.n5}→${d.n1}, 3rd(${d.n7})→${d.n1}, 5th(${d.n2})→${d.n1}, 7th(${d.n4})→${d.n3} จึงได้คอร์ด <strong>Incomplete ${d.iSym} (i)</strong> ที่มี Root 3 ตัว + 3rd 1 ตัว (ขาด 5th)`,
         playPairs: [d.v7Complete, d.iIncomplete]
       });
 
@@ -324,23 +421,23 @@ const Dom7Page = {
         id: `v7_v65_${keyId}`,
         keyId,
         keyLabel: kLabel,
-        prompt: `ในคีย์ ${d.keyName}: คอร์ด V⁶₅ (${d.v7Sym}/${d.n7}) มีโน้ตใดเป็นเบส และมักใช้ในตำแหน่งใดของประโยคเพลง?`,
+        prompt: `คอร์ด ${d.v7Sym}/${d.n7} (V⁶₅) มีโน้ตใดเป็นเบส และมักใช้ในตำแหน่งใดของประโยคเพลง?`,
         staffItems: [
           { label: `❓ V Inversion`, sublabel: `เบส = ${d.n7}`, notes: d.v65 },
-          { label: `I (${d.iSym})`, sublabel: 'Tonic Area', notes: d.iComplete }
+          { label: `${d.iSym}`, sublabel: 'Tonic Area', notes: d.iComplete }
         ],
         revealItems: [
-          { label: `V⁶₅ (${d.v7Sym}/${d.n7})`, sublabel: '1st Inv (เบส=LT)', notes: d.v65 },
-          { label: `I (${d.iSym})`, sublabel: 'Tonic', notes: d.iComplete }
+          { label: `${d.v7Sym}/${d.n7}`, sublabel: 'V⁶₅ (เบส=LT)', notes: d.v65 },
+          { label: `${d.iSym}`, sublabel: 'Tonic', notes: d.iComplete }
         ],
         choices: [
-          { val: 'v65', label: `เบสคือ 3rd/LT (${d.n7}) ใช้ใน Weak Position (Tonic Area) เช่น I – V⁶₅ – I` },
+          { val: 'v65', label: `เบสคือ 3rd/LT (${d.n7}) ใช้ใน Weak Position (Tonic Area) เช่น ${d.iSym} – ${d.v7Sym}/${d.n7} – ${d.iSym}` },
           { val: 'v42', label: `เบสคือ 7th (${d.n4}) ใช้ปิด Cadence หนักแน่นที่สุด` },
-          { val: 'v43', label: `เบสคือ 5th (${d.n2}) ต้องไปคอร์ด IV เสมอ` },
+          { val: 'v43', label: `เบสคือ 5th (${d.n2}) ต้องไปคอร์ด ${d.ivSym} เสมอ` },
           { val: 'root', label: `เบสคือ Root (${d.n5}) มีพลังเท่ากับ Authentic Cadence` }
         ],
         answer: 'v65',
-        explain: `<strong>V⁶₅ (1st Inversion)</strong> มีขั้นที่ 3 / Leading Tone (<strong>${d.n7}</strong>) เป็นเบส จึงคลี่คลายขึ้นไปหา I (<strong>${d.n1}</strong>) มักใช้ใน <strong>Weak Position (Tonic Area)</strong> ไม่หนักแน่นเท่า Root Position V`,
+        explain: `<strong>${d.v7Sym}/${d.n7} (V⁶₅ / 1st Inversion)</strong> มีขั้นที่ 3 / Leading Tone (<strong>${d.n7}</strong>) เป็นเบส จึงคลี่คลายขึ้นไปหา ${d.iSym} (<strong>${d.n1}</strong>) มักใช้ใน <strong>Weak Position (Tonic Area)</strong>`,
         playPairs: [d.v65, d.iComplete]
       });
 
@@ -349,25 +446,25 @@ const Dom7Page = {
         id: `v7_v43_${keyId}`,
         keyId,
         keyLabel: kLabel,
-        prompt: `ในคีย์ ${d.keyName}: คอร์ด V⁴₃ (${d.v7Sym}/${d.n2}) มีบทบาทหลักอย่างไรในการเดินแนวเบส?`,
+        prompt: `คอร์ด ${d.v7Sym}/${d.n2} (V⁴₃) มีบทบาทหลักอย่างไรในการเดินแนวเบส?`,
         staffItems: [
-          { label: `I (${d.iSym})`, sublabel: `เบส ${d.n1}`, notes: d.iComplete },
+          { label: `${d.iSym}`, sublabel: `เบส ${d.n1}`, notes: d.iComplete },
           { label: `❓ Passing V`, sublabel: `เบส ${d.n2}`, notes: d.v43 },
-          { label: `I⁶ (${d.iSym}/${d.n3})`, sublabel: `เบส ${d.n3}`, notes: d.i6 }
+          { label: `${d.iSym}/${d.n3}`, sublabel: `เบส ${d.n3}`, notes: d.i6 }
         ],
         revealItems: [
-          { label: `I`, sublabel: `${d.n1}`, notes: d.iComplete },
-          { label: `V⁴₃`, sublabel: `${d.n2}`, notes: d.v43 },
-          { label: `I⁶`, sublabel: `${d.n3}`, notes: d.i6 }
+          { label: `${d.iSym}`, sublabel: `${d.n1}`, notes: d.iComplete },
+          { label: `${d.v7Sym}/${d.n2}`, sublabel: `V⁴₃ (${d.n2})`, notes: d.v43 },
+          { label: `${d.iSym}/${d.n3}`, sublabel: `${d.n3}`, notes: d.i6 }
         ],
         choices: [
           { val: 'passing', label: `ใช้เป็น Passing Chord ใน Tonic Area (เบสเดินขั้นบันได ${d.n1}–${d.n2}–${d.n3} หรือ ${d.n3}–${d.n2}–${d.n1})` },
           { val: 'cadential', label: `ใช้จบเพลงที่ Perfect Authentic Cadence เท่านั้น` },
-          { val: 'deceptive', label: `ใช้เชื่อมไปคอร์ด vi (${d.viSym}) เท่านั้น` },
-          { val: 'subdom', label: `ใช้แทนคอร์ด IV เพื่อกระโดดเบสคู่ 5` }
+          { val: 'deceptive', label: `ใช้เชื่อมไปคอร์ด ${d.viSym} (vi) เท่านั้น` },
+          { val: 'subdom', label: `ใช้แทนคอร์ด ${d.ivSym} เพื่อกระโดดเบสคู่ 5` }
         ],
         answer: 'passing',
-        explain: `<strong>V⁴₃ (2nd Inversion)</strong> มีขั้นที่ 5 (<strong>${d.n2}</strong>) เป็นเบส นิยมใช้เป็น <strong>Passing Chord ใน Tonic Area</strong> ให้เบสเดินเรียบขึ้นหรือลง เช่น <strong>I – V⁴₃ – I⁶</strong> (${d.n1}–${d.n2}–${d.n3})`,
+        explain: `<strong>${d.v7Sym}/${d.n2} (V⁴₃ / 2nd Inversion)</strong> มีขั้นที่ 5 (<strong>${d.n2}</strong>) เป็นเบส นิยมใช้เป็น <strong>Passing Chord ใน Tonic Area</strong> ให้เบสเดินเรียบขึ้นหรือลง เช่น <strong>${d.iSym} – ${d.v7Sym}/${d.n2} – ${d.iSym}/${d.n3}</strong>`,
         playPairs: [d.iComplete, d.v43, d.i6]
       });
 
@@ -376,23 +473,23 @@ const Dom7Page = {
         id: `v7_v42_${keyId}`,
         keyId,
         keyLabel: kLabel,
-        prompt: `ในคีย์ ${d.keyName}: คอร์ด V⁴₂ (${d.v7Sym}/${d.n4}) มีขั้นที่ 7 (${d.n4}) อยู่ที่แนวเบส จึงแทบจะตามด้วยคอร์ดใดเสมอ (Almost always followed by)?`,
+        prompt: `คอร์ด ${d.v7Sym}/${d.n4} (V⁴₂) มีขั้นที่ 7 (${d.n4}) อยู่ที่แนวเบส จึงแทบจะตามด้วยคอร์ดใดเสมอ?`,
         staffItems: [
-          { label: `V⁴₂ (${d.v7Sym}/${d.n4})`, sublabel: `เบส = 7th (${d.n4})`, notes: d.v42 },
+          { label: `${d.v7Sym}/${d.n4}`, sublabel: `เบส = 7th (${d.n4})`, notes: d.v42 },
           { label: '❓ คอร์ดคำตอบ', sublabel: 'Mandatory Target', notes: d.i6 }
         ],
         revealItems: [
-          { label: `V⁴₂ (${d.v7Sym}/${d.n4})`, sublabel: `เบส ${d.n4}`, notes: d.v42 },
-          { label: `I⁶ (${d.iSym}/${d.n3})`, sublabel: `เบส ${d.n3}`, notes: d.i6 }
+          { label: `${d.v7Sym}/${d.n4}`, sublabel: `V⁴₂ (${d.n4})`, notes: d.v42 },
+          { label: `${d.iSym}/${d.n3}`, sublabel: `I⁶ (${d.n3})`, notes: d.i6 }
         ],
         choices: [
-          { val: 'i6', label: `I⁶ (${d.iSym}/${d.n3}) — เพราะเบส 7th (${d.n4}) ต้องลงไปหา 3rd (${d.n3})` },
-          { val: 'i_root', label: `I Root Position (${d.iSym}) — เบสกระโดดลงคู่ 4` },
-          { val: 'iv', label: `IV (${d.ivSym}) — เบสค้างที่โน้ต ${d.n4}` },
-          { val: 'v65', label: `V⁶₅ — เบสกระโดดขึ้นไปหา Leading Tone` }
+          { val: 'i6', label: `${d.iSym}/${d.n3} (I⁶) — เพราะเบส 7th (${d.n4}) ต้องลงไปหา 3rd (${d.n3})` },
+          { val: 'i_root', label: `${d.iSym} (Root Position) — เบสกระโดดลงคู่ 4` },
+          { val: 'iv', label: `${d.ivSym} (IV) — เบสค้างที่โน้ต ${d.n4}` },
+          { val: 'v65', label: `${d.v7Sym}/${d.n7} (V⁶₅) — เบสกระโดดขึ้นไปหา Leading Tone` }
         ],
         answer: 'i6',
-        explain: `<strong>V⁴₂ (3rd Inversion)</strong> มีโน้ตขั้นที่ 7 (<strong>${d.n4}</strong>) อยู่ในแนวเบส ซึ่งต้องคลี่คลายลงครึ่งเสียงไปหาขั้นที่ 3 (<strong>${d.n3}</strong>) จึง<strong>ตามด้วย I⁶ (${d.iSym}/${d.n3}) แทบจะเสมอ</strong> (และมักนำหน้าด้วย I⁶, IV, ii หรือ I⁶₄)`,
+        explain: `<strong>${d.v7Sym}/${d.n4} (V⁴₂ / 3rd Inversion)</strong> มีโน้ตขั้นที่ 7 (<strong>${d.n4}</strong>) อยู่ในแนวเบส ซึ่งต้องคลี่คลายลงไปหาขั้นที่ 3 (<strong>${d.n3}</strong>) จึง<strong>ตามด้วย ${d.iSym}/${d.n3} (I⁶) แทบจะเสมอ</strong>`,
         playPairs: [d.v42, d.i6]
       });
 
@@ -401,23 +498,23 @@ const Dom7Page = {
         id: `v7_vii_rel_${keyId}`,
         keyId,
         keyLabel: kLabel,
-        prompt: `ในคีย์ ${d.keyName}: คอร์ด vii° (${d.viiSym}: ${d.n7}–${d.n2}–${d.n4}) มีความสัมพันธ์อย่างไรกับคอร์ด V⁷ (${d.v7Sym})?`,
+        prompt: `คอร์ด ${d.viiSym} (vii°: ${d.n7}–${d.n2}–${d.n4}) มีความสัมพันธ์อย่างไรกับคอร์ด ${d.v7Sym} (V⁷)?`,
         staffItems: [
-          { label: `V⁷ (${d.v7Sym})`, sublabel: `${d.n5}-${d.n7}-${d.n2}-${d.n4}`, notes: d.v7Complete },
+          { label: `${d.v7Sym}`, sublabel: `${d.n5}-${d.n7}-${d.n2}-${d.n4}`, notes: d.v7Complete },
           { label: `❓ Triad เทียบเท่า`, sublabel: `${d.n7}-${d.n2}-${d.n4}`, notes: d.viiRoot }
         ],
         revealItems: [
-          { label: `V⁷ (${d.v7Sym})`, sublabel: 'Dominant 7th', notes: d.v7Complete },
-          { label: `vii° (${d.viiSym})`, sublabel: 'Upper 3 notes of V⁷', notes: d.viiRoot }
+          { label: `${d.v7Sym}`, sublabel: 'Dominant 7th', notes: d.v7Complete },
+          { label: `${d.viiSym}`, sublabel: 'Upper 3 notes of V⁷', notes: d.viiRoot }
         ],
         choices: [
-          { val: 'upper3', label: `คือโน้ต 3 ตัวบนของ V⁷ มี Tendency Tones เหมือนกัน (${d.n7}→${d.n1} และ ${d.n4}→${d.n3})` },
-          { val: 'subdom', label: `เป็นคอร์ดกลุ่ม Subdominant ใช้แทน IV ได้เท่านั้น` },
-          { val: 'stronger', label: `มีพลัง Dominant หนักแน่นกว่า Root Position V⁷` },
+          { val: 'upper3', label: `คือโน้ต 3 ตัวบนของ ${d.v7Sym} มี Tendency Tones เหมือนกัน (${d.n7}→${d.n1} และ ${d.n4}→${d.n3})` },
+          { val: 'subdom', label: `เป็นคอร์ดกลุ่ม Subdominant ใช้แทน ${d.ivSym} ได้เท่านั้น` },
+          { val: 'stronger', label: `มีพลัง Dominant หนักแน่นกว่า Root Position ${d.v7Sym}` },
           { val: 'major', label: `เป็น Major Triad ที่ไม่มี Tritone` }
         ],
         answer: 'upper3',
-        explain: `<strong>vii° (${d.viiSym})</strong> คือ<strong>โน้ต 3 ตัวบนของ V⁷</strong> (${d.n7}–${d.n2}–${d.n4}) จึงทำหน้าที่เป็น Dominant Family แทน V⁷ ได้ (น้ำหนักเบากว่าเล็กน้อย) และมี Tendency Tones คู่เดียวกันคือ <strong>7→1 (${d.n7}→${d.n1})</strong> และ <strong>4→3 (${d.n4}→${d.n3})</strong>`,
+        explain: `<strong>${d.viiSym} (vii°)</strong> คือ<strong>โน้ต 3 ตัวบนของ ${d.v7Sym}</strong> (${d.n7}–${d.n2}–${d.n4}) จึงทำหน้าที่เป็น Dominant Family แทน ${d.v7Sym} ได้ (น้ำหนักเบากว่าเล็กน้อย) และมี Tendency Tones คู่เดียวกันคือ <strong>${d.n7}→${d.n1}</strong> และ <strong>${d.n4}→${d.n3}</strong>`,
         playPairs: [d.viiRoot, d.iComplete]
       });
 
@@ -426,23 +523,23 @@ const Dom7Page = {
         id: `v7_vii_rule_${keyId}`,
         keyId,
         keyLabel: kLabel,
-        prompt: `ในคีย์ ${d.keyName}: การเขียนคอร์ด Leading-Tone Triad (${d.viiSym}) ใน 4 แนวเสียง (SATB) นิยมใช้การพลิกกลับรูปใดและต้องเบิ้ลโน้ตตัวใด?`,
+        prompt: `การเขียนคอร์ด ${d.viiSym} (vii° ในคีย์ ${d.iSym}) ใน 4 แนวเสียง (SATB) นิยมใช้การพลิกกลับรูปใดและต้องเบิ้ลโน้ตตัวใด?`,
         staffItems: [
-          { label: `❓ รูปมาตรฐานของ vii°`, sublabel: `Double ?`, notes: d.vii6 },
-          { label: `I (${d.iSym})`, sublabel: 'Resolve', notes: d.iComplete }
+          { label: `❓ รูปมาตรฐานของ ${d.viiSym}`, sublabel: `Double ?`, notes: d.vii6 },
+          { label: `${d.iSym}`, sublabel: 'Resolve', notes: d.iComplete }
         ],
         revealItems: [
-          { label: `vii°⁶ (${d.viiSym}/${d.n2})`, sublabel: `Double 3rd (${d.n2})`, notes: d.vii6 },
-          { label: `I (${d.iSym})`, sublabel: 'Tonic', notes: d.iComplete }
+          { label: `${d.viiSym}/${d.n2}`, sublabel: `vii°⁶ (Double ${d.n2})`, notes: d.vii6 },
+          { label: `${d.iSym}`, sublabel: 'Tonic', notes: d.iComplete }
         ],
         choices: [
-          { val: 'vii6_dbl3', label: `พลิกกลับขั้นที่ 1 (vii°⁶) และเบิ้ล 3rd (${d.n2}) — ห้ามเบิ้ล Root (${d.n7})` },
-          { val: 'root_dblR', label: `Root Position (vii°) และเบิ้ล Root (${d.n7}) เพื่อย้ำ Leading Tone` },
-          { val: 'vii64_dbl5', label: `พลิกกลับขั้นที่ 2 (vii°⁶₄) และเบิ้ล 5th (${d.n4})` },
+          { val: 'vii6_dbl3', label: `พลิกกลับขั้นที่ 1 (${d.viiSym}/${d.n2} หรือ vii°⁶) และเบิ้ล 3rd (${d.n2}) — ห้ามเบิ้ล Root (${d.n7})` },
+          { val: 'root_dblR', label: `Root Position (${d.viiSym}) และเบิ้ล Root (${d.n7}) เพื่อย้ำ Leading Tone` },
+          { val: 'vii64_dbl5', label: `พลิกกลับขั้นที่ 2 (${d.viiSym}/${d.n4}) และเบิ้ล 5th (${d.n4})` },
           { val: 'any_dbl7', label: `รูปใดก็ได้แต่ต้องเบิ้ล Leading Tone (${d.n7}) เสมอ` }
         ],
         answer: 'vii6_dbl3',
-        explain: `กฎ 4 ข้อของ <strong>vii°</strong>: เป็น Diminished Triad, ไม่ค่อยใช้ Root Position และ<strong>ห้ามเบิ้ล Root (${d.n7})</strong> (เพราะเป็น Leading Tone จะเกิด Parallel 8ves) จึงนิยมใช้ <strong>1st Inversion (vii°⁶)</strong> และ <strong>Double 3rd (${d.n2})</strong>`,
+        explain: `กฎ 4 ข้อของ <strong>${d.viiSym} (vii°)</strong>: เป็น Diminished Triad, ไม่ค่อยใช้ Root Position และ<strong>ห้ามเบิ้ล Root (${d.n7})</strong> (เพราะเป็น Leading Tone จะเกิด Parallel 8ves) จึงนิยมใช้ <strong>1st Inversion (${d.viiSym}/${d.n2})</strong> และ <strong>Double 3rd (${d.n2})</strong>`,
         playPairs: [d.vii6, d.iComplete]
       });
     });

@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=20261124a">
+  <link rel="stylesheet" href="css/style.css?v=20261124b">
 </head>
 <body class="is-home">
 
@@ -1321,23 +1321,16 @@
     <div class="lab-container">
       <!-- บทเรียน Dominant 7th (V7) & vii° -->
       <div class="card" style="margin-bottom: 20px;">
-        <div class="card-title" style="justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+        <div class="card-title">
           <span>👑 Dominant 7th Chord (V⁷) &amp; Leading-Tone Triad (vii°)</span>
-          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; max-width:100%;">
-            <label for="v7-lesson-key" style="font-size:0.85rem; color:#b45309; font-weight:700;">ดูตัวอย่างในคีย์:</label>
-            <select id="v7-lesson-key" class="quiz-filter-select" onchange="window.dom7Page.renderLesson()"></select>
-          </div>
         </div>
 
-        <p style="font-size: 0.9rem; color: #334155; margin-bottom: 14px; line-height: 1.6;">
-          สรุปหลักการเขียนแนวเสียงของคอร์ด <strong>Dominant 7th (V⁷)</strong> ทั้งรูปปกติ รูปไม่ครบเสียง (Incomplete) การพลิกกลับทั้ง 3 รูป (<strong>V⁶₅, V⁴₃, V⁴₂</strong>) และคอร์ด <strong>vii°</strong> ที่ใช้แทนกันในกลุ่ม Dominant Family พร้อมตัวอย่างโน้ตและเสียงในคีย์ที่เลือก
+        <p style="font-size: 0.9rem; color: #334155; margin-bottom: 16px; line-height: 1.6;">
+          สรุปหลักการเขียนแนวเสียงของคอร์ด <strong>Dominant 7th (V⁷)</strong> ทั้งรูปปกติ รูปไม่ครบเสียง (Incomplete) การพลิกกลับทั้ง 3 รูป (<strong>V⁶₅, V⁴₃, V⁴₂</strong>) และคอร์ด <strong>vii°</strong> สามารถเลือกเปลี่ยนคอร์ดตัวอย่าง (เช่น G7, D7, A7) แยกอิสระในแต่ละหัวข้อได้ทันที
         </p>
 
-        <!-- Dynamic Key Summary Table -->
-        <div id="v7-key-summary" style="margin-bottom: 16px;"></div>
-
         <!-- Section 1: General Voice Leading, Outer vs Inner Part, Incomplete V7 -->
-        <div style="margin-bottom: 16px;">
+        <div style="margin-bottom: 20px;">
           <h4 style="font-size:0.95rem; color:#92400e; margin-bottom:8px;">1. กฎการคลี่คลายเสียงของ V⁷ (General Voice Leading &amp; Incomplete V⁷)</h4>
           <div class="theory-table-wrap">
             <table class="theory-table">
@@ -1377,11 +1370,16 @@
               </tbody>
             </table>
           </div>
-          <div id="v7-vl-staff" style="margin-top:10px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
+          <div style="margin-top:10px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; max-width:100%; background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:8px 12px;">
+            <label for="v7-key-sec1" style="font-size:0.86rem; color:#92400e; font-weight:700;">🎹 เลือกคอร์ดตัวอย่าง (หัวข้อที่ 1):</label>
+            <select id="v7-key-sec1" class="quiz-filter-select" onchange="window.dom7Page.renderSection1()"></select>
+          </div>
+          <div id="v7-sec1-summary" style="margin-top:8px;"></div>
+          <div id="v7-vl-staff" style="margin-top:8px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
         </div>
 
         <!-- Section 2: Inversions of V7 -->
-        <div style="margin-bottom: 16px;">
+        <div style="margin-bottom: 20px;">
           <h4 style="font-size:0.95rem; color:#92400e; margin-bottom:8px;">2. การพลิกกลับของ V⁷ (Inversions of V⁷: V⁶₅, V⁴₃, V⁴₂)</h4>
           <div class="theory-table-wrap">
             <table class="theory-table">
@@ -1415,7 +1413,12 @@
               </tbody>
             </table>
           </div>
-          <div id="v7-inv-staff" style="margin-top:10px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
+          <div style="margin-top:10px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; max-width:100%; background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:8px 12px;">
+            <label for="v7-key-sec2" style="font-size:0.86rem; color:#92400e; font-weight:700;">🎹 เลือกคอร์ดตัวอย่าง (หัวข้อที่ 2):</label>
+            <select id="v7-key-sec2" class="quiz-filter-select" onchange="window.dom7Page.renderSection2()"></select>
+          </div>
+          <div id="v7-sec2-summary" style="margin-top:8px;"></div>
+          <div id="v7-inv-staff" style="margin-top:8px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
         </div>
 
         <!-- Section 3: The vii° (Leading-Tone Triad) -->
@@ -1432,7 +1435,7 @@
               <tbody>
                 <tr>
                   <td><strong>ความสัมพันธ์กับ V⁷</strong></td>
-                  <td>ประกอบด้วย<strong>โน้ต 3 ตัวบนของ V⁷</strong> (เช่น ใน C Major: <code>B–D–F</code> อยู่ใน <code>G–B–D–F</code>) ใช้แทน V⁷ ได้ แต่น้ำหนักเบากว่าเล็กน้อย</td>
+                  <td>ประกอบด้วย<strong>โน้ต 3 ตัวบนของ V⁷</strong> (เช่น <code>B–D–F</code> ในคอร์ด <code>G7</code>) ใช้แทน V⁷ ได้ แต่น้ำหนักเบากว่าเล็กน้อย</td>
                 </tr>
                 <tr>
                   <td><strong>Tendency Tones เหมือน V⁷</strong></td>
@@ -1448,7 +1451,7 @@
                 </tr>
                 <tr>
                   <td><strong>3) รูปที่นิยมที่สุด</strong></td>
-                  <td>นิยมใช้ใน <strong>1st Inversion (vii°⁶ หรือ vii°b)</strong> มากที่สุด เช่น <code>I⁶ – vii°⁶ – I</code></td>
+                  <td>นิยมใช้ใน <strong>1st Inversion (vii°⁶)</strong> มากที่สุด เช่น <code>I⁶ – vii°⁶ – I</code></td>
                 </tr>
                 <tr>
                   <td><strong>4) โน้ตที่ต้องเบิ้ล</strong></td>
@@ -1457,7 +1460,12 @@
               </tbody>
             </table>
           </div>
-          <div id="v7-vii-staff" style="margin-top:10px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
+          <div style="margin-top:10px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; max-width:100%; background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:8px 12px;">
+            <label for="v7-key-sec3" style="font-size:0.86rem; color:#92400e; font-weight:700;">🎹 เลือกคอร์ดตัวอย่าง (หัวข้อที่ 3):</label>
+            <select id="v7-key-sec3" class="quiz-filter-select" onchange="window.dom7Page.renderSection3()"></select>
+          </div>
+          <div id="v7-sec3-summary" style="margin-top:8px;"></div>
+          <div id="v7-vii-staff" style="margin-top:8px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; justify-content:center; overflow-x:auto;"></div>
         </div>
       </div>
 
@@ -1887,16 +1895,16 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/theory.js?v=20261124a"></script>
-  <script src="js/rules.js?v=20261124a"></script>
-  <script src="js/renderer.js?v=20261124a"></script>
-  <script src="js/audio.js?v=20261124a"></script>
-  <script src="js/presets.js?v=20261124a"></script>
-  <script src="js/chords-lab.js?v=20261124a"></script>
-  <script src="js/cadence-lab.js?v=20261124a"></script>
-  <script src="js/theory-pages.js?v=20261124a"></script>
-  <script src="js/theory-pages-advanced.js?v=20261124a"></script>
-  <script src="js/dom7-page.js?v=20261124a"></script>
-  <script src="js/app.js?v=20261124a"></script>
+  <script src="js/theory.js?v=20261124b"></script>
+  <script src="js/rules.js?v=20261124b"></script>
+  <script src="js/renderer.js?v=20261124b"></script>
+  <script src="js/audio.js?v=20261124b"></script>
+  <script src="js/presets.js?v=20261124b"></script>
+  <script src="js/chords-lab.js?v=20261124b"></script>
+  <script src="js/cadence-lab.js?v=20261124b"></script>
+  <script src="js/theory-pages.js?v=20261124b"></script>
+  <script src="js/theory-pages-advanced.js?v=20261124b"></script>
+  <script src="js/dom7-page.js?v=20261124b"></script>
+  <script src="js/app.js?v=20261124b"></script>
 </body>
 </html>
