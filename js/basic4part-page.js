@@ -131,28 +131,28 @@ const Basic4PartPage = {
 
     this.spacingExamples = [
       {
-        romanNumeral: '✓ ถูก (Close)',
+        romanNumeral: '✓ Close',
         bass:    { step: 'C', alter: 0, octave: 3 },
         tenor:   { step: 'G', alter: 0, octave: 3 },
         alto:    { step: 'C', alter: 0, octave: 4 },
         soprano: { step: 'E', alter: 0, octave: 4 }
       },
       {
-        romanNumeral: '✓ ถูก (T–B>8)',
+        romanNumeral: '✓ T–B > 8',
         bass:    { step: 'C', alter: 0, octave: 2 },
         tenor:   { step: 'G', alter: 0, octave: 3 },
         alto:    { step: 'C', alter: 0, octave: 4 },
         soprano: { step: 'E', alter: 0, octave: 4 }
       },
       {
-        romanNumeral: '✗ ผิด (S–A>8)',
+        romanNumeral: '✗ S–A > 8',
         bass:    { step: 'C', alter: 0, octave: 3 },
         tenor:   { step: 'G', alter: 0, octave: 3 },
         alto:    { step: 'C', alter: 0, octave: 4 },
         soprano: { step: 'E', alter: 0, octave: 5 }
       },
       {
-        romanNumeral: '✗ ผิด (A–T>8)',
+        romanNumeral: '✗ A–T > 8',
         bass:    { step: 'C', alter: 0, octave: 3 },
         tenor:   { step: 'C', alter: 0, octave: 3 },
         alto:    { step: 'E', alter: 0, octave: 4 },
@@ -166,7 +166,7 @@ const Basic4PartPage = {
       showSpacingBadges: true,
       showParallelLines: false,
       showCommonToneTies: false,
-      chordWidth: 112
+      chordWidth: 158
     });
     const analysis = (typeof HarmonyRules !== 'undefined' && typeof HarmonyRules.analyze === 'function')
       ? HarmonyRules.analyze(this.spacingExamples, 'C_maj')
@@ -280,35 +280,35 @@ const Basic4PartPage = {
     // All 5 Motion types with Chord 1 -> Chord 2 clearly shown in separate playable cards
     const defs = [
       {
-        id: 'static', title: '1. Static (ค้างทั้งคู่)', badgeColor: '#475569',
+        id: 'static', title: '1. Static motion (ค้างทั้งคู่)', badgeColor: '#475569',
         chords: [
           { label: 'คอร์ด 1', sublabel: 'C–E', notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }] },
           { label: '→ คอร์ด 2', sublabel: 'C–E (ค้าง)', notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }] }
         ]
       },
       {
-        id: 'oblique', title: '2. Oblique (ค้าง 1 เดิน 1)', badgeColor: '#0284c7',
+        id: 'oblique', title: '2. Oblique motion (ค้าง 1 เดิน 1)', badgeColor: '#0284c7',
         chords: [
           { label: 'คอร์ด 1', sublabel: 'C–E', notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }] },
           { label: '→ คอร์ด 2', sublabel: 'C–G (บนขึ้น)', notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'G', alter: 0, octave: 4 }] }
         ]
       },
       {
-        id: 'contrary', title: '3. Contrary (สวนทางกัน ✓)', badgeColor: '#16a34a',
+        id: 'contrary', title: '3. Contrary motion (สวนทางกัน ✓)', badgeColor: '#16a34a',
         chords: [
           { label: 'คอร์ด 1', sublabel: 'C–E', notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }] },
           { label: '→ คอร์ด 2', sublabel: 'B–G (แยกออก)', notes: [{ step: 'B', alter: 0, octave: 3 }, { step: 'G', alter: 0, octave: 4 }] }
         ]
       },
       {
-        id: 'similar', title: '4. Similar (ทางเดียวกัน ขั้นคู่เปลี่ยน)', badgeColor: '#d97706',
+        id: 'similar', title: '4. Similar motion (ทางเดียวกัน ขั้นคู่เปลี่ยน)', badgeColor: '#d97706',
         chords: [
           { label: 'คอร์ด 1', sublabel: 'C–E (คู่ 3)', notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }] },
           { label: '→ คอร์ด 2', sublabel: 'D–A (คู่ 5)', notes: [{ step: 'D', alter: 0, octave: 4 }, { step: 'A', alter: 0, octave: 4 }] }
         ]
       },
       {
-        id: 'parallel', title: '5. Parallel (ขนานกัน ขั้นคู่เดิม)', badgeColor: '#7c3aed',
+        id: 'parallel', title: '5. Parallel motion (ขนานกัน ขั้นคู่เดิม)', badgeColor: '#7c3aed',
         chords: [
           { label: 'คอร์ด 1', sublabel: 'C–E (คู่ 3)', notes: [{ step: 'C', alter: 0, octave: 4 }, { step: 'E', alter: 0, octave: 4 }] },
           { label: '→ คอร์ด 2', sublabel: 'D–F (คู่ 3)', notes: [{ step: 'D', alter: 0, octave: 4 }, { step: 'F', alter: 0, octave: 4 }] }
@@ -377,50 +377,99 @@ const Basic4PartPage = {
     const container = document.getElementById('b4p-melody-staff');
     if (!container) return;
 
-    const pairs = [
-      {
-        title: `ห้องที่ 1: ขั้นที่ 4 → 3 (${d.n4} → ${d.n3})`,
-        color: '#0284c7',
-        items: [
-          { label: `${d.n4} (ขั้น 4)`, sublabel: 'โน้ตนำ', notes: [d.n4Note] },
-          { label: `→ ${d.n3} (ขั้น 3)`, sublabel: 'ลงครึ่งเสียง', notes: [d.n3Note] }
-        ],
-        pair: [[d.n4Note], [d.n3Note]]
-      },
-      {
-        title: `ห้องที่ 2: ขั้นที่ 7 → 1 (${d.n7} → ${d.n1})`,
-        color: '#059669',
-        items: [
-          { label: `${d.n7} (ขั้น 7)`, sublabel: 'Leading Tone', notes: [d.n7Note] },
-          { label: `→ ${d.n1} (ขั้น 1)`, sublabel: 'ขึ้นครึ่งเสียง', notes: [d.n8Note] }
-        ],
-        pair: [[d.n7Note], [d.n8Note]]
-      }
+    this.melodyStaffCache = [
+      { pair: [[d.n4Note], [d.n3Note]] },
+      { pair: [[d.n7Note], [d.n8Note]] }
     ];
 
-    this.melodyStaffCache = pairs.map(p => ({ pair: p.pair }));
+    // Draw ONE single Treble 5-line staff with EXACTLY 2 measures:
+    // Bar 1 = 4 -> 3 (2 notes inside the same bar)
+    // Bar 2 = 7 -> 1 (2 notes inside the same bar)
+    const ls = 10;
+    const half = ls / 2;
+    const stepE4 = 30; // E4 = bottom line of treble staff
+    const allNotes = [d.n4Note, d.n3Note, d.n7Note, d.n8Note];
+    const maxStep = Math.max(38, ...allNotes.map(n => Theory.noteToDiatonicStep(n)));
+    const minStep = Math.min(30, ...allNotes.map(n => Theory.noteToDiatonicStep(n)));
+    const topY = 38 + Math.max(0, (maxStep - 38) * half);
+    const botY = topY + 4 * ls;
+    const labelY = Math.max(botY + 34, botY + Math.max(0, (stepE4 - minStep) * half) + 22);
+    const totalH = labelY + 30;
+    const totalW = 470;
+    const bar1Start = 64;
+    const barMid = 264;
+    const barEnd = 456;
 
-    container.innerHTML = pairs.map((p, idx) => `
-      <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; display:flex; flex-direction:column; gap:6px;">
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:6px; flex-wrap:wrap;">
-          <strong style="font-size:0.85rem; color:${p.color};">${p.title}</strong>
-          <button type="button" class="btn btn-outline btn-xs" style="padding:3px 8px; font-size:0.76rem;" onclick="window.basic4PartPage.playMelody(${idx})">🔊 ฟัง</button>
-        </div>
-        <div id="b4p-melody-card-${idx}" style="display:flex; justify-content:center; overflow-x:auto;"></div>
-      </div>
-    `).join('');
+    const noteY = (n) => botY - (Theory.noteToDiatonicStep(n) - stepE4) * half;
+    const accSym = (n) => n.alter === 1 ? '♯' : (n.alter === -1 ? '♭' : '');
 
-    if (typeof ChordLabRenderer !== 'undefined') {
-      pairs.forEach((p, idx) => {
-        ChordLabRenderer.renderLessonExamples(
-          `b4p-melody-card-${idx}`,
-          p.items,
-          `window.basic4PartPage.playMelodyCard_${idx}`,
-          'treble'
-        );
-        this[`playMelodyCard_${idx}`] = () => this.playMelody(idx);
-      });
+    const drawNote = (n, x, color, degText) => {
+      const y = noteY(n);
+      let s = '';
+      // Ledger lines if above F5 (step 38) or below E4 (step 30)
+      const st = Theory.noteToDiatonicStep(n);
+      for (let l = 40; l <= st; l += 2) {
+        const ly = botY - (l - stepE4) * half;
+        s += `<line x1="${x - 11}" y1="${ly}" x2="${x + 11}" y2="${ly}" stroke="#64748b" stroke-width="1.2"/>`;
+      }
+      for (let l = 28; l >= st; l -= 2) {
+        const ly = botY - (l - stepE4) * half;
+        s += `<line x1="${x - 11}" y1="${ly}" x2="${x + 11}" y2="${ly}" stroke="#64748b" stroke-width="1.2"/>`;
+      }
+      const acc = accSym(n);
+      if (acc) {
+        s += `<text x="${x - 16}" y="${y + 4}" font-size="14" font-weight="700" fill="${color}" font-family="serif">${acc}</text>`;
+      }
+      s += `<ellipse cx="${x}" cy="${y}" rx="6.5" ry="4.8" transform="rotate(-18 ${x} ${y})" fill="${color}"/>`;
+      const stemUp = st < 34;
+      if (stemUp) {
+        s += `<line x1="${x + 6}" y1="${y}" x2="${x + 6}" y2="${y - 28}" stroke="${color}" stroke-width="1.6"/>`;
+      } else {
+        s += `<line x1="${x - 6}" y1="${y}" x2="${x - 6}" y2="${y + 28}" stroke="${color}" stroke-width="1.6"/>`;
+      }
+      s += `<text x="${x}" y="${labelY}" text-anchor="middle" font-size="12" font-weight="700" fill="${color}" font-family="Sarabun, sans-serif">${Theory.formatPitchClass(n)} (${degText})</text>`;
+      return s;
+    };
+
+    let staffLines = '';
+    for (let i = 0; i < 5; i++) {
+      const y = topY + i * ls;
+      staffLines += `<line x1="14" y1="${y}" x2="${barEnd}" y2="${y}" stroke="#64748b" stroke-width="1.1"/>`;
     }
+
+    const svg = `
+      <svg viewBox="0 0 ${totalW} ${totalH}" width="${totalW}" height="${totalH}" style="max-width:100%; height:auto; display:block;">
+        ${staffLines}
+        <line x1="14" y1="${topY}" x2="14" y2="${botY}" stroke="#334155" stroke-width="1.6"/>
+        <text x="20" y="${botY - 6}" font-size="44" fill="#1e293b" font-family="serif">𝄞</text>
+
+        <!-- Measure 1: 4 -> 3 -->
+        <g style="cursor:pointer;" onclick="window.basic4PartPage.playMelody(0)">
+          <rect x="${bar1Start}" y="4" width="${barMid - bar1Start - 4}" height="${totalH - 8}" rx="8" fill="transparent"/>
+          <text x="${(bar1Start + barMid) / 2}" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#0284c7" font-family="Prompt, sans-serif">ห้องที่ 1: 4 → 3 (ลงครึ่งเสียง) 🔊</text>
+          ${drawNote(d.n4Note, 118, '#0284c7', 'ขั้น 4')}
+          <text x="164" y="${(noteY(d.n4Note) + noteY(d.n3Note)) / 2 + 4}" text-anchor="middle" font-size="15" font-weight="700" fill="#0284c7">→</text>
+          ${drawNote(d.n3Note, 210, '#0284c7', 'ขั้น 3')}
+        </g>
+
+        <!-- Center Barline -->
+        <line x1="${barMid}" y1="${topY}" x2="${barMid}" y2="${botY}" stroke="#334155" stroke-width="1.5"/>
+
+        <!-- Measure 2: 7 -> 1 -->
+        <g style="cursor:pointer;" onclick="window.basic4PartPage.playMelody(1)">
+          <rect x="${barMid + 4}" y="4" width="${barEnd - barMid - 8}" height="${totalH - 8}" rx="8" fill="transparent"/>
+          <text x="${(barMid + barEnd) / 2}" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#059669" font-family="Prompt, sans-serif">ห้องที่ 2: 7 → 1 (ขึ้นครึ่งเสียง) 🔊</text>
+          ${drawNote(d.n7Note, 314, '#059669', 'ขั้น 7')}
+          <text x="360" y="${(noteY(d.n7Note) + noteY(d.n8Note)) / 2 + 4}" text-anchor="middle" font-size="15" font-weight="700" fill="#059669">→</text>
+          ${drawNote(d.n8Note, 406, '#059669', 'ขั้น 1')}
+        </g>
+
+        <!-- Final Double Barline -->
+        <line x1="${barEnd - 5}" y1="${topY}" x2="${barEnd - 5}" y2="${botY}" stroke="#334155" stroke-width="1.3"/>
+        <line x1="${barEnd}" y1="${topY}" x2="${barEnd}" y2="${botY}" stroke="#0f172a" stroke-width="3.2"/>
+      </svg>
+    `;
+    container.innerHTML = svg;
   },
 
   playDoubling(idx) {
